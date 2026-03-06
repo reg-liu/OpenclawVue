@@ -95,8 +95,10 @@ const selectedCategory = ref(content.value?.questions?.categories?.[0]?.id || 'f
           <div class="features">
             <div v-for="feature in content.home.about.features" :key="feature.title" class="feature-card">
               <div class="feature-icon">{{ feature.icon || '✦' }}</div>
-              <h3>{{ feature.title }}</h3>
-              <p>{{ feature.desc }}</p>
+              <div class="feature-content">
+                <h3>{{ feature.title }}</h3>
+                <p>{{ feature.desc }}</p>
+              </div>
             </div>
           </div>
         </div>
@@ -107,11 +109,10 @@ const selectedCategory = ref(content.value?.questions?.categories?.[0]?.id || 'f
           <h2 class="section-title">{{ content.home.tech.title }}</h2>
           <div class="tech-grid">
             <div class="tech-item"><span style="font-size:28px">🦞</span><span>OpenClaw</span></div>
-            <div class="tech-item"><img src="https://vuejs.org/logo.svg" alt="Vue"/><span>Vue 3</span></div>
-            <div class="tech-item"><img src="https://vitejs.dev/logo.svg" alt="Vite"/><span>Vite</span></div>
-            <div class="tech-item"><img src="https://element-plus.org/images/element-plus-logo.svg" alt="Element"/><span>Element Plus</span></div>
-            <div class="tech-item"><img src="https://www.feishu.cn/favicon.ico" alt="Feishu"/><span>飞书</span></div>
-            <div class="tech-item"><img src="https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png" alt="GitHub"/><span>GitHub</span></div>
+            <div class="tech-item"><span style="font-size:28px">🧠</span><span>OpenAI</span></div>
+            <div class="tech-item"><span style="font-size:28px">🤖</span><span>Anthropic</span></div>
+            <div class="tech-item"><span style="font-size:28px">📡</span><span>飞书</span></div>
+            <div class="tech-item"><span style="font-size:28px">🐙</span><span>GitHub</span></div>
             <div class="tech-item"><span style="font-size:28px">☁️</span><span>Vercel</span></div>
           </div>
         </div>
@@ -366,11 +367,12 @@ body { font-family: 'Inter', sans-serif; background: #0d0d0d; color: #e5e5e5; li
 /* About */
 .about-section { background: linear-gradient(180deg, #0d0d0d 0%, #171717 100%); }
 .features { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
-.feature-card { padding: 28px; background: #1a1a1a; border-radius: 16px; border: 1px solid #262626; transition: all 0.3s; display: flex; align-items: flex-start; gap: 20px; }
+.feature-card { padding: 28px; background: #1a1a1a; border-radius: 16px; border: 1px solid #262626; transition: all 0.3s; display: flex; align-items: center; gap: 20px; }
 .feature-card:hover { transform: translateY(-4px); border-color: #22d3ee; }
 .feature-icon { width: 56px; height: 56px; display: flex; align-items: center; justify-content: center; background: linear-gradient(135deg, rgba(34,211,238,0.2), rgba(168,85,247,0.2)); border-radius: 14px; color: #22d3ee; font-size: 28px; flex-shrink: 0; }
-.feature-card h3 { font-size: 20px; margin-bottom: 12px; text-align: left; }
-.feature-card p { color: #a1a1aa; font-size: 14px; text-align: left; line-height: 1.6; }
+.feature-content { flex: 1; }
+.feature-content h3 { font-size: 20px; margin-bottom: 8px; text-align: left; }
+.feature-content p { color: #a1a1aa; font-size: 14px; text-align: left; line-height: 1.6; margin: 0; }
 
 /* Tech */
 .tech-section { background: #171717; }
