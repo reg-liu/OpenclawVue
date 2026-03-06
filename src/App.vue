@@ -285,8 +285,7 @@ const selectedCategory = ref(content.value?.questions?.categories?.[0]?.id || 'f
             <span v-for="h in tool.highlights" :key="h" class="highlight-tag">{{ h }}</span>
           </div>
           <div v-if="tool.practice" class="tool-practice">
-            <span class="practice-label">📝 实践：</span>
-            <span class="practice-text" v-html="tool.practice"></span>
+            <span class="practice-link" v-html="tool.practice"></span>
           </div>
         </div>
       </div>
@@ -469,11 +468,10 @@ body { font-family: 'Inter', sans-serif; background: #0d0d0d; color: #e5e5e5; li
 .tool-type { color: #22d3ee; font-size: 13px; text-align: left; display: block; }
 .tool-desc { color: #a1a1aa; font-size: 14px; margin-bottom: 16px; text-align: left; }
 .tool-highlights { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 12px; }
-.tool-practice { background: #1a1a2e; border: 1px solid #22d3ee; border-radius: 8px; padding: 10px 12px; }
-.practice-label { color: #22d3ee; font-size: 12px; font-weight: 600; }
-.practice-text { color: #d4d4d8; font-size: 12px; text-align: left; display: block; }
-.practice-text a { color: #22d3ee; text-decoration: none; }
-.practice-text a:hover { text-decoration: underline; }
+.tool-practice { margin-top: 12px; }
+.practice-link { font-size: 13px; }
+.practice-link a { color: #22d3ee; text-decoration: none; }
+.practice-link a:hover { text-decoration: underline; }
 .highlight-tag { background: #262626; color: #d4d4d8; padding: 4px 10px; border-radius: 6px; font-size: 12px; }
 @media (max-width: 768px) {
   .tools-grid { grid-template-columns: 1fr; }

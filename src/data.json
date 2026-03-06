@@ -529,7 +529,7 @@
         "url": "https://cursor.sh",
         "desc": "基于 VS Code 的 AI 集成开发环境，深度集成 AI 编程能力",
         "highlights": ["无缝IDE集成", "智能补全", "项目感知", "命令行集成"],
-        "practice": "Vue3 项目创建"
+        "practice": "<a href=\"#practice\">Vue3 项目创建</a>"
       },
       {
         "name": "Windsurf",
