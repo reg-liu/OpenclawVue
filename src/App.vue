@@ -279,14 +279,13 @@ const selectedCategory = ref(content.value?.questions?.categories?.[0]?.id || 'f
           <div class="tool-highlights">
             <span v-for="h in tool.highlights" :key="h" class="highlight-tag">{{ h }}</span>
           </div>
+          <div v-if="tool.practice" class="tool-practice">
+            <span class="practice-label">📝 实践：</span>
+            <span class="practice-text">{{ tool.practice }}</span>
+          </div>
         </div>
       </div>
-      <div class="comparison-section" v-if="content.tools.comparison">
-        <h2 class="comparison-title">{{ content.tools.comparison.title }}</h2>
-        <div class="comparison-table">
-          <div class="comparison-row header">
-            <span class="comparison-feature">{{ content.tools.comparison.items[0].feature }}</span>
-            <span>OpenClaw</span>
+    </section>
             <span>Codex</span>
             <span>Claude</span>
             <span>Cursor</span>
@@ -343,7 +342,8 @@ body { font-family: 'Inter', sans-serif; background: #0d0d0d; color: #e5e5e5; li
 .home { padding-top: 80px; }
 .hero { position: relative; min-height: 90vh; display: flex; align-items: center; justify-content: center; text-align: center; overflow: hidden; }
 .hero-bg { position: absolute; inset: 0; background: radial-gradient(ellipse at 50% 0%, #1a1a2e 0%, #0d0d0d 70%); }
-.hero-bg::before { content: ''; position: absolute; inset: 0; background: radial-gradient(circle at 30% 50%, rgba(34,211,238,0.15) 0%, transparent 40%), radial-gradient(circle at 70% 50%, rgba(168,85,247,0.15) 0%, transparent 40%); }
+.hero-bg::before { content: ''; position: absolute; inset: 0; background: radial-gradient(circle at 30% 50%, rgba(34,211,238,0.15) 0%, transparent 40%), radial-gradient(circle at 70% 50%, rgba(168,85,247,0.15) 0%, transparent 40%); animation: glow 8s ease-in-out infinite alternate; }
+@keyframes glow { 0% { opacity: 0.6; transform: scale(1); } 100% { opacity: 1; transform: scale(1.1); } }
 .hero-content { position: relative; max-width: 700px; padding: 40px 24px; }
 .hero-label { color: #22d3ee; font-size: 14px; font-weight: 600; margin-bottom: 20px; letter-spacing: 2px; }
 .hero-title { font-size: 64px; font-weight: 800; line-height: 1.1; margin-bottom: 24px; }
@@ -474,7 +474,10 @@ body { font-family: 'Inter', sans-serif; background: #0d0d0d; color: #e5e5e5; li
 .tool-info h3 { font-size: 20px; margin: 0; }
 .tool-type { color: #22d3ee; font-size: 13px; }
 .tool-desc { color: #a1a1aa; font-size: 14px; margin-bottom: 16px; }
-.tool-highlights { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 16px; }
+.tool-highlights { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 12px; }
+.tool-practice { background: #1a1a2e; border: 1px solid #22d3ee; border-radius: 8px; padding: 10px 12px; }
+.practice-label { color: #22d3ee; font-size: 12px; font-weight: 600; }
+.practice-text { color: #d4d4d8; font-size: 12px; }
 .highlight-tag { background: #262626; color: #d4d4d8; padding: 4px 10px; border-radius: 6px; font-size: 12px; }
 .tool-relation { background: #1a1a2e; border: 1px solid #a78bfa; border-radius: 10px; padding: 12px; }
 .relation-label { color: #a78bfa; font-size: 12px; font-weight: 600; }

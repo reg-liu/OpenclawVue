@@ -11,7 +11,7 @@
   "hero": {
     "label": "Vibe Coding 实践者",
     "title": "AI 编程",
-    "subtitle": "实战项目集",
+    "subtitle": "实战项目",
     "desc": "记录从环境部署到项目开发的完整过程，展示 AI 辅助开发能力"
   },
   "home": {
@@ -510,17 +510,17 @@
   },
   "tools": {
     "title": "AI 编程工具",
-    "subtitle": "主流 AI 代码助手对比",
-    "intro": "了解主流 AI 编程工具的特点及其与 OpenClaw 的关系",
+    "subtitle": "主流 AI 编程工具推荐",
+    "intro": "掌握这些工具，提升 AI 编程效率。每个工具都附有实践教程链接。",
     "list": [
       {
         "name": "OpenClaw",
         "icon": "🦞",
         "type": "AI助手框架",
         "url": "https://openclaw.ai",
-        "desc": "开源的 AI 助手框架，支持多渠道、多模型、可自定义技能和记忆系统",
+        "desc": "开源 AI 助手框架，支持多渠道、多模型、可自定义技能和记忆系统",
         "highlights": ["多渠道接入", "自定义技能", "记忆系统", "本地部署"],
-        "relation": "本项目使用的核心框架"
+        "practice": "实践路径第1-3步：OpenClaw部署、ClawX桌面端、飞书集成"
       },
       {
         "name": "Cursor",
@@ -529,7 +529,7 @@
         "url": "https://cursor.sh",
         "desc": "基于 VS Code 的 AI 集成开发环境，深度集成 AI 编程能力",
         "highlights": ["无缝IDE集成", "智能补全", "项目感知", "命令行集成"],
-        "relation": "可与 OpenClaw 互补使用"
+        "practice": "VS Code环境配置 + Vue3项目创建"
       },
       {
         "name": "Windsurf",
@@ -538,7 +538,7 @@
         "url": "https://codeium.com/windsurf",
         "desc": "Codeium 推出的 AI 开发环境，强调 Flow State 人机协作编程",
         "highlights": ["智能 agent", "项目管理", "跨文件理解", "flow state"],
-        "relation": "与 OpenClaw 有相似的协作理念"
+        "practice": "与Cursor类似，上手简单"
       },
       {
         "name": "GitHub Copilot",
@@ -547,7 +547,7 @@
         "url": "https://github.com/features/copilot",
         "desc": "GitHub 与 OpenAI 合作的代码补全工具，嵌入主流 IDE",
         "highlights": ["实时补全", "多语言支持", "学习用户风格", "企业版"],
-        "relation": "IDE 层面的代码辅助"
+        "practice": "VS Code扩展商店一键安装"
       },
       {
         "name": "Claude Code",
@@ -556,16 +556,7 @@
         "url": "https://claude.com/claude-code",
         "desc": "Anthropic 推出的 CLI 编程工具，擅长复杂项目分析和重构",
         "highlights": ["代码分析", "重构能力", "安全审计", "长上下文"],
-        "relation": "可作为 OpenClaw 的模型后端"
-      },
-      {
-        "name": "Codex",
-        "icon": "💻",
-        "type": "AI 代码模型",
-        "url": "https://openai.com/codex",
-        "desc": "OpenAI 推出的代码专用模型，擅长理解和生成代码",
-        "highlights": ["代码理解", "多语言支持", "API 接入", "GitHub 集成"],
-        "relation": "可作为 OpenClaw 的模型后端"
+        "practice": "命令行工具，适合深度代码分析"
       },
       {
         "name": "Ollama",
@@ -574,127 +565,9 @@
         "url": "https://ollama.com",
         "desc": "最流行的本地大模型运行工具，一键部署 Llama、Qwen 等模型",
         "highlights": ["本地推理", "隐私保护", "离线使用", "多模型支持"],
-        "relation": "可作为 OpenClaw 的本地模型后端"
-      },
-      {
-        "name": "LM Studio",
-        "icon": "📦",
-        "type": "本地模型管理",
-        "url": "https://lmstudio.ai",
-        "desc": "桌面应用形态的本地模型管理器，界面友好，易于使用",
-        "highlights": ["模型探索", "对话测试", "性能对比", "API 服务"],
-        "relation": "本地模型管理和测试工具"
-      },
-      {
-        "name": "LangChain",
-        "icon": "⛓️",
-        "type": "LLM 应用框架",
-        "url": "https://python.langchain.com",
-        "desc": "最流行的 LLM 应用框架，支持多种 RAG 模式和工具调用",
-        "highlights": ["文档问答", "企业知识库", "智能体开发", "丰富集成"],
-        "relation": "可与 OpenClaw 的技能系统结合"
-      },
-      {
-        "name": "RAGFlow",
-        "icon": "📚",
-        "type": "RAG 平台",
-        "url": "https://ragflow.io",
-        "desc": "国产开源 RAG 平台，界面美观，易用性强，支持多种数据源",
-        "highlights": ["知识管理", "智能客服", "培训助手", "可视化"],
-        "relation": "可作为 OpenClaw 的知识库后端"
-      },
-      {
-        "name": "AnythingLLM",
-        "icon": "🧊",
-        "type": "本地知识库",
-        "url": "https://anythingllm.com",
-        "desc": "一站式本地知识库解决方案，支持多种数据源和 embedding 模型",
-        "highlights": ["本地部署", "私有知识库", "文档对话", "多用户"],
-        "relation": "私有数据场景的解决方案"
-      },
-      {
-        "name": "ElevenLabs",
-        "icon": "🎤",
-        "type": "语音合成",
-        "url": "https://elevenlabs.io",
-        "desc": "最自然的 AI 语音合成，支持多语言和情感控制",
-        "highlights": ["有声书", "语音播报", "角色配音", "语音克隆"],
-        "relation": "可作为 OpenClaw 的 TTS 语音输出"
-      },
-      {
-        "name": "Perplexity",
-        "icon": "🔍",
-        "type": "AI 搜索引擎",
-        "url": "https://perplexity.ai",
-        "desc": "AI 驱动的搜索引擎，结合大模型和实时网络搜索",
-        "highlights": ["实时信息", "源引用", "深度研究", "学术搜索"],
-        "relation": "AI 信息检索的参考工具"
-      },
-      {
-        "name": "Midjourney",
-        "icon": "🎨",
-        "type": "AI 图像生成",
-        "url": "https://midjourney.com",
-        "desc": "最流行的 AI 图像生成工具，通过文字描述创建精美图片",
-        "highlights": ["艺术创作", "设计辅助", "概念可视化", "风格迁移"],
-        "relation": "AI 视觉创作工具"
-      },
-      {
-        "name": "Vercel",
-        "icon": "☁️",
-        "type": "部署平台",
-        "url": "https://vercel.com",
-        "desc": "现代前端部署平台，零配置自动部署 GitHub 项目",
-        "highlights": ["免费托管", "自动部署", "自定义域名", "全球 CDN"],
-        "relation": "本项目的部署平台"
-      },
-      {
-        "name": "GitHub",
-        "icon": "🐙",
-        "type": "代码托管",
-        "url": "https://github.com",
-        "desc": "全球最大的代码托管平台，支持 Git 版本控制",
-        "highlights": ["代码托管", "协作开发", "Actions CI/CD", "Pages 托管"],
-        "relation": "项目代码管理和协作平台"
+        "practice": "下载安装后一行命令运行模型"
       }
-    ],
-    "comparison": {
-      "title": "工具对比总结",
-      "items": [
-        {
-          "feature": "定位",
-          "openclaw": "AI 助手框架",
-          "codex": "代码模型",
-          "claude": "编程助手",
-          "cursor": "AI IDE",
-          "copilot": "代码补全"
-        },
-        {
-          "feature": "部署方式",
-          "openclaw": "本地/私有部署",
-          "codex": "API 调用",
-          "claude": "API 调用",
-          "cursor": "桌面应用",
-          "copilot": "IDE 插件"
-        },
-        {
-          "feature": "自定义能力",
-          "openclaw": "⭐⭐⭐⭐⭐",
-          "codex": "⭐⭐",
-          "claude": "⭐⭐⭐",
-          "cursor": "⭐⭐⭐⭐",
-          "copilot": "⭐⭐"
-        },
-        {
-          "feature": "多渠道支持",
-          "openclaw": "⭐⭐⭐⭐⭐",
-          "codex": "⭐",
-          "claude": "⭐",
-          "cursor": "⭐⭐",
-          "copilot": "⭐"
-        }
-      ]
-    }
+    ]
   },
   "skills": {
     "title": "OpenClaw Skill 库",
