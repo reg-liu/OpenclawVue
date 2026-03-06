@@ -4,6 +4,7 @@
     "practice": "实践路径",
     "questions": "相关问题",
     "hot": "AI热点",
+    "models": "AI模型",
     "skills": "Skill库",
     "tools": "AI编程工具"
   },
@@ -884,6 +885,231 @@
         }
       ],
       "link": "https://docs.openclaw.ai/skills"
+    }
+  },
+  "models": {
+    "title": "AI 模型对比",
+    "subtitle": "主流大语言模型横向对比",
+    "intro": "了解主流 AI 模型的特点，选择最适合你需求的模型。",
+    "categories": [
+      {
+        "id": "openai",
+        "name": "OpenAI",
+        "icon": "🟢",
+        "models": [
+          {
+            "name": "GPT-4o",
+            "desc": "最新旗舰模型，支持多模态输入输出，能力最强",
+            "strengths": ["多模态能力强", "推理能力强", "生态完善"],
+            "weaknesses": ["价格较高", "国内访问受限"],
+            "pricing": "$15-75/M tokens",
+            "context": "128K",
+            "status": "主流"
+          },
+          {
+            "name": "GPT-4 Turbo",
+            "desc": "性价比高的版本，速度快能力全面",
+            "strengths": ["价格适中", "速度快", "功能全面"],
+            "weaknesses": ["比4o略弱", "国内访问受限"],
+            "pricing": "$10-30/M tokens",
+            "context": "128K",
+            "status": "主流"
+          },
+          {
+            "name": "GPT-3.5 Turbo",
+            "desc": "入门级模型，价格便宜，适合简单任务",
+            "strengths": ["价格便宜", "速度快"],
+            "weaknesses": ["能力有限", "复杂任务表现一般"],
+            "pricing": "$0.5-1.5/M tokens",
+            "context": "16K",
+            "status": "入门"
+          }
+        ]
+      },
+      {
+        "id": "anthropic",
+        "name": "Anthropic",
+        "icon": "🟣",
+        "models": [
+          {
+            "name": "Claude 3.5 Sonnet",
+            "desc": "最新旗舰模型，编程和安全能力突出",
+            "strengths": ["编程能力强", "安全可靠", "长上下文优秀"],
+            "weaknesses": ["多模态稍弱", "国内访问受限"],
+            "pricing": "$15-75/M tokens",
+            "context": "200K",
+            "status": "主流"
+          },
+          {
+            "name": "Claude 3 Opus",
+            "desc": "能力最强但价格较高",
+            "strengths": ["能力最强", "分析深入"],
+            "weaknesses": ["价格最高"],
+            "pricing": "$75/M tokens",
+            "context": "200K",
+            "status": "高端"
+          },
+          {
+            "name": "Claude 3 Haiku",
+            "desc": "性价比之选，速度快",
+            "strengths": ["速度快", "价格便宜"],
+            "weaknesses": ["能力有限"],
+            "pricing": "$0.25-1.25/M tokens",
+            "context": "200K",
+            "status": "入门"
+          }
+        ]
+      },
+      {
+        "id": "google",
+        "name": "Google",
+        "icon": "🔵",
+        "models": [
+          {
+            "name": "Gemini 2.0 Ultra",
+            "desc": "Google 最强模型，多模态能力强",
+            "strengths": ["多模态领先", "免费额度大"],
+            "weaknesses": ["中文能力稍弱", "稳定性一般"],
+            "pricing": "$1.25-5/M tokens",
+            "context": "1M",
+            "status": "主流"
+          },
+          {
+            "name": "Gemini 1.5 Pro",
+            "desc": "性价比高，上下文超长",
+            "strengths": ["超长上下文", "价格合理"],
+            "weaknesses": ["编程能力一般"],
+            "pricing": "$1.25/M tokens",
+            "context": "2M",
+            "status": "主流"
+          }
+        ]
+      },
+      {
+        "id": "moonshot",
+        "name": "月之暗面 (Moonshot)",
+        "icon": "🌙",
+        "models": [
+          {
+            "name": "Kimi k1.5",
+            "desc": "国产大模型新秀，长上下文能力强",
+            "strengths": ["长上下文", "中文能力强", "免费使用"],
+            "weaknesses": ["编程能力待提升"],
+            "pricing": "免费",
+            "context": "128K+",
+            "status": "热门"
+          },
+          {
+            "name": "Kimi k1",
+            "desc": "推理能力强，价格便宜",
+            "strengths": ["推理能力强", "价格低"],
+            "weaknesses": ["上下文较短"],
+            "pricing": "免费",
+            "context": "128K",
+            "status": "入门"
+          }
+        ]
+      },
+      {
+        "id": "qwen",
+        "name": "阿里 Qwen",
+        "icon": "🐱",
+        "models": [
+          {
+            "name": "Qwen 2.5",
+            "desc": "国产开源最强模型，支持长上下文",
+            "strengths": ["开源免费", "中文能力强", "本地部署"],
+            "weaknesses": ["整体能力略弱"],
+            "pricing": "开源免费",
+            "context": "128K",
+            "status": "热门"
+          },
+          {
+            "name": "Qwen 2.5 VL",
+            "desc": "视觉模型，支持图像理解",
+            "strengths": ["视觉能力强", "开源免费"],
+            "weaknesses": ["纯视觉略弱"],
+            "pricing": "开源免费",
+            "context": "128K",
+            "status": "新兴"
+          }
+        ]
+      },
+      {
+        "id": "deepseek",
+        "name": "深度求索 (DeepSeek)",
+        "icon": "🔮",
+        "models": [
+          {
+            "name": "DeepSeek V3",
+            "desc": "国产开源大模型，性价比极高",
+            "strengths": ["开源免费", "价格便宜", "性能优秀"],
+            "weaknesses": ["生态较弱"],
+            "pricing": "开源免费",
+            "context": "64K",
+            "status": "热门"
+          },
+          {
+            "name": "DeepSeek Coder",
+            "desc": "专注于编程的模型",
+            "strengths": ["编程能力强", "开源免费"],
+            "weaknesses": ["通用能力一般"],
+            "pricing": "开源免费",
+            "context": "16K",
+            "status": "专业"
+          }
+        ]
+      }
+    ],
+    "comparison": {
+      "title": "综合对比",
+      "items": [
+        {
+          "feature": "编程能力",
+          "gpt4o": "⭐⭐⭐⭐⭐",
+          "claude": "⭐⭐⭐⭐⭐",
+          "gemini": "⭐⭐⭐⭐",
+          "kimi": "⭐⭐⭐⭐",
+          "qwen": "⭐⭐⭐",
+          "deepseek": "⭐⭐⭐"
+        },
+        {
+          "feature": "中文能力",
+          "gpt4o": "⭐⭐⭐⭐",
+          "claude": "⭐⭐⭐⭐",
+          "gemini": "⭐⭐⭐",
+          "kimi": "⭐⭐⭐⭐⭐",
+          "qwen": "⭐⭐⭐⭐⭐",
+          "deepseek": "⭐⭐⭐⭐"
+        },
+        {
+          "feature": "多模态",
+          "gpt4o": "⭐⭐⭐⭐⭐",
+          "claude": "⭐⭐⭐⭐",
+          "gemini": "⭐⭐⭐⭐⭐",
+          "kimi": "⭐⭐⭐",
+          "qwen": "⭐⭐⭐⭐",
+          "deepseek": "⭐⭐⭐"
+        },
+        {
+          "feature": "性价比",
+          "gpt4o": "⭐⭐⭐",
+          "claude": "⭐⭐⭐",
+          "gemini": "⭐⭐⭐⭐",
+          "kimi": "⭐⭐⭐⭐⭐",
+          "qwen": "⭐⭐⭐⭐⭐",
+          "deepseek": "⭐⭐⭐⭐⭐"
+        },
+        {
+          "feature": "开源免费",
+          "gpt4o": "❌",
+          "claude": "❌",
+          "gemini": "⭐⭐",
+          "kimi": "⭐⭐⭐⭐",
+          "qwen": "⭐⭐⭐⭐⭐",
+          "deepseek": "⭐⭐⭐⭐⭐"
+        }
+      ]
     }
   },
   "footer": {

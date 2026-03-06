@@ -43,6 +43,7 @@ const selectedCategory = ref(content.value?.questions?.categories?.[0]?.id || 'f
           <a :class="{ active: currentPage === 'practice' }" @click="navigate('practice')">{{ content.nav.practice }}</a>
           <a :class="{ active: currentPage === 'questions' }" @click="navigate('questions')">{{ content.nav.questions }}</a>
           <a :class="{ active: currentPage === 'hot' }" @click="navigate('hot')">{{ content.nav.hot }}</a>
+          <a :class="{ active: currentPage === 'models' }" @click="navigate('models')">{{ content.nav.models }}</a>
           <a :class="{ active: currentPage === 'skills' }" @click="navigate('skills')">{{ content.nav.skills }}</a>
           <a :class="{ active: currentPage === 'tools' }" @click="navigate('tools')">{{ content.nav.tools }}</a>
         </div>
@@ -59,6 +60,7 @@ const selectedCategory = ref(content.value?.questions?.categories?.[0]?.id || 'f
       <a @click="navigate('practice')">{{ content.nav.practice }}</a>
       <a @click="navigate('questions')">{{ content.nav.questions }}</a>
       <a @click="navigate('hot')">{{ content.nav.hot }}</a>
+      <a @click="navigate('models')">{{ content.nav.models }}</a>
       <a @click="navigate('skills')">{{ content.nav.skills }}</a>
       <a @click="navigate('tools')">{{ content.nav.tools }}</a>
     </div>
@@ -195,6 +197,72 @@ const selectedCategory = ref(content.value?.questions?.categories?.[0]?.id || 'f
           </div>
         </div>
         <a :href="content.skills.develop.link" target="_blank" class="docs-link">查看完整文档 →</a>
+      </div>
+    </section>
+
+    <!-- Models -->
+    <section v-if="currentPage === 'models'" class="models-page">
+      <div class="page-header">
+        <h1>{{ content.models.title }}</h1>
+        <p>{{ content.models.subtitle }}</p>
+      </div>
+      <div class="models-intro">
+        <p>{{ content.models.intro }}</p>
+      </div>
+      <div class="models-categories">
+        <div v-for="cat in content.models.categories" :key="cat.id" class="model-category">
+          <div class="category-header">
+            <span class="category-icon">{{ cat.icon }}</span>
+            <div class="category-info">
+              <h2>{{ cat.name }}</h2>
+              <p>{{ cat.models.length }} 款模型</p>
+            </div>
+          </div>
+          <div class="model-items">
+            <div v-for="model in cat.models" :key="model.name" class="model-card">
+              <div class="model-header">
+                <h3>{{ model.name }}</h3>
+                <span class="model-status" :class="model.status">{{ model.status }}</span>
+              </div>
+              <p class="model-desc">{{ model.desc }}</p>
+              <div class="model-meta">
+                <span class="meta-item"><strong>价格：</strong>{{ model.pricing }}</span>
+                <span class="meta-item"><strong>上下文：</strong>{{ model.context }}</span>
+              </div>
+              <div class="model-strengths">
+                <span class="strength-label">优势：</span>
+                <span v-for="s in model.strengths" :key="s" class="strength-tag">{{ s }}</span>
+              </div>
+              <div class="model-weaknesses" v-if="model.weaknesses">
+                <span class="weakness-label">劣势：</span>
+                <span v-for="w in model.weaknesses" :key="w" class="weakness-tag">{{ w }}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="comparison-section" v-if="content.models.comparison">
+        <h2 class="comparison-title">{{ content.models.comparison.title }}</h2>
+        <div class="comparison-table">
+          <div class="comparison-row header">
+            <span class="comparison-feature">{{ content.models.comparison.items[0].feature }}</span>
+            <span>GPT-4o</span>
+            <span>Claude</span>
+            <span>Gemini</span>
+            <span>Kimi</span>
+            <span>Qwen</span>
+            <span>DeepSeek</span>
+          </div>
+          <div v-for="item in content.models.comparison.items" :key="item.feature" class="comparison-row">
+            <span class="comparison-feature">{{ item.feature }}</span>
+            <span>{{ item.gpt4o }}</span>
+            <span>{{ item.claude }}</span>
+            <span>{{ item.gemini }}</span>
+            <span>{{ item.kimi }}</span>
+            <span>{{ item.qwen }}</span>
+            <span>{{ item.deepseek }}</span>
+          </div>
+        </div>
       </div>
     </section>
 
@@ -578,6 +646,53 @@ body { font-family: 'Inter', sans-serif; background: #0d0d0d; color: #e5e5e5; li
 }
 @media (max-width: 600px) {
   .develop-steps { grid-template-columns: 1fr; }
+}
+
+/* Models Page */
+.models-page { padding: 120px 24px 80px; min-height: 100vh; }
+.models-intro { text-align: center; max-width: 800px; margin: 0 auto 48px; }
+.models-intro p { color: #a1a1aa; font-size: 16px; line-height: 1.7; }
+.models-categories { max-width: 1100px; margin: 0 auto; }
+.model-category { margin-bottom: 48px; }
+.model-category .category-header { display: flex; align-items: flex-start; gap: 16px; margin-bottom: 24px; padding-bottom: 16px; border-bottom: 1px solid #262626; }
+.model-category .category-icon { font-size: 42px; }
+.model-category .category-info h2 { font-size: 24px; margin-bottom: 6px; text-align: left; }
+.model-category .category-info p { color: #71717a; font-size: 14px; text-align: left; }
+.model-items { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; }
+.model-card { background: #1a1a1a; border: 1px solid #262626; border-radius: 12px; padding: 20px; }
+.model-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
+.model-header h3 { font-size: 16px; margin: 0; }
+.model-status { font-size: 11px; padding: 3px 10px; border-radius: 12px; font-weight: 600; }
+.model-status.主流 { background: rgba(168,85,247,0.15); color: #a855f7; }
+.model-status.入门 { background: rgba(107,114,128,0.15); color: #9ca3af; }
+.model-status.高端 { background: rgba(251,191,36,0.15); color: #fbbf24; }
+.model-status.热门 { background: rgba(34,211,238,0.15); color: #22d3ee; }
+.model-status.新兴 { background: rgba(244,114,182,0.15); color: #f472b6; }
+.model-status.专业 { background: rgba(59,130,246,0.15); color: #3b82f6; }
+.model-desc { color: #a1a1aa; font-size: 13px; margin-bottom: 12px; line-height: 1.5; }
+.model-meta { display: flex; gap: 16px; margin-bottom: 12px; }
+.meta-item { color: #71717a; font-size: 12px; }
+.meta-item strong { color: #d4d4d8; }
+.model-strengths, .model-weaknesses { margin-bottom: 8px; }
+.strength-label, .weakness-label { color: #71717a; font-size: 12px; margin-right: 8px; }
+.strength-tag { background: rgba(34,211,238,0.15); color: #22d3ee; padding: 2px 8px; border-radius: 4px; font-size: 11px; margin-right: 4px; }
+.weakness-tag { background: rgba(239,68,68,0.15); color: #ef4444; padding: 2px 8px; border-radius: 4px; font-size: 11px; margin-right: 4px; }
+.comparison-section { margin-top: 60px; }
+.comparison-title { font-size: 28px; text-align: center; margin-bottom: 32px; }
+.comparison-table { max-width: 1100px; margin: 0 auto; overflow-x: auto; }
+.comparison-row { display: grid; grid-template-columns: 100px repeat(6, 1fr); gap: 12px; padding: 14px 16px; border-bottom: 1px solid #262626; align-items: center; }
+.comparison-row.header { background: #1a1a1a; font-weight: 600; border-radius: 10px 10px 0 0; }
+.comparison-row.header span:not(:first-child) { text-align: center; }
+.comparison-feature { color: #a1a1aa; }
+.comparison-row span:not(:first-child) { text-align: center; color: #d4d4d8; font-size: 14px; }
+
+@media (max-width: 900px) {
+  .model-items { grid-template-columns: 1fr; }
+  .comparison-row { grid-template-columns: 80px repeat(5, 1fr); font-size: 12px; }
+}
+@media (max-width: 600px) {
+  .model-meta { flex-direction: column; gap: 8px; }
+  .comparison-row { grid-template-columns: 70px repeat(4, 1fr); font-size: 10px; }
 }
 
 </style>
