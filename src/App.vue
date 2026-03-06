@@ -19,7 +19,7 @@ const navigate = (page) => {
   window.scrollTo({ top: 0, behavior: 'smooth' })
 }
 
-const selectedCategory = ref(content.value.knowledge.categories[0].id)
+const selectedCategory = ref(content.value?.questions?.categories?.[0]?.id || 'frontend')
 </script>
 
 <template>
@@ -137,12 +137,12 @@ const selectedCategory = ref(content.value.knowledge.categories[0].id)
         <p>{{ content.questions.subtitle }}</p>
       </div>
       <div class="knowledge-tabs">
-        <button v-for="cat in content.questions.categories" :key="cat.id" :class="{ active: selectedCategory === cat.id }" @click="selectedCategory = cat.id">
+        <button v-for="cat in (content.questions?.categories || [])" :key="cat.id" :class="{ active: selectedCategory === cat.id }" @click="selectedCategory = cat.id">
           {{ cat.name }}
         </button>
       </div>
       <div class="knowledge-list">
-        <div v-for="item in content.questions.categories.find(c => c.id === selectedCategory).items" :key="item.q" class="knowledge-item">
+        <div v-for="item in (content.questions?.categories?.find(c => c.id === selectedCategory)?.items || [])" :key="item.q" class="knowledge-item">
           <div class="knowledge-q">{{ item.q }}</div>
           <div class="knowledge-a">{{ item.a }}</div>
         </div>
