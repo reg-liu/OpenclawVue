@@ -4,6 +4,7 @@
     "practice": "实践路径",
     "questions": "相关问题",
     "hot": "AI热点",
+    "skills": "Skill库",
     "tools": "AI编程工具"
   },
   "badge": "Vibe Coding",
@@ -20,14 +21,17 @@
       "title": "关于项目",
       "features": [
         {
+          "icon": "🤖",
           "title": "AI 驱动开发",
           "desc": "利用 OpenClaw 工具，通过自然语言与 AI 协作，完成从环境部署到应用开发全流程"
         },
         {
+          "icon": "📡",
           "title": "多渠道集成",
           "desc": "整合飞书、Discord、Telegram 等多渠道消息，实现企业级的 AI 助手应用场景"
         },
         {
+          "icon": "⚡",
           "title": "现代前端技术",
           "desc": "采用 Vue3 + Vite + Element Plus 构建生产级界面，实践最新前端工程化流程"
         }
@@ -686,6 +690,227 @@
           "copilot": "⭐"
         }
       ]
+    }
+  },
+  "skills": {
+    "title": "OpenClaw Skill 库",
+    "subtitle": "扩展 AI 能力的无限可能",
+    "intro": "Skill 是 OpenClaw 的核心扩展机制，让 AI 能够调用各种工具完成复杂任务。每个 Skill 都是一段预定义的指令和能力描述，AI 可以根据用户需求自动调用合适的 Skill。",
+    "categories": [
+      {
+        "id": "finance",
+        "name": "金融投资",
+        "icon": "💰",
+        "desc": "帮助用户进行投资分析、风险管理、市场调研等金融相关任务",
+        "skills": [
+          {
+            "name": "Stock Analyzer",
+            "desc": "股票分析工具，提供实时行情、技术指标、基本面分析",
+            "features": ["实时行情", "技术分析", "财报解读", "风险评估"],
+            "level": "⭐⭐⭐⭐⭐"
+          },
+          {
+            "name": "Crypto Tracker",
+            "desc": "加密货币追踪，监控价格走势、Gas 费用、链上数据",
+            "features": ["多链支持", "Gas 监控", "预警通知", "组合分析"],
+            "level": "⭐⭐⭐⭐"
+          },
+          {
+            "name": "Portfolio Manager",
+            "desc": "投资组合管理，资产配置建议、收益归因、再平衡提醒",
+            "features": ["资产配置", "收益分析", "再平衡", "税务优化"],
+            "level": "⭐⭐⭐⭐"
+          },
+          {
+            "name": "Financial News",
+            "desc": "财经资讯聚合，实时跟踪全球金融市场动态和重大新闻",
+            "features": ["实时推送", "智能摘要", "舆情分析", "事件追踪"],
+            "level": "⭐⭐⭐"
+          }
+        ]
+      },
+      {
+        "id": "office",
+        "name": "日常办公",
+        "icon": "💼",
+        "desc": "提升办公效率，处理文档、邮件、日程管理等日常工作",
+        "skills": [
+          {
+            "name": "Document Processor",
+            "desc": "文档处理利器，支持智能排版、内容提取、格式转换",
+            "features": ["智能排版", "内容提取", "多格式支持", "批量处理"],
+            "level": "⭐⭐⭐⭐⭐"
+          },
+          {
+            "name": "Email Assistant",
+            "desc": "邮件智能助手，自动归类、快速回复、重要邮件提醒",
+            "features": ["智能归类", "快速回复", "定时发送", "附件管理"],
+            "level": "⭐⭐⭐⭐⭐"
+          },
+          {
+            "name": "Calendar Manager",
+            "desc": "日程管理专家，智能预约、会议安排、冲突检测",
+            "features": ["智能预约", "冲突检测", "自动提醒", "多日历同步"],
+            "level": "⭐⭐⭐⭐"
+          },
+          {
+            "name": "Meeting Notes",
+            "desc": "会议纪要生成，语音转文字、自动总结、待办事项提取",
+            "features": ["语音转写", "自动总结", "待办提取", "任务分配"],
+            "level": "⭐⭐⭐⭐"
+          }
+        ]
+      },
+      {
+        "id": "design",
+        "name": "设计创意",
+        "icon": "🎨",
+        "desc": "辅助设计工作，生成图片、制作海报、创意灵感",
+        "skills": [
+          {
+            "name": "Image Generator",
+            "desc": "AI 图像生成，根据描述创建精美图片和艺术作品",
+            "features": ["文字生图", "风格迁移", "高清放大", "局部重绘"],
+            "level": "⭐⭐⭐⭐⭐"
+          },
+          {
+            "name": "Poster Designer",
+            "desc": "海报设计助手，一键生成营销海报、社交媒体配图",
+            "features": ["智能排版", "配色建议", "模板推荐", "多尺寸适配"],
+            "level": "⭐⭐⭐⭐"
+          },
+          {
+            "name": "Color Palette",
+            "desc": "配色方案推荐，根据场景和情绪生成完美色彩搭配",
+            "features": ["情绪配色", "渐变推荐", "色卡导出", "对比度检测"],
+            "level": "⭐⭐⭐"
+          },
+          {
+            "name": "Design Inspiration",
+            "desc": "设计灵感库，收集整理优秀设计案例和趋势",
+            "features": ["案例采集", "趋势分析", "风格分类", "灵感推荐"],
+            "level": "⭐⭐⭐"
+          }
+        ]
+      },
+      {
+        "id": "media",
+        "name": "自媒体运营",
+        "icon": "📱",
+        "desc": "内容创作助手，写作、剪辑、发布全流程支持",
+        "skills": [
+          {
+            "name": "Content Writer",
+            "desc": "智能写作助手，文章润色、标题生成、多风格创作",
+            "features": ["多风格写作", "SEO优化", "标题推荐", "内容扩展"],
+            "level": "⭐⭐⭐⭐⭐"
+          },
+          {
+            "name": "Video Editor",
+            "desc": "视频剪辑助手，字幕生成、精彩片段提取、封面设计",
+            "features": ["字幕生成", "片段提取", "封面设计", "多平台适配"],
+            "level": "⭐⭐⭐⭐"
+          },
+          {
+            "name": "Social Manager",
+            "desc": "社交媒体管理，多平台发布、数据分析、互动回复",
+            "features": ["多平台发布", "数据看板", "互动管理", "定时发布"],
+            "level": "⭐⭐⭐⭐"
+          },
+          {
+            "name": "Trend Hunter",
+            "desc": "热点追踪器，实时捕捉平台热门话题和趋势内容",
+            "features": ["热点追踪", "话题分析", "竞品监测", "选题推荐"],
+            "level": "⭐⭐⭐"
+          }
+        ]
+      },
+      {
+        "id": "dev",
+        "name": "开发运维",
+        "icon": "⚙️",
+        "desc": "开发者工具，代码生成、调试、部署全流程支持",
+        "skills": [
+          {
+            "name": "Code Assistant",
+            "desc": "代码助手，代码生成、审查、优化建议",
+            "features": ["代码生成", "代码审查", "性能优化", "Bug 定位"],
+            "level": "⭐⭐⭐⭐⭐"
+          },
+          {
+            "name": "API Debugger",
+            "desc": "API 调试工具，接口测试、文档生成、Mock 服务",
+            "features": ["接口测试", "文档生成", "Mock服务", "参数校验"],
+            "level": "⭐⭐⭐⭐"
+          },
+          {
+            "name": "Deploy Master",
+            "desc": "部署大师，一键部署、日志分析、回滚管理",
+            "features": ["一键部署", "日志分析", "自动回滚", "多环境支持"],
+            "level": "⭐⭐⭐⭐"
+          },
+          {
+            "name": "Doc Writer",
+            "desc": "文档编写助手，API 文档、README、项目说明",
+            "features": ["API文档", "README", "注释生成", "示例代码"],
+            "level": "⭐⭐⭐⭐"
+          }
+        ]
+      },
+      {
+        "id": "life",
+        "name": "生活助手",
+        "icon": "🏠",
+        "desc": "日常生活管家，旅行、购物、健康全方面服务",
+        "skills": [
+          {
+            "name": "Travel Planner",
+            "desc": "旅行规划师，行程安排、景点推荐、预算规划",
+            "features": ["行程规划", "景点推荐", "预算优化", "实时翻译"],
+            "level": "⭐⭐⭐⭐⭐"
+          },
+          {
+            "name": "Shopping Assistant",
+            "desc": "购物小帮手，比价分析、商品推荐、优惠提醒",
+            "features": ["全网比价", "商品推荐", "优惠提醒", "评价分析"],
+            "level": "⭐⭐⭐⭐"
+          },
+          {
+            "name": "Health Tracker",
+            "desc": "健康管家，运动计划、饮食建议、健康提醒",
+            "features": ["运动计划", "饮食建议", "睡眠分析", "健康提醒"],
+            "level": "⭐⭐⭐⭐"
+          },
+          {
+            "name": "Recipe Chef",
+            "desc": "菜谱推荐，根据食材推荐菜品、营养分析",
+            "features": ["食材推荐", "步骤教程", "营养分析", "购物清单"],
+            "level": "⭐⭐⭐"
+          }
+        ]
+      }
+    ],
+    "develop": {
+      "title": "如何开发 Skill",
+      "steps": [
+        {
+          "title": "创建 SKILL.md",
+          "desc": "在项目 skills 目录下创建 Skill 目录和 SKILL.md 文件"
+        },
+        {
+          "title": "定义能力描述",
+          "desc": "用自然语言描述 Skill 的功能、参数和使用场景"
+        },
+        {
+          "title": "注册工具函数",
+          "desc": "在 Skill 中注册 AI 可以调用的工具函数"
+        },
+        {
+          "title": "测试与迭代",
+          "desc": "通过对话测试 Skill 效果，持续优化描述和工具"
+        }
+      ],
+      "link": "https://docs.openclaw.ai/skills"
     }
   },
   "footer": {

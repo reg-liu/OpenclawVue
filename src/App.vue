@@ -36,6 +36,7 @@ const selectedCategory = ref(content.value?.questions?.categories?.[0]?.id || 'f
           <a :class="{ active: currentPage === 'practice' }" @click="navigate('practice')">{{ content.nav.practice }}</a>
           <a :class="{ active: currentPage === 'questions' }" @click="navigate('questions')">{{ content.nav.questions }}</a>
           <a :class="{ active: currentPage === 'hot' }" @click="navigate('hot')">{{ content.nav.hot }}</a>
+          <a :class="{ active: currentPage === 'skills' }" @click="navigate('skills')">{{ content.nav.skills }}</a>
           <a :class="{ active: currentPage === 'tools' }" @click="navigate('tools')">{{ content.nav.tools }}</a>
         </div>
         <div class="nav-right">
@@ -51,6 +52,7 @@ const selectedCategory = ref(content.value?.questions?.categories?.[0]?.id || 'f
       <a @click="navigate('practice')">{{ content.nav.practice }}</a>
       <a @click="navigate('questions')">{{ content.nav.questions }}</a>
       <a @click="navigate('hot')">{{ content.nav.hot }}</a>
+      <a @click="navigate('skills')">{{ content.nav.skills }}</a>
       <a @click="navigate('tools')">{{ content.nav.tools }}</a>
     </div>
 
@@ -77,7 +79,7 @@ const selectedCategory = ref(content.value?.questions?.categories?.[0]?.id || 'f
         <div class="section-container">
           <h2 class="section-title">{{ content.home.flow.title }}</h2>
           <div class="flow-grid">
-            <div v-for="(step, index) in content.home.flow.steps" :key="step.num" class="flow-step">
+            <div v-for="(step, index) in content.home.flow.steps" :key="step.num" class="flow-step-card">
               <div class="step-arrow" v-if="index > 0">→</div>
               <div class="step-num">{{ step.num }}</div>
               <h3>{{ step.title }}</h3>
@@ -92,7 +94,7 @@ const selectedCategory = ref(content.value?.questions?.categories?.[0]?.id || 'f
           <h2 class="section-title">{{ content.home.about.title }}</h2>
           <div class="features">
             <div v-for="feature in content.home.about.features" :key="feature.title" class="feature-card">
-              <div class="feature-icon">&#10022;</div>
+              <div class="feature-icon">{{ feature.icon || '✦' }}</div>
               <h3>{{ feature.title }}</h3>
               <p>{{ feature.desc }}</p>
             </div>
@@ -141,6 +143,51 @@ const selectedCategory = ref(content.value?.questions?.categories?.[0]?.id || 'f
             <span class="prompt-text">"{{ project.prompt }}"</span>
           </div>
         </div>
+      </div>
+    </section>
+
+    <!-- Skills -->
+    <section v-if="currentPage === 'skills'" class="skills-page">
+      <div class="page-header">
+        <h1>{{ content.skills.title }}</h1>
+        <p>{{ content.skills.subtitle }}</p>
+      </div>
+      <div class="skills-intro">
+        <p>{{ content.skills.intro }}</p>
+      </div>
+      <div class="skills-categories">
+        <div v-for="cat in content.skills.categories" :key="cat.id" class="skill-category">
+          <div class="category-header">
+            <span class="category-icon">{{ cat.icon }}</span>
+            <div class="category-info">
+              <h2>{{ cat.name }}</h2>
+              <p>{{ cat.desc }}</p>
+            </div>
+          </div>
+          <div class="skill-items">
+            <div v-for="skill in cat.skills" :key="skill.name" class="skill-card">
+              <div class="skill-header">
+                <h3>{{ skill.name }}</h3>
+                <span class="skill-level">{{ skill.level }}</span>
+              </div>
+              <p class="skill-desc">{{ skill.desc }}</p>
+              <div class="skill-features">
+                <span v-for="f in skill.features" :key="f" class="feature-tag">{{ f }}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="develop-section" v-if="content.skills.develop">
+        <h2 class="develop-title">{{ content.skills.develop.title }}</h2>
+        <div class="develop-steps">
+          <div v-for="(step, index) in content.skills.develop.steps" :key="step.title" class="develop-step">
+            <div class="develop-num">{{ index + 1 }}</div>
+            <h3>{{ step.title }}</h3>
+            <p>{{ step.desc }}</p>
+          </div>
+        </div>
+        <a :href="content.skills.develop.link" target="_blank" class="docs-link">查看完整文档 →</a>
       </div>
     </section>
 
@@ -231,10 +278,6 @@ const selectedCategory = ref(content.value?.questions?.categories?.[0]?.id || 'f
           <div class="tool-highlights">
             <span v-for="h in tool.highlights" :key="h" class="highlight-tag">{{ h }}</span>
           </div>
-          <div class="tool-relation">
-            <span class="relation-label">与 OpenClaw 关系：</span>
-            <span class="relation-text">{{ tool.relation }}</span>
-          </div>
         </div>
       </div>
       <div class="comparison-section" v-if="content.tools.comparison">
@@ -323,22 +366,22 @@ body { font-family: 'Inter', sans-serif; background: #0d0d0d; color: #e5e5e5; li
 /* About */
 .about-section { background: linear-gradient(180deg, #0d0d0d 0%, #171717 100%); }
 .features { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
-.feature-card { padding: 32px; background: #1a1a1a; border-radius: 16px; border: 1px solid #262626; transition: all 0.3s; }
+.feature-card { padding: 28px; background: #1a1a1a; border-radius: 16px; border: 1px solid #262626; transition: all 0.3s; display: flex; align-items: flex-start; gap: 20px; }
 .feature-card:hover { transform: translateY(-4px); border-color: #22d3ee; }
-.feature-icon { width: 56px; height: 56px; display: flex; align-items: center; justify-content: center; background: linear-gradient(135deg, rgba(34,211,238,0.2), rgba(168,85,247,0.2)); border-radius: 14px; color: #22d3ee; font-size: 24px; margin-bottom: 20px; }
-.feature-card h3 { font-size: 20px; margin-bottom: 12px; }
-.feature-card p { color: #a1a1aa; font-size: 14px; }
+.feature-icon { width: 56px; height: 56px; display: flex; align-items: center; justify-content: center; background: linear-gradient(135deg, rgba(34,211,238,0.2), rgba(168,85,247,0.2)); border-radius: 14px; color: #22d3ee; font-size: 28px; flex-shrink: 0; }
+.feature-card h3 { font-size: 20px; margin-bottom: 12px; text-align: left; }
+.feature-card p { color: #a1a1aa; font-size: 14px; text-align: left; line-height: 1.6; }
 
 /* Tech */
 .tech-section { background: #171717; }
 .flow-section { background: linear-gradient(180deg, #171717 0%, #1a1a1a 100%); padding: 80px 24px; }
 .flow-grid { max-width: 1200px; margin: 0 auto; display: flex; justify-content: center; align-items: flex-start; gap: 0; }
-.flow-step { text-align: center; padding: 24px 20px; position: relative; flex: 1; max-width: 220px; }
-.step-arrow { position: absolute; left: -20px; top: 50%; transform: translateY(-50%); font-size: 24px; color: #22d3ee; font-weight: bold; }
-.flow-step { text-align: center; padding: 24px 16px; }
+.flow-step-card { text-align: center; padding: 28px 20px; position: relative; flex: 1; max-width: 220px; background: #1a1a1a; border: 1px solid #262626; border-radius: 16px; transition: all 0.3s; }
+.flow-step-card:hover { transform: translateY(-6px); border-color: #22d3ee; box-shadow: 0 10px 40px rgba(34,211,238,0.15); }
+.step-arrow { position: absolute; left: -20px; top: 50%; transform: translateY(-50%); font-size: 24px; color: #22d3ee; font-weight: bold; z-index: 1; }
 .step-num { font-size: 48px; font-weight: 700; color: #22d3ee; opacity: 0.3; margin-bottom: 12px; }
-.flow-step h3 { font-size: 18px; margin-bottom: 10px; }
-.flow-step p { color: #a1a1aa; font-size: 13px; line-height: 1.6; }
+.flow-step-card h3 { font-size: 18px; margin-bottom: 10px; }
+.flow-step-card p { color: #a1a1aa; font-size: 13px; line-height: 1.6; }
 .hot-section { background: #1a1a1a; padding: 80px 24px; }
 .section-subtitle { text-align: center; color: #71717a; margin-bottom: 48px; margin-top: -30px; }
 .hot-grid { max-width: 1100px; margin: 0 auto; display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
@@ -489,6 +532,43 @@ body { font-family: 'Inter', sans-serif; background: #0d0d0d; color: #e5e5e5; li
   .trend-item { grid-template-columns: 50px 1fr; }
   .trend-name { grid-column: 2; }
   .trend-desc { grid-column: 2; }
+}
+
+/* Skills Page */
+.skills-page { padding: 120px 24px 80px; min-height: 100vh; }
+.skills-intro { text-align: center; max-width: 800px; margin: 0 auto 48px; }
+.skills-intro p { color: #a1a1aa; font-size: 16px; line-height: 1.7; }
+.skills-categories { max-width: 1100px; margin: 0 auto; }
+.skill-category { margin-bottom: 48px; }
+.skill-category .category-header { display: flex; align-items: flex-start; gap: 16px; margin-bottom: 24px; padding-bottom: 16px; border-bottom: 1px solid #262626; }
+.skill-category .category-icon { font-size: 42px; }
+.skill-category .category-info h2 { font-size: 24px; margin-bottom: 6px; }
+.skill-category .category-info p { color: #71717a; font-size: 14px; }
+.skill-items { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; }
+.skill-card { background: #1a1a1a; border: 1px solid #262626; border-radius: 12px; padding: 20px; transition: all 0.3s; }
+.skill-card:hover { border-color: #f472b6; transform: translateY(-2px); }
+.skill-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
+.skill-header h3 { font-size: 16px; margin: 0; }
+.skill-level { color: #fbbf24; font-size: 12px; }
+.skill-desc { color: #a1a1aa; font-size: 13px; margin-bottom: 12px; line-height: 1.5; }
+.skill-features { display: flex; gap: 6px; flex-wrap: wrap; }
+.feature-tag { background: #262626; color: #d4d4d8; padding: 3px 8px; border-radius: 4px; font-size: 11px; }
+.develop-section { max-width: 900px; margin: 60px auto 0; padding-top: 40px; border-top: 1px solid #262626; }
+.develop-title { font-size: 24px; text-align: center; margin-bottom: 32px; }
+.develop-steps { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; margin-bottom: 32px; }
+.develop-step { text-align: center; padding: 20px; background: #1a1a1a; border-radius: 12px; }
+.develop-num { width: 36px; height: 36px; background: #22d3ee; color: #000; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; margin: 0 auto 12px; }
+.develop-step h3 { font-size: 15px; margin-bottom: 8px; }
+.develop-step p { color: #71717a; font-size: 12px; line-height: 1.5; }
+.docs-link { display: inline-block; text-align: center; width: 100%; color: #22d3ee; font-size: 15px; text-decoration: none; padding: 12px; border: 1px solid #22d3ee; border-radius: 8px; transition: all 0.3s; }
+.docs-link:hover { background: #22d3ee; color: #000; }
+
+@media (max-width: 900px) {
+  .develop-steps { grid-template-columns: repeat(2, 1fr); }
+  .skill-items { grid-template-columns: 1fr; }
+}
+@media (max-width: 600px) {
+  .develop-steps { grid-template-columns: 1fr; }
 }
 
 </style>
