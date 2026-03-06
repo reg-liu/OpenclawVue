@@ -575,6 +575,38 @@
     "intro": "Skill 是 OpenClaw 的核心扩展机制，让 AI 能够调用各种工具完成复杂任务。每个 Skill 都是一段预定义的指令和能力描述，AI 可以根据用户需求自动调用合适的 Skill。",
     "categories": [
       {
+        "id": "essential",
+        "name": "必备技能",
+        "icon": "🚀",
+        "desc": "新手必装的核心技能，让 OpenClaw 开箱即用更智能",
+        "skills": [
+          {
+            "name": "Search Master",
+            "desc": "全网搜索神器，支持 Google、Bing、百度等多引擎搜索，自动筛选优质结果",
+            "features": ["多引擎搜索", "智能筛选", "结果去重", "内容摘要"],
+            "level": "⭐⭐⭐⭐⭐"
+          },
+          {
+            "name": "Web Reader",
+            "desc": "网页内容提取，智能解析文章正文，去除广告噪音，支持多语言翻译",
+            "features": ["智能解析", "广告去除", "多语言翻译", "要点提取"],
+            "level": "⭐⭐⭐⭐⭐"
+          },
+          {
+            "name": "File Organizer",
+            "desc": "文件整理助手，自动分类、重命名、归档，告别杂乱文件夹",
+            "features": ["智能分类", "批量重命名", "自动归档", "文件搜索"],
+            "level": "⭐⭐⭐⭐⭐"
+          },
+          {
+            "name": "Code Helper",
+            "desc": "编程问题解答专家，支持多语言代码解释、Bug 定位、优化建议",
+            "features": ["代码解释", "Bug定位", "优化建议", "代码生成"],
+            "level": "⭐⭐⭐⭐⭐"
+          }
+        ]
+      },
+      {
         "id": "finance",
         "name": "金融投资",
         "icon": "💰",
