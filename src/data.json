@@ -520,7 +520,16 @@
         "url": "https://cursor.sh",
         "desc": "基于 VS Code 的 AI 集成开发环境，深度集成 AI 编程能力",
         "highlights": ["无缝IDE集成", "智能补全", "项目感知", "命令行集成"],
-        "practice": "VS Code环境配置 + Vue3项目创建"
+        "practice": "Vue3 项目创建"
+      },
+      {
+        "name": "Windsurf",
+        "icon": "🌊",
+        "type": "AI 开发环境",
+        "url": "https://codeium.com/windsurf",
+        "desc": "Codeium 推出的 AI 开发环境，强调 Flow State 人机协作编程",
+        "highlights": ["智能 agent", "项目管理", "跨文件理解", "flow state"],
+        "practice": "VS Code环境配置"
       },
       {
         "name": "Codex",
@@ -529,7 +538,7 @@
         "url": "https://openai.com/codex",
         "desc": "OpenAI 推出的代码专用模型，擅长理解和生成代码",
         "highlights": ["代码理解", "多语言支持", "API 接入", "GitHub 集成"],
-        "practice": "GitHub 仓库创建 + Vercel 部署"
+        "practice": "GitHub 仓库创建"
       },
       {
         "name": "Claude Code",
@@ -538,7 +547,25 @@
         "url": "https://claude.com/claude-code",
         "desc": "Anthropic 推出的 CLI 编程工具，擅长复杂项目分析和重构",
         "highlights": ["代码分析", "重构能力", "安全审计", "长上下文"],
-        "practice": "代码审查与安全分析"
+        "practice": "Vercel 部署"
+      },
+      {
+        "name": "GitHub Copilot",
+        "icon": "🔄",
+        "type": "AI 代码补全",
+        "url": "https://github.com/features/copilot",
+        "desc": "GitHub 与 OpenAI 合作的代码补全工具，嵌入主流 IDE",
+        "highlights": ["实时补全", "多语言支持", "学习用户风格", "企业版"],
+        "practice": "飞书集成"
+      },
+      {
+        "name": "Ollama",
+        "icon": "🔮",
+        "type": "本地大模型",
+        "url": "https://ollama.com",
+        "desc": "最流行的本地大模型运行工具，一键部署 Llama、Qwen 等模型",
+        "highlights": ["本地推理", "隐私保护", "离线使用", "多模型支持"],
+        "practice": "OpenClaw 部署"
       }
     ]
   },

@@ -27,6 +27,15 @@ const navigate = (page) => {
 }
 
 const selectedCategory = ref(content.value?.questions?.categories?.[0]?.id || 'frontend')
+
+const formatAnswer = (text) => {
+  if (!text) return ''
+  return text
+    .replace(/(\d\)) /g, '\n$1 ')
+    .replace(/；/g, '；\n')
+    .replace(/。/g, '。\n')
+    .replace(/\n\n+/g, '\n')
+}
 </script>
 
 <template>
@@ -213,7 +222,7 @@ const selectedCategory = ref(content.value?.questions?.categories?.[0]?.id || 'f
       <div class="knowledge-list">
         <div v-for="item in (content.questions?.categories?.find(c => c.id === selectedCategory)?.items || [])" :key="item.q" class="knowledge-item">
           <div class="knowledge-q">{{ item.q }}</div>
-          <div class="knowledge-a">{{ item.a }}</div>
+          <div class="knowledge-a"><pre>{{ formatAnswer(item.a) }}</pre></div>
         </div>
       </div>
     </section>
@@ -432,7 +441,8 @@ body { font-family: 'Inter', sans-serif; background: #0d0d0d; color: #e5e5e5; li
 .knowledge-list { max-width: 800px; margin: 0 auto; display: flex; flex-direction: column; gap: 16px; }
 .knowledge-item { padding: 24px; background: #1a1a1a; border: 1px solid #262626; border-radius: 12px; }
 .knowledge-q { font-weight: 600; font-size: 16px; margin-bottom: 10px; }
-.knowledge-a { color: #a1a1aa; font-size: 14px; line-height: 1.8; white-space: pre-line; }
+.knowledge-a { color: #a1a1aa; font-size: 14px; line-height: 1.8; }
+.knowledge-a pre { margin: 0; font-family: inherit; white-space: pre-wrap; }
 
 /* Footer */
 .footer { padding: 48px 24px; border-top: 1px solid #1a1a1a; text-align: center; }
@@ -485,8 +495,8 @@ body { font-family: 'Inter', sans-serif; background: #0d0d0d; color: #e5e5e5; li
 .hot-category { margin-bottom: 48px; }
 .category-header { display: flex; align-items: flex-start; gap: 16px; margin-bottom: 24px; padding-bottom: 16px; border-bottom: 1px solid #262626; }
 .category-icon { font-size: 42px; }
-.category-info h2 { font-size: 24px; margin-bottom: 6px; }
-.category-info p { color: #71717a; font-size: 14px; }
+.category-info h2 { font-size: 24px; margin-bottom: 6px; text-align: left; }
+.category-info p { color: #71717a; font-size: 14px; text-align: left; }
 .category-items { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; }
 .hot-item { background: #1a1a1a; border: 1px solid #262626; border-radius: 12px; padding: 20px; transition: all 0.3s; position: relative; }
 .hot-item:hover { border-color: #22d3ee; transform: translateY(-2px); }
@@ -528,8 +538,8 @@ body { font-family: 'Inter', sans-serif; background: #0d0d0d; color: #e5e5e5; li
 .skill-category { margin-bottom: 48px; }
 .skill-category .category-header { display: flex; align-items: flex-start; gap: 16px; margin-bottom: 24px; padding-bottom: 16px; border-bottom: 1px solid #262626; }
 .skill-category .category-icon { font-size: 42px; }
-.skill-category .category-info h2 { font-size: 24px; margin-bottom: 6px; }
-.skill-category .category-info p { color: #71717a; font-size: 14px; }
+.skill-category .category-info h2 { font-size: 24px; margin-bottom: 6px; text-align: left; }
+.skill-category .category-info p { color: #71717a; font-size: 14px; text-align: left; }
 .skill-items { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; }
 .skill-card { background: #1a1a1a; border: 1px solid #262626; border-radius: 12px; padding: 20px; transition: all 0.3s; }
 .skill-card:hover { border-color: #f472b6; transform: translateY(-2px); }
