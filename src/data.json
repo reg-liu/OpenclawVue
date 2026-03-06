@@ -3,6 +3,7 @@
     "home": "首页",
     "practice": "实践路径",
     "questions": "相关问题",
+    "hot": "AI热点",
     "tools": "AI工具"
   },
   "badge": "Vibe Coding",
@@ -62,50 +63,232 @@
         }
       ]
     },
-    "hot": {
-      "title": "AI 热点聚焦",
-      "subtitle": "当前热门技术方向",
-      "list": [
-        {
-          "tag": "多模态",
-          "title": "多模态 AI",
-          "desc": "GPT-4V、Gemini 等支持图像、语音、视频理解的一体化模型",
-          "trend": "上升"
-        },
-        {
-          "tag": "Agent",
-          "title": "AI Agent",
-          "desc": " autonomous AI 能够自主规划、执行复杂任务的多步骤协作",
-          "trend": "热门"
-        },
-        {
-          "tag": "本地部署",
-          "title": "本地大模型",
-          "desc": "Ollama、LM Studio 等让个人也能运行 70B+ 参数模型",
-          "trend": "上升"
-        },
-        {
-          "tag": "编程",
-          "title": "AI 编程",
-          "desc": "Cursor、Windsurf 等 AI 深度集成的开发环境成为主流",
-          "trend": "热门"
-        },
-        {
-          "tag": "RAG",
-          "title": "RAG 知识库",
-          "desc": "让 AI 接入私有数据，构建企业专属知识问答系统",
-          "trend": "稳定"
-        },
-        {
-          "tag": "语音",
-          "title": "语音交互",
-          "desc": "实时语音对话、语音克隆、TTS 合成技术成熟",
-          "trend": "上升"
-        }
-      ]
-    },
     "tech": {
       "title": "技术栈"
+    }
+  },
+  "hot": {
+    "title": "AI 热点聚焦",
+    "subtitle": "把握技术趋势，洞悉未来方向",
+    "intro": "AI 技术日新月异，以下是当前最具影响力的技术方向和应用场景。了解这些热点，有助于把握职业发展和学习方向。",
+    "categories": [
+      {
+        "id": "multimodal",
+        "name": "多模态 AI",
+        "icon": "🎨",
+        "desc": "打破文本边界，理解图像、音频、视频的一体化智能",
+        "items": [
+          {
+            "title": "GPT-4V / GPT-4o",
+            "desc": "OpenAI 的多模态模型，支持图像理解、语音对话、视频分析",
+            "status": "领先",
+            "application": ["图像问答", "文档解析", "视频理解", "实时语音"]
+          },
+          {
+            "title": "Gemini Ultra",
+            "desc": "Google 最强多模态模型，原生支持视频、音频理解",
+            "status": "领先",
+            "application": ["视频分析", "代码生成", "复杂推理"]
+          },
+          {
+            "title": "Claude 3.5",
+            "desc": "Anthropic 发布的多模态版本，擅长视觉理解",
+            "status": "领先",
+            "application": ["图像分析", "长文档理解", "计算机使用"]
+          },
+          {
+            "title": "Sora / Veo",
+            "desc": "OpenAI 和 Google 的视频生成模型",
+            "status": "新兴",
+            "application": ["视频生成", "创意内容", "模拟训练"]
+          }
+        ]
+      },
+      {
+        "id": "agent",
+        "name": "AI Agent",
+        "icon": "🤖",
+        "desc": "从被动应答到主动规划，AI 拥有了'执行力'",
+        "items": [
+          {
+            "title": "AutoGPT / BabyAGI",
+            "desc": "早期自主 Agent 框架，自动分解并执行复杂任务",
+            "status": "开创",
+            "application": ["自动研究", "任务规划", "持续对话"]
+          },
+          {
+            "title": "OpenAI Agents",
+            "desc": "OpenAI 官方 Agent 平台，深度集成工具调用",
+            "status": "主流",
+            "application": ["数据分析", "内容生成", "自动化工作流"]
+          },
+          {
+            "title": "Claude Agent",
+            "desc": "Anthropic 推出的计算机使用 Agent，可操作桌面",
+            "status": "主流",
+            "application": ["桌面自动化", "浏览器控制", "文件处理"]
+          },
+          {
+            "title": "Manus",
+            "desc": "国产自主 Agent，擅长多步骤复杂任务执行",
+            "status": "新兴",
+            "application": ["简历筛选", "数据报告", "旅行规划"]
+          }
+        ]
+      },
+      {
+        "id": "local",
+        "name": "本地大模型",
+        "icon": "💻",
+        "desc": "让 AI 走进千家万户，不再依赖云端 API",
+        "items": [
+          {
+            "title": "Ollama",
+            "desc": "最流行的本地大模型运行工具，一键部署 Llama、Qwen 等",
+            "status": "主流",
+            "application": ["本地推理", "隐私敏感场景", "离线使用"]
+          },
+          {
+            "title": "LM Studio",
+            "desc": "桌面应用形态的本地模型管理器，界面友好",
+            "status": "主流",
+            "application": ["模型探索", "对话测试", "性能对比"]
+          },
+          {
+            "title": "llama.cpp",
+            "desc": "C++ 实现的轻量级推理引擎，性能极致",
+            "status": "底层",
+            "application": ["嵌入式部署", "移动端运行", "服务器推理"]
+          },
+          {
+            "title": "Qwen2.5 / DeepSeek",
+            "desc": "国产开源大模型，性能接近闭源模型",
+            "status": "新兴",
+            "application": ["中文场景", "编程辅助", "本地部署"]
+          }
+        ]
+      },
+      {
+        "id": "coding",
+        "name": "AI 编程",
+        "icon": "⌨️",
+        "desc": "重新定义开发方式，效率提升 10 倍",
+        "items": [
+          {
+            "title": "Cursor",
+            "desc": "基于 VS Code 的 AI IDE，深度集成 Chat 和 Composer",
+            "status": "主流",
+            "application": ["智能补全", "代码生成", "项目重构", "Bug 修复"]
+          },
+          {
+            "title": "Windsurf",
+            "desc": "Codeium 推出的 AI 开发环境，强调 Flow State",
+            "status": "新兴",
+            "application": ["Agent 编程", "多文件编辑", "智能终端"]
+          },
+          {
+            "title": "GitHub Copilot",
+            "desc": "最成熟的代码补全工具，嵌入主流 IDE",
+            "status": "主流",
+            "application": ["实时补全", "单元测试生成", "代码解释"]
+          },
+          {
+            "title": "Claude Code",
+            "desc": "Anthropic 推出的 CLI 编程工具，擅长复杂项目",
+            "status": "新兴",
+            "application": ["代码审计", "大型重构", "安全分析"]
+          }
+        ]
+      },
+      {
+        "id": "rag",
+        "name": "RAG 知识库",
+        "icon": "📚",
+        "desc": "让 AI 拥有'记忆'，接入私有数据不再是难题",
+        "items": [
+          {
+            "title": "LangChain",
+            "desc": "最流行的 LLM 应用框架，支持多种 RAG 模式",
+            "status": "主流",
+            "application": ["文档问答", "企业知识库", "客服系统"]
+          },
+          {
+            "title": "RAGFlow",
+            "desc": "国产开源 RAG 平台，界面美观，易用性强",
+            "status": "新兴",
+            "application": ["知识管理", "智能客服", "培训助手"]
+          },
+          {
+            "title": "AnythingLLM",
+            "desc": "一站式本地知识库解决方案，支持多种数据源",
+            "status": "新兴",
+            "application": ["本地部署", "私有知识库", "文档对话"]
+          },
+          {
+            "title": "向量数据库",
+            "desc": "Milvus、Pinecone、Chroma 等提供向量存储和检索",
+            "status": "基础设施",
+            "application": ["语义搜索", "相似度匹配", "推荐系统"]
+          }
+        ]
+      },
+      {
+        "id": "voice",
+        "name": "语音交互",
+        "icon": "🎤",
+        "desc": "从文字到语音，AI 交互进入新时代",
+        "items": [
+          {
+            "title": "GPT-4o 语音模式",
+            "desc": "OpenAI 实时语音对话，延迟低至 300ms",
+            "status": "领先",
+            "application": ["语音助手", "实时翻译", "情感对话"]
+          },
+          {
+            "title": "ElevenLabs",
+            "desc": "最自然的 AI 语音合成，支持多语言和情感控制",
+            "status": "领先",
+            "application": ["有声书", "语音播报", "角色配音"]
+          },
+          {
+            "title": "语音克隆",
+            "desc": "仅需少量样本即可克隆声音，支持多语言生成",
+            "status": "新兴",
+            "application": ["个人语音备份", "多语言内容", "无障碍辅助"]
+          },
+          {
+            "title": "实时翻译",
+            "desc": "AI 驱动的同声传译，接近人类水平",
+            "status": "新兴",
+            "application": ["跨语言会议", "旅游翻译", "内容本地化"]
+          }
+        ]
+      }
+    ],
+    "trends": {
+      "title": "技术趋势预测",
+      "items": [
+        {
+          "year": "2026",
+          "trend": "Agent 元年",
+          "desc": "AI Agent 将从概念走向落地，企业级自动化场景爆发"
+        },
+        {
+          "year": "2026",
+          "trend": "多模态普及",
+          "desc": "视频理解、实时语音成为标配，单模态模型逐渐淘汰"
+        },
+        {
+          "year": "2026",
+          "trend": "本地化加速",
+          "desc": "70B 模型可在消费级 GPU 运行，隐私场景首选"
+        },
+        {
+          "year": "2027",
+          "trend": "AGI 临近",
+          "desc": "模型能力持续提升，更多职业被 AI 辅助或替代"
+        }
+      ]
     }
   },
   "practice": {

@@ -35,6 +35,7 @@ const selectedCategory = ref(content.value?.questions?.categories?.[0]?.id || 'f
           <a :class="{ active: currentPage === 'home' }" @click="navigate('home')">{{ content.nav.home }}</a>
           <a :class="{ active: currentPage === 'practice' }" @click="navigate('practice')">{{ content.nav.practice }}</a>
           <a :class="{ active: currentPage === 'questions' }" @click="navigate('questions')">{{ content.nav.questions }}</a>
+          <a :class="{ active: currentPage === 'hot' }" @click="navigate('hot')">{{ content.nav.hot }}</a>
           <a :class="{ active: currentPage === 'tools' }" @click="navigate('tools')">{{ content.nav.tools }}</a>
         </div>
         <div class="nav-right">
@@ -49,6 +50,7 @@ const selectedCategory = ref(content.value?.questions?.categories?.[0]?.id || 'f
       <a @click="navigate('home')">{{ content.nav.home }}</a>
       <a @click="navigate('practice')">{{ content.nav.practice }}</a>
       <a @click="navigate('questions')">{{ content.nav.questions }}</a>
+      <a @click="navigate('hot')">{{ content.nav.hot }}</a>
       <a @click="navigate('tools')">{{ content.nav.tools }}</a>
     </div>
 
@@ -75,25 +77,11 @@ const selectedCategory = ref(content.value?.questions?.categories?.[0]?.id || 'f
         <div class="section-container">
           <h2 class="section-title">{{ content.home.flow.title }}</h2>
           <div class="flow-grid">
-            <div v-for="step in content.home.flow.steps" :key="step.num" class="flow-step">
+            <div v-for="(step, index) in content.home.flow.steps" :key="step.num" class="flow-step">
+              <div class="step-arrow" v-if="index > 0">→</div>
               <div class="step-num">{{ step.num }}</div>
               <h3>{{ step.title }}</h3>
               <p>{{ step.desc }}</p>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Hot Topics Section -->
-      <div class="section hot-section">
-        <div class="section-container">
-          <h2 class="section-title">{{ content.home.hot.title }}</h2>
-          <p class="section-subtitle">{{ content.home.hot.subtitle }}</p>
-          <div class="hot-grid">
-            <div v-for="item in content.home.hot.list" :key="item.title" class="hot-card">
-              <span class="hot-tag" :class="item.trend">{{ item.tag }}</span>
-              <h3>{{ item.title }}</h3>
-              <p>{{ item.desc }}</p>
             </div>
           </div>
         </div>
@@ -171,6 +159,50 @@ const selectedCategory = ref(content.value?.questions?.categories?.[0]?.id || 'f
         <div v-for="item in (content.questions?.categories?.find(c => c.id === selectedCategory)?.items || [])" :key="item.q" class="knowledge-item">
           <div class="knowledge-q">{{ item.q }}</div>
           <div class="knowledge-a">{{ item.a }}</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Hot -->
+    <section v-if="currentPage === 'hot'" class="hot-page">
+      <div class="page-header">
+        <h1>{{ content.hot.title }}</h1>
+        <p>{{ content.hot.subtitle }}</p>
+      </div>
+      <div class="hot-intro">
+        <p>{{ content.hot.intro }}</p>
+      </div>
+      <div class="hot-categories">
+        <div v-for="cat in content.hot.categories" :key="cat.id" class="hot-category">
+          <div class="category-header">
+            <span class="category-icon">{{ cat.icon }}</span>
+            <div class="category-info">
+              <h2>{{ cat.name }}</h2>
+              <p>{{ cat.desc }}</p>
+            </div>
+          </div>
+          <div class="category-items">
+            <div v-for="item in cat.items" :key="item.title" class="hot-item">
+              <div class="item-header">
+                <h3>{{ item.title }}</h3>
+                <span class="item-status" :class="item.status">{{ item.status }}</span>
+              </div>
+              <p class="item-desc">{{ item.desc }}</p>
+              <div class="item-apps">
+                <span v-for="app in item.application" :key="app" class="app-tag">{{ app }}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="trends-section" v-if="content.hot.trends">
+        <h2 class="trends-title">{{ content.hot.trends.title }}</h2>
+        <div class="trends-timeline">
+          <div v-for="trend in content.hot.trends.items" :key="trend.year + trend.trend" class="trend-item">
+            <span class="trend-year">{{ trend.year }}</span>
+            <span class="trend-name">{{ trend.trend }}</span>
+            <span class="trend-desc">{{ trend.desc }}</span>
+          </div>
         </div>
       </div>
     </section>
@@ -298,7 +330,9 @@ body { font-family: 'Inter', sans-serif; background: #0d0d0d; color: #e5e5e5; li
 /* Tech */
 .tech-section { background: #171717; }
 .flow-section { background: linear-gradient(180deg, #171717 0%, #1a1a1a 100%); padding: 80px 24px; }
-.flow-grid { max-width: 1100px; margin: 0 auto; display: grid; grid-template-columns: repeat(5, 1fr); gap: 24px; }
+.flow-grid { max-width: 1200px; margin: 0 auto; display: flex; justify-content: center; align-items: flex-start; gap: 0; }
+.flow-step { text-align: center; padding: 24px 20px; position: relative; flex: 1; max-width: 220px; }
+.step-arrow { position: absolute; left: -20px; top: 50%; transform: translateY(-50%); font-size: 24px; color: #22d3ee; font-weight: bold; }
 .flow-step { text-align: center; padding: 24px 16px; }
 .step-num { font-size: 48px; font-weight: 700; color: #22d3ee; opacity: 0.3; margin-bottom: 12px; }
 .flow-step h3 { font-size: 18px; margin-bottom: 10px; }
@@ -316,11 +350,10 @@ body { font-family: 'Inter', sans-serif; background: #0d0d0d; color: #e5e5e5; li
 .hot-card p { color: #71717a; font-size: 13px; line-height: 1.5; }
 
 @media (max-width: 900px) {
-  .flow-grid { grid-template-columns: repeat(3, 1fr); }
+  .flow-grid { flex-wrap: wrap; }
   .hot-grid { grid-template-columns: repeat(2, 1fr); }
 }
 @media (max-width: 600px) {
-  .flow-grid { grid-template-columns: 1fr 1fr; }
   .hot-grid { grid-template-columns: 1fr; }
 }
 .tech-grid { display: flex; flex-wrap: wrap; gap: 16px; justify-content: center; }
@@ -410,6 +443,46 @@ body { font-family: 'Inter', sans-serif; background: #0d0d0d; color: #e5e5e5; li
 @media (max-width: 768px) {
   .tools-grid { grid-template-columns: 1fr; }
   .comparison-row { grid-template-columns: 100px repeat(4, 1fr); font-size: 12px; }
+}
+
+/* Hot Page */
+.hot-page { padding: 120px 24px 80px; min-height: 100vh; }
+.hot-intro { text-align: center; max-width: 800px; margin: 0 auto 48px; }
+.hot-intro p { color: #a1a1aa; font-size: 16px; line-height: 1.7; }
+.hot-categories { max-width: 1100px; margin: 0 auto; }
+.hot-category { margin-bottom: 48px; }
+.category-header { display: flex; align-items: flex-start; gap: 16px; margin-bottom: 24px; padding-bottom: 16px; border-bottom: 1px solid #262626; }
+.category-icon { font-size: 42px; }
+.category-info h2 { font-size: 24px; margin-bottom: 6px; }
+.category-info p { color: #71717a; font-size: 14px; }
+.category-items { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; }
+.hot-item { background: #1a1a1a; border: 1px solid #262626; border-radius: 12px; padding: 20px; transition: all 0.3s; }
+.hot-item:hover { border-color: #22d3ee; transform: translateY(-2px); }
+.item-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
+.item-header h3 { font-size: 16px; margin: 0; }
+.item-status { font-size: 11px; padding: 3px 10px; border-radius: 12px; font-weight: 600; }
+.item-status.领先 { background: rgba(34,211,238,0.15); color: #22d3ee; }
+.item-status.主流 { background: rgba(168,85,247,0.15); color: #a855f7; }
+.item-status.新兴 { background: rgba(244,114,182,0.15); color: #f472b6; }
+.item-status.开创 { background: rgba(251,191,36,0.15); color: #fbbf24; }
+.item-status.底层 { background: rgba(107,114,128,0.15); color: #9ca3af; }
+.item-status.基础设施 { background: rgba(59,130,246,0.15); color: #3b82f6; }
+.item-desc { color: #a1a1aa; font-size: 13px; margin-bottom: 12px; line-height: 1.5; }
+.item-apps { display: flex; gap: 6px; flex-wrap: wrap; }
+.app-tag { background: #262626; color: #d4d4d8; padding: 3px 8px; border-radius: 4px; font-size: 11px; }
+.trends-section { max-width: 900px; margin: 60px auto 0; padding-top: 40px; border-top: 1px solid #262626; }
+.trends-title { font-size: 24px; text-align: center; margin-bottom: 32px; }
+.trends-timeline { display: flex; flex-direction: column; gap: 16px; }
+.trend-item { display: grid; grid-template-columns: 60px 140px 1fr; gap: 16px; align-items: center; padding: 16px; background: #1a1a1a; border-radius: 10px; }
+.trend-year { color: #22d3ee; font-weight: 700; font-size: 14px; }
+.trend-name { color: #f472b6; font-weight: 600; font-size: 15px; }
+.trend-desc { color: #a1a1aa; font-size: 13px; }
+
+@media (max-width: 768px) {
+  .category-items { grid-template-columns: 1fr; }
+  .trend-item { grid-template-columns: 50px 1fr; }
+  .trend-name { grid-column: 2; }
+  .trend-desc { grid-column: 2; }
 }
 
 </style>
