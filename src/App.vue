@@ -117,7 +117,7 @@ const selectedCategory = ref(content.value?.questions?.categories?.[0]?.id || 'f
           <div class="tech-grid">
             <div class="tech-item"><span style="font-size:28px">🦞</span><span>OpenClaw</span></div>
             <div class="tech-item"><img src="https://upload.wikimedia.org/wikipedia/commons/0/04/ChatGPT_logo.svg" alt="OpenAI"/><span>OpenAI</span></div>
-            <div class="tech-item"><img src="https://s1.feishu.cn/portal-feishu-cn/logo.svg" alt="飞书"/><span>飞书</span></div>
+            <div class="tech-item"><span style="font-size:28px">📡</span><span>飞书</span></div>
             <div class="tech-item"><img src="https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png" alt="GitHub"/><span>GitHub</span></div>
             <div class="tech-item"><img src="https://assets.vercel.com/image/upload/v1588805858/repositories/vercel/logo.png" alt="Vercel"/><span>Vercel</span></div>
           </div>
@@ -227,14 +227,18 @@ const selectedCategory = ref(content.value?.questions?.categories?.[0]?.id || 'f
         <p>{{ content.hot.intro }}</p>
       </div>
       <div class="news-section" v-if="content.hot.news">
-        <h2 class="news-title">{{ content.hot.news.title }}</h2>
+        <div class="category-header">
+          <span class="category-icon">📰</span>
+          <div class="category-info">
+            <h2>{{ content.hot.news.title }}</h2>
+            <p>最新的 AI 行业动态和热点资讯</p>
+          </div>
+        </div>
         <div class="news-grid">
           <div v-for="news in content.hot.news.items" :key="news.title" class="news-item">
-            <div class="news-header">
-              <h3>{{ news.title }}</h3>
-              <span class="news-source">{{ news.source }} · {{ news.date }}</span>
-            </div>
+            <h3>{{ news.title }}</h3>
             <p>{{ news.desc }}</p>
+            <span class="news-source">{{ news.source }} · {{ news.date }}</span>
           </div>
         </div>
       </div>
@@ -514,14 +518,16 @@ body { font-family: 'Inter', sans-serif; background: #0d0d0d; color: #e5e5e5; li
 .item-desc { color: #a1a1aa; font-size: 13px; margin-bottom: 12px; line-height: 1.5; text-align: left; }
 .item-apps { display: flex; gap: 6px; flex-wrap: wrap; }
 .app-tag { background: #262626; color: #d4d4d8; padding: 3px 8px; border-radius: 4px; font-size: 11px; }
-.news-section { max-width: 1100px; margin: 60px auto 0; }
-.news-title { font-size: 24px; text-align: center; margin-bottom: 32px; }
+.news-section { max-width: 1100px; margin: 0 auto 48px; }
+.news-section .category-header { display: flex; align-items: flex-start; gap: 16px; margin-bottom: 24px; padding-bottom: 16px; border-bottom: 1px solid #262626; }
+.news-section .category-icon { font-size: 42px; }
+.news-section .category-info h2 { font-size: 24px; margin-bottom: 6px; }
+.news-section .category-info p { color: #71717a; font-size: 14px; }
 .news-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; }
 .news-item { background: #1a1a1a; border: 1px solid #262626; border-radius: 12px; padding: 20px; }
-.news-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 10px; }
-.news-header h3 { font-size: 16px; margin: 0; }
+.news-item h3 { font-size: 16px; margin: 0 0 10px 0; }
+.news-item p { color: #a1a1aa; font-size: 13px; margin: 0 0 10px 0; line-height: 1.5; }
 .news-source { color: #71717a; font-size: 12px; }
-.news-item p { color: #a1a1aa; font-size: 13px; margin: 0; line-height: 1.5; }
 .trends-section { max-width: 900px; margin: 60px auto 0; padding-top: 40px; border-top: 1px solid #262626; }
 .trends-title { font-size: 24px; text-align: center; margin-bottom: 32px; }
 .trends-timeline { display: flex; flex-direction: column; gap: 16px; }
