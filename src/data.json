@@ -557,8 +557,7 @@
         "type": "AI IDE",
         "url": "https://cursor.sh",
         "desc": "基于 VS Code 的 AI 集成开发环境，深度集成 AI 编程能力",
-        "highlights": ["无缝IDE集成", "智能补全", "项目感知", "命令行集成"],
-        "practice": "<a href=\"#practice\">Vue3 项目创建</a>"
+        "highlights": ["无缝IDE集成", "智能补全", "项目感知", "命令行集成"]
       },
       {
         "name": "Windsurf",
@@ -566,8 +565,7 @@
         "type": "AI 开发环境",
         "url": "https://codeium.com/windsurf",
         "desc": "Codeium 推出的 AI 开发环境，强调 Flow State 人机协作编程",
-        "highlights": ["智能 agent", "项目管理", "跨文件理解", "flow state"],
-        "practice": "<a href=\"#practice\">VS Code环境配置</a>"
+        "highlights": ["智能 agent", "项目管理", "跨文件理解", "flow state"]
       },
       {
         "name": "Codex",
@@ -575,8 +573,7 @@
         "type": "AI 代码模型",
         "url": "https://openai.com/codex",
         "desc": "OpenAI 推出的代码专用模型，擅长理解和生成代码",
-        "highlights": ["代码理解", "多语言支持", "API 接入", "GitHub 集成"],
-        "practice": "<a href=\"#practice\">GitHub 仓库创建</a>"
+        "highlights": ["代码理解", "多语言支持", "API 接入", "GitHub 集成"]
       },
       {
         "name": "Claude Code",
@@ -584,8 +581,7 @@
         "type": "AI 编程助手",
         "url": "https://claude.com/claude-code",
         "desc": "Anthropic 推出的 CLI 编程工具，擅长复杂项目分析和重构",
-        "highlights": ["代码分析", "重构能力", "安全审计", "长上下文"],
-        "practice": "<a href=\"#practice\">Vercel 部署</a>"
+        "highlights": ["代码分析", "重构能力", "安全审计", "长上下文"]
       },
       {
         "name": "GitHub Copilot",
@@ -593,8 +589,7 @@
         "type": "AI 代码补全",
         "url": "https://github.com/features/copilot",
         "desc": "GitHub 与 OpenAI 合作的代码补全工具，嵌入主流 IDE",
-        "highlights": ["实时补全", "多语言支持", "学习用户风格", "企业版"],
-        "practice": "<a href=\"#practice\">飞书集成</a>"
+        "highlights": ["实时补全", "多语言支持", "学习用户风格", "企业版"]
       },
       {
         "name": "Ollama",
@@ -602,8 +597,7 @@
         "type": "本地大模型",
         "url": "https://ollama.com",
         "desc": "最流行的本地大模型运行工具，一键部署 Llama、Qwen 等模型",
-        "highlights": ["本地推理", "隐私保护", "离线使用", "多模型支持"],
-        "practice": "<a href=\"#practice\">OpenClaw 部署</a>"
+        "highlights": ["本地推理", "隐私保护", "离线使用", "多模型支持"]
       }
     ]
   },
