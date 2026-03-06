@@ -27,15 +27,6 @@ const navigate = (page) => {
 }
 
 const selectedCategory = ref(content.value?.questions?.categories?.[0]?.id || 'frontend')
-
-const formatAnswer = (text) => {
-  if (!text) return ''
-  return text
-    .replace(/(\d\)) /g, '\n$1 ')
-    .replace(/；/g, '；\n')
-    .replace(/。/g, '。\n')
-    .replace(/\n\n+/g, '\n')
-}
 </script>
 
 <template>
@@ -222,7 +213,7 @@ const formatAnswer = (text) => {
       <div class="knowledge-list">
         <div v-for="item in (content.questions?.categories?.find(c => c.id === selectedCategory)?.items || [])" :key="item.q" class="knowledge-item">
           <div class="knowledge-q">{{ item.q }}</div>
-          <div class="knowledge-a"><pre>{{ formatAnswer(item.a) }}</pre></div>
+          <div class="knowledge-a" v-html="item.a"></div>
         </div>
       </div>
     </section>
@@ -296,7 +287,7 @@ const formatAnswer = (text) => {
           </div>
           <div v-if="tool.practice" class="tool-practice">
             <span class="practice-label">📝 实践：</span>
-            <span class="practice-text">{{ tool.practice }}</span>
+            <span class="practice-text" v-html="tool.practice"></span>
           </div>
         </div>
       </div>
@@ -477,11 +468,13 @@ body { font-family: 'Inter', sans-serif; background: #0d0d0d; color: #e5e5e5; li
 .tool-name-link { color: inherit; text-decoration: none; }
 .tool-name-link:hover { color: #22d3ee; }
 .tool-type { color: #22d3ee; font-size: 13px; text-align: left; display: block; }
-.tool-desc { color: #a1a1aa; font-size: 14px; margin-bottom: 16px; }
+.tool-desc { color: #a1a1aa; font-size: 14px; margin-bottom: 16px; text-align: left; }
 .tool-highlights { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 12px; }
 .tool-practice { background: #1a1a2e; border: 1px solid #22d3ee; border-radius: 8px; padding: 10px 12px; }
 .practice-label { color: #22d3ee; font-size: 12px; font-weight: 600; }
-.practice-text { color: #d4d4d8; font-size: 12px; }
+.practice-text { color: #d4d4d8; font-size: 12px; text-align: left; display: block; }
+.practice-text a { color: #22d3ee; text-decoration: none; }
+.practice-text a:hover { text-decoration: underline; }
 .highlight-tag { background: #262626; color: #d4d4d8; padding: 4px 10px; border-radius: 6px; font-size: 12px; }
 @media (max-width: 768px) {
   .tools-grid { grid-template-columns: 1fr; }
@@ -512,7 +505,7 @@ body { font-family: 'Inter', sans-serif; background: #0d0d0d; color: #e5e5e5; li
 .item-status.开创 { background: rgba(251,191,36,0.15); color: #fbbf24; }
 .item-status.底层 { background: rgba(107,114,128,0.15); color: #9ca3af; }
 .item-status.基础设施 { background: rgba(59,130,246,0.15); color: #3b82f6; }
-.item-desc { color: #a1a1aa; font-size: 13px; margin-bottom: 12px; line-height: 1.5; }
+.item-desc { color: #a1a1aa; font-size: 13px; margin-bottom: 12px; line-height: 1.5; text-align: left; }
 .item-apps { display: flex; gap: 6px; flex-wrap: wrap; }
 .app-tag { background: #262626; color: #d4d4d8; padding: 3px 8px; border-radius: 4px; font-size: 11px; }
 .trends-section { max-width: 900px; margin: 60px auto 0; padding-top: 40px; border-top: 1px solid #262626; }
@@ -546,7 +539,7 @@ body { font-family: 'Inter', sans-serif; background: #0d0d0d; color: #e5e5e5; li
 .skill-header { display: flex; justify-content: flex-start; align-items: center; margin-bottom: 10px; }
 .skill-header h3 { font-size: 16px; margin: 0; text-align: left; }
 .skill-level { color: #fbbf24; font-size: 12px; }
-.skill-desc { color: #a1a1aa; font-size: 13px; margin-bottom: 12px; line-height: 1.5; }
+.skill-desc { color: #a1a1aa; font-size: 13px; margin-bottom: 12px; line-height: 1.5; text-align: left; }
 .skill-features { display: flex; gap: 6px; flex-wrap: wrap; }
 .feature-tag { background: #262626; color: #d4d4d8; padding: 3px 8px; border-radius: 4px; font-size: 11px; }
 .develop-section { max-width: 900px; margin: 60px auto 0; padding-top: 40px; border-top: 1px solid #262626; }

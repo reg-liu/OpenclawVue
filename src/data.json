@@ -419,6 +419,15 @@
         "highlight": false,
         "prompt": "请帮我配置项目的自动化持续更新机制：1. GitHub Actions 自动部署流程；2. 定时检查依赖包更新并自动 PR；3. 自动同步 AI 领域最新实践项目到内容中；4. 定期生成项目进展报告",
         "details": ["CI/CD 流程", "依赖更新自动化", "内容同步", "报告生成", "监控告警"]
+      },
+      {
+        "title": "UI/UX 优化与 Skill 扩展",
+        "date": "2026-03",
+        "desc": "持续优化前端交互体验，扩展 OpenClaw Skill 能力，构建更智能的 AI 助手",
+        "tags": ["UI/UX", "Skill", "前端"],
+        "highlight": false,
+        "prompt": "请帮我实现以下优化：1. 优化页面布局和交互细节，增强用户体验；2. 添加新的 OpenClaw Skill，如 Capability Evolver、Self-Improving Agent、Find Skills 等；3. 持续优化 Skill 库内容，添加更多实用技能；4. 收集用户反馈，不断迭代改进",
+        "details": ["布局优化", "交互增强", "Skill 开发", "用户反馈", "持续迭代"]
       }
     ]
   },
@@ -444,7 +453,7 @@
           },
           {
             "q": "什么是 OpenClaw Skill？",
-            "a": "Skill 是 OpenClaw 的核心扩展机制，让 AI 能够调用外部工具完成具体任务。每个 Skill 本质上是一段预定义的指令和能力描述，包含：1) 工具函数注册（文件操作、浏览器控制、代码执行等）；2) 自然语言能力描述；3) 使用场景示例。AI 会根据用户需求自动判断并调用合适的 Skill。"
+            "a": "Skill 是 OpenClaw 的核心扩展机制，让 AI 能够调用外部工具完成具体任务。<br><br>每个 Skill 本质上是一段预定义的指令和能力描述，包含：<br><br>1) 工具函数注册（文件操作、浏览器控制、代码执行等）<br>2) 自然语言能力描述<br>3) 使用场景示例<br><br>AI 会根据用户需求自动判断并调用合适的 Skill。"
           },
           {
             "q": "OpenClaw 的 Heartbeat 是什么？",
@@ -529,7 +538,7 @@
         "url": "https://codeium.com/windsurf",
         "desc": "Codeium 推出的 AI 开发环境，强调 Flow State 人机协作编程",
         "highlights": ["智能 agent", "项目管理", "跨文件理解", "flow state"],
-        "practice": "VS Code环境配置"
+        "practice": "<a href=\"#practice\">VS Code环境配置</a>"
       },
       {
         "name": "Codex",
@@ -538,7 +547,7 @@
         "url": "https://openai.com/codex",
         "desc": "OpenAI 推出的代码专用模型，擅长理解和生成代码",
         "highlights": ["代码理解", "多语言支持", "API 接入", "GitHub 集成"],
-        "practice": "GitHub 仓库创建"
+        "practice": "<a href=\"#practice\">GitHub 仓库创建</a>"
       },
       {
         "name": "Claude Code",
@@ -547,7 +556,7 @@
         "url": "https://claude.com/claude-code",
         "desc": "Anthropic 推出的 CLI 编程工具，擅长复杂项目分析和重构",
         "highlights": ["代码分析", "重构能力", "安全审计", "长上下文"],
-        "practice": "Vercel 部署"
+        "practice": "<a href=\"#practice\">Vercel 部署</a>"
       },
       {
         "name": "GitHub Copilot",
@@ -556,7 +565,7 @@
         "url": "https://github.com/features/copilot",
         "desc": "GitHub 与 OpenAI 合作的代码补全工具，嵌入主流 IDE",
         "highlights": ["实时补全", "多语言支持", "学习用户风格", "企业版"],
-        "practice": "飞书集成"
+        "practice": "<a href=\"#practice\">飞书集成</a>"
       },
       {
         "name": "Ollama",
@@ -565,7 +574,7 @@
         "url": "https://ollama.com",
         "desc": "最流行的本地大模型运行工具，一键部署 Llama、Qwen 等模型",
         "highlights": ["本地推理", "隐私保护", "离线使用", "多模型支持"],
-        "practice": "OpenClaw 部署"
+        "practice": "<a href=\"#practice\">OpenClaw 部署</a>"
       }
     ]
   },
@@ -603,6 +612,38 @@
             "desc": "编程问题解答专家，支持多语言代码解释、Bug 定位、优化建议",
             "features": ["代码解释", "Bug定位", "优化建议", "代码生成"],
             "level": "⭐⭐⭐⭐⭐"
+          }
+        ]
+      },
+      {
+        "id": "improvement",
+        "name": "OpenClaw 提升",
+        "icon": "🧠",
+        "desc": "让 OpenClaw 不断学习和进化的核心技能，持续提升 AI 能力",
+        "skills": [
+          {
+            "name": "Capability Evolver",
+            "desc": "能力进化器，自动学习新技能、扩展能力边界，让 AI 越来越强大",
+            "features": ["技能学习", "能力扩展", "自我优化", "知识积累"],
+            "level": "⭐⭐⭐⭐⭐"
+          },
+          {
+            "name": "Self-Improving Agent",
+            "desc": "自我改进代理，持续反思和优化自身行为，提升任务完成效率",
+            "features": ["行为反思", "策略优化", "效率提升", "错误修正"],
+            "level": "⭐⭐⭐⭐⭐"
+          },
+          {
+            "name": "Summarize",
+            "desc": "智能总结助手，将长文档、长对话提取关键要点，生成结构化摘要",
+            "features": ["要点提取", "结构化输出", "多格式支持", "一键总结"],
+            "level": "⭐⭐⭐⭐⭐"
+          },
+          {
+            "name": "Find Skills",
+            "desc": "技能发现器，自动搜索和推荐适合当前任务的新技能，持续扩展 AI 能力",
+            "features": ["技能搜索", "智能推荐", "自动安装", "能力对比"],
+            "level": "⭐⭐⭐⭐"
           }
         ]
       },
