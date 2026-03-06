@@ -514,15 +514,6 @@
     "intro": "掌握这些工具，提升 AI 编程效率。每个工具都附有实践教程链接。",
     "list": [
       {
-        "name": "OpenClaw",
-        "icon": "🦞",
-        "type": "AI助手框架",
-        "url": "https://openclaw.ai",
-        "desc": "开源 AI 助手框架，支持多渠道、多模型、可自定义技能和记忆系统",
-        "highlights": ["多渠道接入", "自定义技能", "记忆系统", "本地部署"],
-        "practice": "实践路径第1-3步：OpenClaw部署、ClawX桌面端、飞书集成"
-      },
-      {
         "name": "Cursor",
         "icon": "➡️",
         "type": "AI IDE",
@@ -532,22 +523,13 @@
         "practice": "VS Code环境配置 + Vue3项目创建"
       },
       {
-        "name": "Windsurf",
-        "icon": "🌊",
-        "type": "AI 开发环境",
-        "url": "https://codeium.com/windsurf",
-        "desc": "Codeium 推出的 AI 开发环境，强调 Flow State 人机协作编程",
-        "highlights": ["智能 agent", "项目管理", "跨文件理解", "flow state"],
-        "practice": "与Cursor类似，上手简单"
-      },
-      {
-        "name": "GitHub Copilot",
-        "icon": "🔄",
-        "type": "AI 代码补全",
-        "url": "https://github.com/features/copilot",
-        "desc": "GitHub 与 OpenAI 合作的代码补全工具，嵌入主流 IDE",
-        "highlights": ["实时补全", "多语言支持", "学习用户风格", "企业版"],
-        "practice": "VS Code扩展商店一键安装"
+        "name": "Codex",
+        "icon": "💻",
+        "type": "AI 代码模型",
+        "url": "https://openai.com/codex",
+        "desc": "OpenAI 推出的代码专用模型，擅长理解和生成代码",
+        "highlights": ["代码理解", "多语言支持", "API 接入", "GitHub 集成"],
+        "practice": "GitHub 仓库创建 + Vercel 部署"
       },
       {
         "name": "Claude Code",
@@ -556,16 +538,7 @@
         "url": "https://claude.com/claude-code",
         "desc": "Anthropic 推出的 CLI 编程工具，擅长复杂项目分析和重构",
         "highlights": ["代码分析", "重构能力", "安全审计", "长上下文"],
-        "practice": "命令行工具，适合深度代码分析"
-      },
-      {
-        "name": "Ollama",
-        "icon": "🔮",
-        "type": "本地大模型",
-        "url": "https://ollama.com",
-        "desc": "最流行的本地大模型运行工具，一键部署 Llama、Qwen 等模型",
-        "highlights": ["本地推理", "隐私保护", "离线使用", "多模型支持"],
-        "practice": "下载安装后一行命令运行模型"
+        "practice": "代码审查与安全分析"
       }
     ]
   },

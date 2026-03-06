@@ -6,10 +6,17 @@ const currentPage = ref('home')
 const isScrolled = ref(false)
 const mobileMenuOpen = ref(false)
 const content = ref(data)
+const mousePos = ref({ x: 50, y: 50 })
 
 onMounted(() => {
   window.addEventListener('scroll', () => {
     isScrolled.value = window.scrollY > 50
+  })
+  window.addEventListener('mousemove', (e) => {
+    mousePos.value = {
+      x: (e.clientX / window.innerWidth) * 100,
+      y: (e.clientY / window.innerHeight) * 100
+    }
   })
 })
 
@@ -59,7 +66,7 @@ const selectedCategory = ref(content.value?.questions?.categories?.[0]?.id || 'f
     <!-- Home -->
     <section v-if="currentPage === 'home'" class="home">
       <div class="hero">
-        <div class="hero-bg"></div>
+        <div class="hero-bg" :style="{ '--x': mousePos.x + '%', '--y': mousePos.y + '%' }"></div>
         <div class="hero-content">
           <p class="hero-label">{{ content.hero.label }}</p>
           <h1 class="hero-title">
@@ -266,12 +273,11 @@ const selectedCategory = ref(content.value?.questions?.categories?.[0]?.id || 'f
         <p>{{ content.tools.intro }}</p>
       </div>
       <div class="tools-grid">
-        <div v-for="tool in content.tools.list" :key="tool.name" class="tool-card" :class="{ 'has-link': tool.url }">
-          <a v-if="tool.url" :href="tool.url" target="_blank" class="item-link"></a>
+        <div v-for="tool in content.tools.list" :key="tool.name" class="tool-card">
           <div class="tool-header">
             <span class="tool-icon">{{ tool.icon }}</span>
             <div class="tool-info">
-              <h3>{{ tool.name }}</h3>
+              <h3><a :href="tool.url" target="_blank" class="tool-name-link">{{ tool.name }}</a></h3>
               <span class="tool-type">{{ tool.type }}</span>
             </div>
           </div>
@@ -328,7 +334,7 @@ body { font-family: 'Inter', sans-serif; background: #0d0d0d; color: #e5e5e5; li
 .home { padding-top: 80px; }
 .hero { position: relative; min-height: 90vh; display: flex; align-items: center; justify-content: center; text-align: center; overflow: hidden; }
 .hero-bg { position: absolute; inset: 0; background: radial-gradient(ellipse at 50% 0%, #1a1a2e 0%, #0d0d0d 70%); }
-.hero-bg::before { content: ''; position: absolute; inset: 0; background: radial-gradient(circle at 30% 50%, rgba(34,211,238,0.15) 0%, transparent 40%), radial-gradient(circle at 70% 50%, rgba(168,85,247,0.15) 0%, transparent 40%); animation: glow 8s ease-in-out infinite alternate; }
+.hero-bg::before { content: ''; position: absolute; inset: 0; background: radial-gradient(circle at var(--x, 50%) var(--y, 50%), rgba(34,211,238,0.2) 0%, transparent 40%), radial-gradient(circle at calc(100% - var(--x, 50%)) calc(100% - var(--y, 50%)), rgba(168,85,247,0.2) 0%, transparent 40%); transition: background 0.1s ease; }
 @keyframes glow { 0% { opacity: 0.6; transform: scale(1); } 100% { opacity: 1; transform: scale(1.1); } }
 .hero-content { position: relative; max-width: 700px; padding: 40px 24px; }
 .hero-label { color: #22d3ee; font-size: 14px; font-weight: 600; margin-bottom: 20px; letter-spacing: 2px; }
@@ -426,7 +432,7 @@ body { font-family: 'Inter', sans-serif; background: #0d0d0d; color: #e5e5e5; li
 .knowledge-list { max-width: 800px; margin: 0 auto; display: flex; flex-direction: column; gap: 16px; }
 .knowledge-item { padding: 24px; background: #1a1a1a; border: 1px solid #262626; border-radius: 12px; }
 .knowledge-q { font-weight: 600; font-size: 16px; margin-bottom: 10px; }
-.knowledge-a { color: #a1a1aa; font-size: 14px; line-height: 1.7; }
+.knowledge-a { color: #a1a1aa; font-size: 14px; line-height: 1.8; white-space: pre-line; }
 
 /* Footer */
 .footer { padding: 48px 24px; border-top: 1px solid #1a1a1a; text-align: center; }
@@ -458,6 +464,8 @@ body { font-family: 'Inter', sans-serif; background: #0d0d0d; color: #e5e5e5; li
 .tool-header { display: flex; align-items: center; gap: 16px; margin-bottom: 16px; }
 .tool-icon { font-size: 40px; }
 .tool-info h3 { font-size: 20px; margin: 0; }
+.tool-name-link { color: inherit; text-decoration: none; }
+.tool-name-link:hover { color: #22d3ee; }
 .tool-type { color: #22d3ee; font-size: 13px; }
 .tool-desc { color: #a1a1aa; font-size: 14px; margin-bottom: 16px; }
 .tool-highlights { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 12px; }
