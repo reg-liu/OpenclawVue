@@ -293,6 +293,35 @@
         ]
       }
     ],
+    "news": {
+      "title": "AI 热点资讯",
+      "items": [
+        {
+          "title": "OpenAI 发布 GPT-5 预览版",
+          "desc": "GPT-5 带来更强的推理能力和多模态理解，AI Agent 能力大幅提升",
+          "source": "OpenAI",
+          "date": "2026-03"
+        },
+        {
+          "title": "Claude 4 发布",
+          "desc": "Anthropic 发布 Claude 4，专注于编程和安全领域，性能超越 GPT-5",
+          "source": "Anthropic",
+          "date": "2026-03"
+        },
+        {
+          "title": "国产大模型崛起",
+          "desc": "阿里 Qwen3、字节豆包等国产模型性能逼近国际顶尖水平",
+          "source": "业界",
+          "date": "2026-03"
+        },
+        {
+          "title": "AI Agent 爆发",
+          "desc": "各大厂商纷纷推出 AI Agent 产品，2026 年成为 AI Agent 元年",
+          "source": "业界",
+          "date": "2026-03"
+        }
+      ]
+    },
     "trends": {
       "title": "技术趋势预测",
       "items": [

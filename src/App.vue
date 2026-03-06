@@ -250,6 +250,18 @@ const selectedCategory = ref(content.value?.questions?.categories?.[0]?.id || 'f
           </div>
         </div>
       </div>
+      <div class="news-section" v-if="content.hot.news">
+        <h2 class="news-title">{{ content.hot.news.title }}</h2>
+        <div class="news-grid">
+          <div v-for="news in content.hot.news.items" :key="news.title" class="news-item">
+            <div class="news-header">
+              <h3>{{ news.title }}</h3>
+              <span class="news-source">{{ news.source }} · {{ news.date }}</span>
+            </div>
+            <p>{{ news.desc }}</p>
+          </div>
+        </div>
+      </div>
       <div class="trends-section" v-if="content.hot.trends">
         <h2 class="trends-title">{{ content.hot.trends.title }}</h2>
         <div class="trends-timeline">
@@ -505,6 +517,14 @@ body { font-family: 'Inter', sans-serif; background: #0d0d0d; color: #e5e5e5; li
 .item-desc { color: #a1a1aa; font-size: 13px; margin-bottom: 12px; line-height: 1.5; text-align: left; }
 .item-apps { display: flex; gap: 6px; flex-wrap: wrap; }
 .app-tag { background: #262626; color: #d4d4d8; padding: 3px 8px; border-radius: 4px; font-size: 11px; }
+.news-section { max-width: 1100px; margin: 60px auto 0; }
+.news-title { font-size: 24px; text-align: center; margin-bottom: 32px; }
+.news-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; }
+.news-item { background: #1a1a1a; border: 1px solid #262626; border-radius: 12px; padding: 20px; }
+.news-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 10px; }
+.news-header h3 { font-size: 16px; margin: 0; }
+.news-source { color: #71717a; font-size: 12px; }
+.news-item p { color: #a1a1aa; font-size: 13px; margin: 0; line-height: 1.5; }
 .trends-section { max-width: 900px; margin: 60px auto 0; padding-top: 40px; border-top: 1px solid #262626; }
 .trends-title { font-size: 24px; text-align: center; margin-bottom: 32px; }
 .trends-timeline { display: flex; flex-direction: column; gap: 16px; }
