@@ -1,9 +1,11 @@
 <script setup>
 import { ref, onMounted } from 'vue'
+import data from './data.json'
 
 const currentPage = ref('home')
 const isScrolled = ref(false)
 const mobileMenuOpen = ref(false)
+const content = ref(data)
 
 onMounted(() => {
   window.addEventListener('scroll', () => {
@@ -17,43 +19,7 @@ const navigate = (page) => {
   window.scrollTo({ top: 0, behavior: 'smooth' })
 }
 
-const projects = [
-  { id: 1, title: 'OpenClaw Deployment', desc: 'Manual deployment on Windows server', date: '2026-03', tags: ['OpenClaw', 'Node.js'], highlight: true },
-  { id: 2, title: 'ClawX Automation', desc: 'Desktop app for automated deployment', date: '2026-03', tags: ['ClawX', 'Automation'], highlight: true },
-  { id: 3, title: 'Feishu Integration', desc: 'Enterprise messaging integration', date: '2026-03', tags: ['Feishu', 'API'], highlight: false },
-  { id: 4, title: 'VS Code Setup', desc: 'Development environment configuration', date: '2026-03', tags: ['VS Code', 'Git'], highlight: false },
-  { id: 5, title: 'Vue3 Portfolio', desc: 'Modern portfolio website', date: '2026-03', tags: ['Vue3', 'Vite'], highlight: true },
-  { id: 6, title: 'UI Optimization', desc: 'Continuous improvement', date: '2026-03', tags: ['UI/UX', 'Design'], highlight: true }
-]
-
-const knowledge = [
-  { category: 'Frontend', items: [
-    { q: 'What is a closure?', a: 'A function with access to outer scope variables. Used for data encapsulation, modules, debounce/throttle.' },
-    { q: 'How does Event Loop work?', a: 'JS single thread handles async via: 1. Sync code 2. Microtasks (Promise) 3. Macrotasks (setTimeout) 4. Next loop.' },
-    { q: 'Prototype chain?', a: 'Objects have __proto__ pointing to prototype, forming chain to Object.prototype.' },
-    { q: 'Debounce vs Throttle?', a: 'Debounce: last only after stop. Throttle: fixed interval execution.' },
-    { q: 'URL to page render?', a: 'DNS → TCP → HTTP → Server → HTML parse → DOM/CSSOM → Render → Layout → Paint → Composite.' },
-    { q: 'Performance optimization?', a: 'CDN, compress, code splitting, lazy loading, caching, HTTP/2.' },
-    { q: 'HTTP caching?', a: 'Strong: Expires/Cache-Control. Negotiated: Last-Modified/ETag.' },
-    { q: 'Execution context?', a: 'Environment during function execution: variable object, scope chain, this binding.' }
-  ]},
-  { category: 'OpenClaw', items: [
-    { q: 'What is OpenClaw?', a: 'Open source AI assistant framework with multi-channel and multi-model support.' },
-    { q: 'Supported models?', a: 'OpenAI, Anthropic, Gemini, Moonshot and more.' },
-    { q: 'Skill system?', a: 'Let AI call tools: file ops, browser control, messages.' },
-    { q: 'Heartbeat?', a: 'Periodic polling for email, calendar, weather.' },
-    { q: 'Memory system?', a: 'Short-term (daily notes) + long-term (MEMORY.md) with semantic search.' }
-  ]},
-  { category: 'Vibe Coding', items: [
-    { q: 'What is Vibe Coding?', a: 'Natural language + AI collaboration for code generation.' },
-    { q: 'Core capabilities?', a: 'NL understanding, code generation, context, tool calling.' },
-    { q: 'Best scenarios?', a: 'Rapid prototyping, repetitive tasks, learning new tech.' },
-    { q: 'Limitations?', a: 'Complex logic needs human input, code quality depends on prompts.' },
-    { q: 'Future trends?', a: 'Smarter context, multimodal, autonomous decisions.' }
-  ]}
-]
-
-const selectedCategory = ref('Frontend')
+const selectedCategory = ref(content.value.knowledge.categories[0].id)
 </script>
 
 <template>
@@ -66,12 +32,12 @@ const selectedCategory = ref('Frontend')
           <span>Portfolio</span>
         </a>
         <div class="nav-links">
-          <a :class="{ active: currentPage === 'home' }" @click="navigate('home')">Home</a>
-          <a :class="{ active: currentPage === 'projects' }" @click="navigate('projects')">Projects</a>
-          <a :class="{ active: currentPage === 'knowledge' }" @click="navigate('knowledge')">Knowledge</a>
+          <a :class="{ active: currentPage === 'home' }" @click="navigate('home')">{{ content.nav.home }}</a>
+          <a :class="{ active: currentPage === 'projects' }" @click="navigate('projects')">{{ content.nav.projects }}</a>
+          <a :class="{ active: currentPage === 'knowledge' }" @click="navigate('knowledge')">{{ content.nav.knowledge }}</a>
         </div>
         <div class="nav-right">
-          <span class="badge">Vibe Coding</span>
+          <span class="badge">{{ content.badge }}</span>
           <button class="menu-btn" @click="mobileMenuOpen = !mobileMenuOpen">&#9776;</button>
         </div>
       </div>
@@ -79,9 +45,9 @@ const selectedCategory = ref('Frontend')
     
     <!-- Mobile Menu -->
     <div v-if="mobileMenuOpen" class="mobile-menu">
-      <a @click="navigate('home')">Home</a>
-      <a @click="navigate('projects')">Projects</a>
-      <a @click="navigate('knowledge')">Knowledge</a>
+      <a @click="navigate('home')">{{ content.nav.home }}</a>
+      <a @click="navigate('projects')">{{ content.nav.projects }}</a>
+      <a @click="navigate('knowledge')">{{ content.nav.knowledge }}</a>
     </div>
 
     <!-- Home -->
@@ -89,49 +55,32 @@ const selectedCategory = ref('Frontend')
       <div class="hero">
         <div class="hero-bg"></div>
         <div class="hero-content">
-          <p class="hero-label">Vibe Coding Practitioner</p>
+          <p class="hero-label">{{ content.hero.label }}</p>
           <h1 class="hero-title">
-            Building with<br/>
-            <span class="gradient">AI Power</span>
+            {{ content.hero.title }}<br/>
+            <span class="gradient">{{ content.hero.subtitle }}</span>
           </h1>
-          <p class="hero-desc">
-            Documenting my journey in AI-assisted development.<br/>
-            From environment setup to production applications.
-          </p>
+          <p class="hero-desc">{{ content.hero.desc }}</p>
           <div class="hero-btns">
-            <button class="btn-primary" @click="navigate('projects')">
-              View Projects
-            </button>
-            <button class="btn-outline" @click="navigate('knowledge')">
-              Knowledge Base
-            </button>
+            <button class="btn-primary" @click="navigate('projects')">{{ content.home.viewProjects }}</button>
+            <button class="btn-outline" @click="navigate('knowledge')">{{ content.home.knowledgeBase }}</button>
           </div>
           <div class="hero-stats">
-            <div class="stat"><span class="stat-num">6</span><span class="stat-label">Projects</span></div>
-            <div class="stat"><span class="stat-num">18</span><span class="stat-label">Topics</span></div>
-            <div class="stat"><span class="stat-num">3</span><span class="stat-label">Focus Areas</span></div>
+            <div class="stat"><span class="stat-num">6</span><span class="stat-label">{{ content.home.stats.projects }}</span></div>
+            <div class="stat"><span class="stat-num">26</span><span class="stat-label">{{ content.home.stats.topics }}</span></div>
+            <div class="stat"><span class="stat-num">3</span><span class="stat-label">{{ content.home.stats.focus }}</span></div>
           </div>
         </div>
       </div>
 
       <div class="section about-section">
         <div class="section-container">
-          <h2 class="section-title">About This Project</h2>
+          <h2 class="section-title">{{ content.home.about.title }}</h2>
           <div class="features">
-            <div class="feature-card">
+            <div v-for="feature in content.home.about.features" :key="feature.title" class="feature-card">
               <div class="feature-icon">&#10022;</div>
-              <h3>AI-Driven</h3>
-              <p>Using OpenClaw and ClawX tools, collaborating with AI through natural language to build applications.</p>
-            </div>
-            <div class="feature-card">
-              <div class="feature-icon">&#9679;</div>
-              <h3>Multi-Channel</h3>
-              <p>Integrating Feishu, Discord, Telegram for enterprise-grade AI assistant scenarios.</p>
-            </div>
-            <div class="feature-card">
-              <div class="feature-icon">&#9733;</div>
-              <h3>Modern Stack</h3>
-              <p>Built with Vue3, Vite, Element Plus for production-ready frontend.</p>
+              <h3>{{ feature.title }}</h3>
+              <p>{{ feature.desc }}</p>
             </div>
           </div>
         </div>
@@ -139,13 +88,13 @@ const selectedCategory = ref('Frontend')
 
       <div class="section tech-section">
         <div class="section-container">
-          <h2 class="section-title">Tech Stack</h2>
+          <h2 class="section-title">{{ content.home.tech.title }}</h2>
           <div class="tech-grid">
             <div class="tech-item"><img src="https://openclaw.ai/img/logo.svg" alt="OpenClaw"/><span>OpenClaw</span></div>
             <div class="tech-item"><img src="https://vuejs.org/logo.svg" alt="Vue"/><span>Vue 3</span></div>
             <div class="tech-item"><img src="https://vitejs.dev/logo.svg" alt="Vite"/><span>Vite</span></div>
             <div class="tech-item"><img src="https://element-plus.org/images/element-plus-logo.svg" alt="Element"/><span>Element Plus</span></div>
-            <div class="tech-item"><img src="https://www.feishu.cn/favicon.ico" alt="Feishu"/><span>Feishu</span></div>
+            <div class="tech-item"><img src="https://www.feishu.cn/favicon.ico" alt="Feishu"/><span>飞书</span></div>
             <div class="tech-item"><img src="https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png" alt="GitHub"/><span>GitHub</span></div>
           </div>
         </div>
@@ -155,11 +104,11 @@ const selectedCategory = ref('Frontend')
     <!-- Projects -->
     <section v-if="currentPage === 'projects'" class="projects">
       <div class="page-header">
-        <h1>Projects</h1>
-        <p>Practice timeline showcasing Vibe Coding journey</p>
+        <h1>{{ content.projects.title }}</h1>
+        <p>{{ content.projects.subtitle }}</p>
       </div>
       <div class="projects-grid">
-        <div v-for="project in projects" :key="project.id" class="project-card" :class="{ highlight: project.highlight }">
+        <div v-for="project in content.projects.list" :key="project.title" class="project-card" :class="{ highlight: project.highlight }">
           <div class="project-header">
             <span class="project-date">{{ project.date }}</span>
             <span v-if="project.highlight" class="project-badge">Featured</span>
@@ -176,16 +125,16 @@ const selectedCategory = ref('Frontend')
     <!-- Knowledge -->
     <section v-if="currentPage === 'knowledge'" class="knowledge">
       <div class="page-header">
-        <h1>Knowledge Base</h1>
-        <p>Core topics and technical knowledge</p>
+        <h1>{{ content.knowledge.title }}</h1>
+        <p>{{ content.knowledge.subtitle }}</p>
       </div>
       <div class="knowledge-tabs">
-        <button v-for="cat in knowledge" :key="cat.category" :class="{ active: selectedCategory === cat.category }" @click="selectedCategory = cat.category">
-          {{ cat.category }}
+        <button v-for="cat in content.knowledge.categories" :key="cat.id" :class="{ active: selectedCategory === cat.id }" @click="selectedCategory = cat.id">
+          {{ cat.name }}
         </button>
       </div>
       <div class="knowledge-list">
-        <div v-for="item in knowledge.find(c => c.category === selectedCategory).items" :key="item.q" class="knowledge-item">
+        <div v-for="item in content.knowledge.categories.find(c => c.id === selectedCategory).items" :key="item.q" class="knowledge-item">
           <div class="knowledge-q">{{ item.q }}</div>
           <div class="knowledge-a">{{ item.a }}</div>
         </div>
@@ -196,10 +145,10 @@ const selectedCategory = ref('Frontend')
     <footer class="footer">
       <div class="footer-container">
         <div class="footer-logo">&#9670; Portfolio</div>
-        <p>2026 Vibe Coding Practice</p>
+        <p>2026 {{ content.footer.copyright }}</p>
         <div class="footer-links">
-          <a href="https://github.com/reg-liu/OpenclawVue" target="_blank">GitHub</a>
-          <a href="https://openclaw.ai" target="_blank">OpenClaw</a>
+          <a href="https://github.com/reg-liu/OpenclawVue" target="_blank">{{ content.footer.github }}</a>
+          <a href="https://openclaw.ai" target="_blank">{{ content.footer.openclaw }}</a>
         </div>
       </div>
     </footer>

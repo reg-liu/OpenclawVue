@@ -1,0 +1,230 @@
+{
+  "nav": {
+    "home": "首页",
+    "projects": "项目",
+    "knowledge": "知识库"
+  },
+  "badge": "Vibe Coding",
+  "hero": {
+    "label": "Vibe Coding 实践者",
+    "title": "AI 编程",
+    "subtitle": "实战项目集",
+    "desc": "记录从环境部署到项目开发的完整过程，展示 AI 辅助开发能力"
+  },
+  "home": {
+    "viewProjects": "查看项目",
+    "knowledgeBase": "知识库",
+    "stats": {
+      "projects": "项目",
+      "topics": "知识点",
+      "focus": "技术方向"
+    },
+    "about": {
+      "title": "关于项目",
+      "features": [
+        {
+          "title": "AI 驱动开发",
+          "desc": "利用 OpenClaw 工具，通过自然语言与 AI 协作，完成从环境部署到应用开发全流程"
+        },
+        {
+          "title": "多渠道集成",
+          "desc": "整合飞书、Discord、Telegram 等多渠道消息，实现企业级 AI 助手应用场景"
+        },
+        {
+          "title": "现代前端技术",
+          "desc": "采用 Vue3 + Vite + Element Plus 构建生产级界面，实践最新前端工程化流程"
+        }
+      ]
+    },
+    "tech": {
+      "title": "技术栈"
+    }
+  },
+  "projects": {
+    "title": "实践项目",
+    "subtitle": "Vibe Coding 实战历程时间线",
+    "list": [
+      {
+        "title": "OpenClaw 部署",
+        "date": "2026-03",
+        "desc": "在 Windows 服务器上部署 OpenClaw，了解其架构和核心组件",
+        "tags": ["OpenClaw", "Node.js"],
+        "highlight": true,
+        "details": ["Node.js 环境配置", "源码克隆", "Gateway 服务", "Chrome 拓展部署"]
+      },
+      {
+        "title": "ClawX 桌面端",
+        "date": "2026-03",
+        "description": "使用 ClawX 桌面应用简化部署流程，体验自动化魅力",
+        "tags": ["ClawX", "自动化"],
+        "highlight": true,
+        "details": ["客户端安装", "一键启动", "飞书配置", "功能验证"]
+      },
+      {
+        "title": "飞书集成",
+        "date": "2026-03",
+        "desc": "将飞书集成到 OpenClaw，实现企业协作场景下的 AI 助手",
+        "tags": ["飞书", "API"],
+        "highlight": false,
+        "details": ["企业应用创建", "权限配置", "消息通道对接"]
+      },
+      {
+        "title": "VS Code 环境",
+        "date": "2026-03",
+        "desc": "配置前端开发环境，为后续项目开发做准备",
+        "tags": ["VS Code", "Git"],
+        "highlight": false,
+        "details": ["编辑器安装", "扩展配置", "Git 环境"]
+      },
+      {
+        "title": "Vue3 项目",
+        "date": "2026-03",
+        "desc": "使用 Vite 创建 Vue3 项目并提交到 GitHub",
+        "tags": ["Vue3", "Vite"],
+        "highlight": true,
+        "details": ["项目初始化", "界面开发", "GitHub 推送"]
+      },
+      {
+        "title": "界面优化",
+        "date": "2026-03",
+        "desc": "持续优化项目界面和内容，提升展示效果",
+        "tags": ["UI/UX", "设计"],
+        "highlight": true,
+        "details": ["布局调整", "样式优化", "动画添加"]
+      }
+    ]
+  },
+  "knowledge": {
+    "title": "知识库",
+    "subtitle": "核心知识点整理",
+    "categories": [
+      {
+        "id": "frontend",
+        "name": "前端核心",
+        "items": [
+          {
+            "q": "什么是闭包？闭包的作用？",
+            "a": "闭包就是能够读取其他函数内部变量的函数。作用：1.避免全局变量污染；2.封装私有成员；3.实现模块化；4.实现防抖节流；5.实现单例模式。"
+          },
+          {
+            "q": "JavaScript 继承的实现方式？",
+            "a": "1.构造函数继承：通过call/apply调用父构造函数；2.原型链继承；3.原型式继承Object.create()；4.组合继承（最常用）；5.ES6 class继承。"
+          },
+          {
+            "q": "原型和原型链的理解？",
+            "a": "每个函数有prototype属性指向原型对象；原型对象有constructor指回构造函数；对象有__proto__指向原型对象；通过__proto__层层向上形成原型链，最终指向Object.prototype。"
+          },
+          {
+            "q": "浏览器的事件循环？",
+            "a": "JS单线程通过事件循环实现异步。执行顺序：1.同步代码；2.微任务队列Promise/async；3.宏任务队列setTimeout/UI渲染；4.下一轮循环。微任务优先于宏任务执行。"
+          },
+          {
+            "q": "防抖和节流的区别？",
+            "a": "防抖Debounce：连续触发只执行最后一次，用于搜索框、resize。节流Throttle：按固定间隔执行一次，用于滚动、点击。"
+          },
+          {
+            "q": "从URL到页面展示的过程？",
+            "a": "1.DNS解析；2.TCP三次握手；3.发送HTTP请求；4.服务器响应；5.浏览器解析HTML；6.构建DOM树和CSSOM树；7.合成渲染树；8.布局计算；9.绘制；10.合成层渲染。"
+          },
+          {
+            "q": "DNS劫持与防治？",
+            "a": "DNS劫持是域名被重定向到恶意IP。解决方案：1.CDN和主域名同时承载资源；2.window.addEventListener error监听加载错误；3.检测失败后切换到主域名。"
+          },
+          {
+            "q": "执行上下文和作用域链？",
+            "a": "执行上下文是函数执行时的环境，包含变量对象、作用域链、this指向。作用域链用于逐级查找变量，从内到外。"
+          },
+          {
+            "q": "前端性能优化手段？",
+            "a": "1.资源优化压缩合并CDN；2.减少重排重绘；3.代码分割懒加载；4.缓存策略；5.HTTP2；6.图片优化WebP。"
+          },
+          {
+            "q": "HTTP缓存机制？",
+            "a": "强缓存：Expires/Cache-Control，直接用缓存。协商缓存：Last-Modified/ETag，需服务器验证。Cache-Control优先级更高。"
+          }
+        ]
+      },
+      {
+        "id": "openclaw",
+        "name": "OpenClaw",
+        "items": [
+          {
+            "q": "什么是 OpenClaw？",
+            "a": "开源AI助手框架，支持多渠道（Discord/Telegram/飞书等）、多模型接入，可自定义技能。ClawX 是其桌面客户端版本。"
+          },
+          {
+            "q": "OpenClaw 支持哪些模型？",
+            "a": "支持OpenAI、Anthropic、Gemini、Moonshot等，通过模型池自动切换。"
+          },
+          {
+            "q": "OpenClaw 多渠道消息聚合？",
+            "a": "通过Gateway接收各渠道消息，统一处理后分发。支持Discord、Telegram、飞书等。"
+          },
+          {
+            "q": "什么是 OpenClaw Skill？",
+            "a": "技能系统，让AI调用工具完成任务，如文件操作、浏览器控制、消息发送等。"
+          },
+          {
+            "q": "OpenClaw 的 Heartbeat？",
+            "a": "定时轮询任务，检查邮件、日历、天气等，可主动推送消息给用户。"
+          },
+          {
+            "q": "如何开发 OpenClaw 技能？",
+            "a": "创建SKILL.md文件，定义工具描述和使用场景，AI即可自动调用。"
+          },
+          {
+            "q": "OpenClaw Memory 系统？",
+            "a": "分短期记忆daily notes和长期记忆MEMORY.md，支持语义搜索。"
+          },
+          {
+            "q": "OpenClaw 支持语音吗？",
+            "a": "支持TTS语音合成，可用于讲故事、语音输出等场景。"
+          }
+        ]
+      },
+      {
+        "id": "vibe",
+        "name": "Vibe Coding",
+        "items": [
+          {
+            "q": "什么是 Vibe Coding？",
+            "a": "新型编程范式，用自然语言描述需求，AI辅助生成代码，人机协作完成开发。"
+          },
+          {
+            "q": "与传统编程的区别？",
+            "a": "传统：代码主导；Vibe Coding：意图主导，人工审核AI生成的代码，重点在需求表达。"
+          },
+          {
+            "q": "Vibe Coding 核心能力？",
+            "a": "自然语言理解、代码生成、上下文理解、多轮对话修正、工具调用能力。"
+          },
+          {
+            "q": "如何提升效果？",
+            "a": "清晰的需求描述、合理的任务拆分，及时的反馈纠正，善用工具链集成。"
+          },
+          {
+            "q": "适合哪些场景？",
+            "a": "快速原型开发、重复性代码生成，学习新技术、跨语言开发等。"
+          },
+          {
+            "q": "局限性？",
+            "a": "复杂逻辑仍需人工介入、生成代码质量依赖提示词、调试困难、边界情况处理不足。"
+          },
+          {
+            "q": "AI编程工具未来趋势？",
+            "a": "更智能的上下文理解、多模态交互，自主决策能力、端到端自动化。"
+          },
+          {
+            "q": "如何成为优秀AI协作者？",
+            "a": "学会清晰表达需求、理解AI思维模式、具备代码审查能力、持续学习和迭代。"
+          }
+        ]
+      }
+    ]
+  },
+  "footer": {
+    "copyright": "Vibe Coding 实践项目",
+    "github": "GitHub",
+    "openclaw": "OpenClaw"
+  }
+}
