@@ -182,7 +182,8 @@ const selectedCategory = ref(content.value?.questions?.categories?.[0]?.id || 'f
             </div>
           </div>
           <div class="category-items">
-            <div v-for="item in cat.items" :key="item.title" class="hot-item">
+            <div v-for="item in cat.items" :key="item.title" class="hot-item" :class="{ 'has-link': item.url }">
+              <a v-if="item.url" :href="item.url" target="_blank" class="item-link"></a>
               <div class="item-header">
                 <h3>{{ item.title }}</h3>
                 <span class="item-status" :class="item.status">{{ item.status }}</span>
@@ -217,7 +218,8 @@ const selectedCategory = ref(content.value?.questions?.categories?.[0]?.id || 'f
         <p>{{ content.tools.intro }}</p>
       </div>
       <div class="tools-grid">
-        <div v-for="tool in content.tools.list" :key="tool.name" class="tool-card">
+        <div v-for="tool in content.tools.list" :key="tool.name" class="tool-card" :class="{ 'has-link': tool.url }">
+          <a v-if="tool.url" :href="tool.url" target="_blank" class="item-link"></a>
           <div class="tool-header">
             <span class="tool-icon">{{ tool.icon }}</span>
             <div class="tool-info">
@@ -419,8 +421,9 @@ body { font-family: 'Inter', sans-serif; background: #0d0d0d; color: #e5e5e5; li
 .tools-intro { text-align: center; max-width: 700px; margin: 0 auto 48px; }
 .tools-intro p { color: #a1a1aa; font-size: 16px; }
 .tools-grid { max-width: 1100px; margin: 0 auto; display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; }
-.tool-card { padding: 28px; background: #1a1a1a; border: 1px solid #262626; border-radius: 16px; transition: all 0.3s; }
+.tool-card { padding: 28px; background: #1a1a1a; border: 1px solid #262626; border-radius: 16px; transition: all 0.3s; position: relative; }
 .tool-card:hover { transform: translateY(-4px); border-color: #22d3ee; }
+.tool-card.has-link { cursor: pointer; }
 .tool-header { display: flex; align-items: center; gap: 16px; margin-bottom: 16px; }
 .tool-icon { font-size: 40px; }
 .tool-info h3 { font-size: 20px; margin: 0; }
@@ -456,7 +459,10 @@ body { font-family: 'Inter', sans-serif; background: #0d0d0d; color: #e5e5e5; li
 .category-info h2 { font-size: 24px; margin-bottom: 6px; }
 .category-info p { color: #71717a; font-size: 14px; }
 .category-items { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; }
-.hot-item { background: #1a1a1a; border: 1px solid #262626; border-radius: 12px; padding: 20px; transition: all 0.3s; }
+.hot-item { background: #1a1a1a; border: 1px solid #262626; border-radius: 12px; padding: 20px; transition: all 0.3s; position: relative; }
+.hot-item:hover { border-color: #22d3ee; transform: translateY(-2px); }
+.hot-item.has-link { cursor: pointer; }
+.item-link { position: absolute; inset: 0; z-index: 1; }
 .hot-item:hover { border-color: #22d3ee; transform: translateY(-2px); }
 .item-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
 .item-header h3 { font-size: 16px; margin: 0; }
