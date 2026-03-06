@@ -440,8 +440,8 @@ body { font-family: 'Inter', sans-serif; background: #0d0d0d; color: #e5e5e5; li
 .knowledge-tabs button.active { background: #22d3ee; border-color: #22d3ee; color: #000; }
 .knowledge-list { max-width: 800px; margin: 0 auto; display: flex; flex-direction: column; gap: 16px; }
 .knowledge-item { padding: 24px; background: #1a1a1a; border: 1px solid #262626; border-radius: 12px; }
-.knowledge-q { font-weight: 600; font-size: 16px; margin-bottom: 10px; }
-.knowledge-a { color: #a1a1aa; font-size: 14px; line-height: 1.8; }
+.knowledge-q { font-weight: 600; font-size: 16px; margin-bottom: 8px; text-align: left; }
+.knowledge-a { color: #a1a1aa; font-size: 14px; line-height: 1.8; text-align: left; }
 .knowledge-a pre { margin: 0; font-family: inherit; white-space: pre-wrap; }
 
 /* Footer */
@@ -473,10 +473,10 @@ body { font-family: 'Inter', sans-serif; background: #0d0d0d; color: #e5e5e5; li
 .tool-card.has-link { cursor: pointer; }
 .tool-header { display: flex; align-items: center; gap: 16px; margin-bottom: 16px; }
 .tool-icon { font-size: 40px; }
-.tool-info h3 { font-size: 20px; margin: 0; }
+.tool-info h3 { font-size: 20px; margin: 0; text-align: left; }
 .tool-name-link { color: inherit; text-decoration: none; }
 .tool-name-link:hover { color: #22d3ee; }
-.tool-type { color: #22d3ee; font-size: 13px; }
+.tool-type { color: #22d3ee; font-size: 13px; text-align: left; display: block; }
 .tool-desc { color: #a1a1aa; font-size: 14px; margin-bottom: 16px; }
 .tool-highlights { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 12px; }
 .tool-practice { background: #1a1a2e; border: 1px solid #22d3ee; border-radius: 8px; padding: 10px 12px; }
@@ -503,8 +503,8 @@ body { font-family: 'Inter', sans-serif; background: #0d0d0d; color: #e5e5e5; li
 .hot-item.has-link { cursor: pointer; }
 .item-link { position: absolute; inset: 0; z-index: 1; }
 .hot-item:hover { border-color: #22d3ee; transform: translateY(-2px); }
-.item-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
-.item-header h3 { font-size: 16px; margin: 0; }
+.item-header { display: flex; justify-content: flex-start; align-items: center; margin-bottom: 10px; }
+.item-header h3 { font-size: 16px; margin: 0; text-align: left; }
 .item-status { font-size: 11px; padding: 3px 10px; border-radius: 12px; font-weight: 600; }
 .item-status.领先 { background: rgba(34,211,238,0.15); color: #22d3ee; }
 .item-status.主流 { background: rgba(168,85,247,0.15); color: #a855f7; }
@@ -543,8 +543,8 @@ body { font-family: 'Inter', sans-serif; background: #0d0d0d; color: #e5e5e5; li
 .skill-items { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; }
 .skill-card { background: #1a1a1a; border: 1px solid #262626; border-radius: 12px; padding: 20px; transition: all 0.3s; }
 .skill-card:hover { border-color: #f472b6; transform: translateY(-2px); }
-.skill-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
-.skill-header h3 { font-size: 16px; margin: 0; }
+.skill-header { display: flex; justify-content: flex-start; align-items: center; margin-bottom: 10px; }
+.skill-header h3 { font-size: 16px; margin: 0; text-align: left; }
 .skill-level { color: #fbbf24; font-size: 12px; }
 .skill-desc { color: #a1a1aa; font-size: 13px; margin-bottom: 12px; line-height: 1.5; }
 .skill-features { display: flex; gap: 6px; flex-wrap: wrap; }
