@@ -35,6 +35,7 @@ const selectedCategory = ref(content.value?.questions?.categories?.[0]?.id || 'f
           <a :class="{ active: currentPage === 'home' }" @click="navigate('home')">{{ content.nav.home }}</a>
           <a :class="{ active: currentPage === 'practice' }" @click="navigate('practice')">{{ content.nav.practice }}</a>
           <a :class="{ active: currentPage === 'questions' }" @click="navigate('questions')">{{ content.nav.questions }}</a>
+          <a :class="{ active: currentPage === 'tools' }" @click="navigate('tools')">{{ content.nav.tools }}</a>
         </div>
         <div class="nav-right">
           <span class="badge">{{ content.badge }}</span>
@@ -48,6 +49,7 @@ const selectedCategory = ref(content.value?.questions?.categories?.[0]?.id || 'f
       <a @click="navigate('home')">{{ content.nav.home }}</a>
       <a @click="navigate('practice')">{{ content.nav.practice }}</a>
       <a @click="navigate('questions')">{{ content.nav.questions }}</a>
+      <a @click="navigate('tools')">{{ content.nav.tools }}</a>
     </div>
 
     <!-- Home -->
@@ -149,6 +151,55 @@ const selectedCategory = ref(content.value?.questions?.categories?.[0]?.id || 'f
       </div>
     </section>
 
+    <!-- Tools -->
+    <section v-if="currentPage === 'tools'" class="tools">
+      <div class="page-header">
+        <h1>{{ content.tools.title }}</h1>
+        <p>{{ content.tools.subtitle }}</p>
+      </div>
+      <div class="tools-intro">
+        <p>{{ content.tools.intro }}</p>
+      </div>
+      <div class="tools-grid">
+        <div v-for="tool in content.tools.list" :key="tool.name" class="tool-card">
+          <div class="tool-header">
+            <span class="tool-icon">{{ tool.icon }}</span>
+            <div class="tool-info">
+              <h3>{{ tool.name }}</h3>
+              <span class="tool-type">{{ tool.type }}</span>
+            </div>
+          </div>
+          <p class="tool-desc">{{ tool.desc }}</p>
+          <div class="tool-highlights">
+            <span v-for="h in tool.highlights" :key="h" class="highlight-tag">{{ h }}</span>
+          </div>
+          <div class="tool-relation">
+            <span class="relation-label">与 OpenClaw 关系：</span>
+            <span class="relation-text">{{ tool.relation }}</span>
+          </div>
+        </div>
+      </div>
+      <div class="comparison-section" v-if="content.tools.comparison">
+        <h2 class="comparison-title">{{ content.tools.comparison.title }}</h2>
+        <div class="comparison-table">
+          <div class="comparison-row header">
+            <span class="comparison-feature">{{ content.tools.comparison.items[0].feature }}</span>
+            <span>OpenClaw</span>
+            <span>Codex</span>
+            <span>Claude</span>
+            <span>Cursor</span>
+          </div>
+          <div v-for="item in content.tools.comparison.items" :key="item.feature" class="comparison-row">
+            <span class="comparison-feature">{{ item.feature }}</span>
+            <span>{{ item.openclaw }}</span>
+            <span>{{ item.codex }}</span>
+            <span>{{ item.claude }}</span>
+            <span>{{ item.cursor }}</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <!-- Footer -->
     <footer class="footer">
       <div class="footer-container">
@@ -228,8 +279,8 @@ body { font-family: 'Inter', sans-serif; background: #0d0d0d; color: #e5e5e5; li
 .tech-item img { width: 28px; height: 28px; }
 .tech-item span { font-weight: 500; color: #d4d4d8; }
 
-/* Projects */
-.projects { padding: 120px 24px 80px; min-height: 100vh; }
+/* Practice */
+.projects, .practice, .questions, .tools { padding: 120px 24px 80px; min-height: 100vh; }
 .page-header { text-align: center; margin-bottom: 60px; }
 .page-header h1 { font-size: 40px; margin-bottom: 12px; }
 .page-header p { color: #a1a1aa; }
@@ -281,4 +332,34 @@ body { font-family: 'Inter', sans-serif; background: #0d0d0d; color: #e5e5e5; li
   .features { grid-template-columns: 1fr; }
   .projects-grid { grid-template-columns: 1fr; }
 }
+/* Tools */
+.tools-intro { text-align: center; max-width: 700px; margin: 0 auto 48px; }
+.tools-intro p { color: #a1a1aa; font-size: 16px; }
+.tools-grid { max-width: 1100px; margin: 0 auto; display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; }
+.tool-card { padding: 28px; background: #1a1a1a; border: 1px solid #262626; border-radius: 16px; transition: all 0.3s; }
+.tool-card:hover { transform: translateY(-4px); border-color: #22d3ee; }
+.tool-header { display: flex; align-items: center; gap: 16px; margin-bottom: 16px; }
+.tool-icon { font-size: 40px; }
+.tool-info h3 { font-size: 20px; margin: 0; }
+.tool-type { color: #22d3ee; font-size: 13px; }
+.tool-desc { color: #a1a1aa; font-size: 14px; margin-bottom: 16px; }
+.tool-highlights { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 16px; }
+.highlight-tag { background: #262626; color: #d4d4d8; padding: 4px 10px; border-radius: 6px; font-size: 12px; }
+.tool-relation { background: #1a1a2e; border: 1px solid #a78bfa; border-radius: 10px; padding: 12px; }
+.relation-label { color: #a78bfa; font-size: 12px; font-weight: 600; }
+.relation-text { color: #d4d4d8; font-size: 13px; }
+.comparison-section { margin-top: 60px; }
+.comparison-title { font-size: 28px; text-align: center; margin-bottom: 32px; }
+.comparison-table { max-width: 900px; margin: 0 auto; overflow-x: auto; }
+.comparison-row { display: grid; grid-template-columns: 120px repeat(5, 1fr); gap: 12px; padding: 14px 16px; border-bottom: 1px solid #262626; align-items: center; }
+.comparison-row.header { background: #1a1a1a; font-weight: 600; border-radius: 10px 10px 0 0; }
+.comparison-row.header span:not(:first-child) { text-align: center; }
+.comparison-feature { color: #a1a1aa; }
+.comparison-row span:not(:first-child) { text-align: center; color: #d4d4d8; font-size: 14px; }
+
+@media (max-width: 768px) {
+  .tools-grid { grid-template-columns: 1fr; }
+  .comparison-row { grid-template-columns: 100px repeat(4, 1fr); font-size: 12px; }
+}
+
 </style>

@@ -2,7 +2,8 @@
   "nav": {
     "home": "首页",
     "practice": "实践路径",
-    "questions": "相关问题"
+    "questions": "相关问题",
+    "tools": "AI工具"
   },
   "badge": "Vibe Coding",
   "hero": {
@@ -66,7 +67,7 @@
         "desc": "将飞书集成到 OpenClaw，实现企业协作场景下的 AI 助手",
         "tags": ["飞书", "API"],
         "highlight": false,
-        "prompt": "我需要将飞书企业应用集成到 OpenClaw 框架中，请帮我创建飞书企业应用、配置应用权限和机器人、开发消息接收和发送功能，实现文档和知识库的技能调用",
+        "prompt": "我需要将飞书企业应用集成到 OpenClaw 框架中，请帮我创建飞书企业应用、配置应用权限和机器人，开发消息接收和发送功能，实现文档和知识库的技能调用",
         "details": ["飞书企业应用创建", "应用权限配置", "机器人消息通道", "文档知识库技能"]
       },
       {
@@ -102,7 +103,7 @@
         "desc": "将项目部署到 Vercel，实现公网访问",
         "tags": ["Vercel", "部署"],
         "highlight": true,
-        "prompt": "请帮我将 GitHub 上的项目部署到 Vercel，包括 Vercel 账号配置、GitHub 授权、项目导入和部署配置，以及自定义域名的设置",
+        "prompt": "请帮我将 GitHub 上的项目部署到 Vercel，包括 Vercel 账号配置、GitHub 授权，项目导入和部署配置，以及自定义域名的设置",
         "details": ["Vercel 账号配置", "GitHub 授权", "项目导入部署", "自定义域名设置"]
       },
       {
@@ -111,7 +112,7 @@
         "desc": "参考优秀个人网站设计，持续优化项目界面和内容",
         "tags": ["UI/UX", "重构"],
         "highlight": true,
-        "prompt": "请帮我优化这个项目的界面设计，参考优秀的个人作品集网站，使用深色主题、实现响应式布局、添加动画效果，并将中英文内容分离管理",
+        "prompt": "请帮我优化这个项目的界面设计，参考优秀的个人作品集网站，使用深色主题，实现响应式布局、添加动画效果，并将中英文内容分离管理",
         "details": ["参考优秀网站设计", "深色主题配置", "响应式布局", "动画效果添加", "中英文内容分离"]
       }
     ]
@@ -120,52 +121,6 @@
     "title": "相关问题",
     "subtitle": "核心知识点整理",
     "categories": [
-      {
-        "id": "frontend",
-        "name": "前端核心",
-        "items": [
-          {
-            "q": "什么是闭包？闭包的作用？",
-            "a": "闭包就是能够读取其他函数内部变量的函数。作用：1.避免全局变量污染；2.封装私有成员；3.实现模块化；4.实现防抖节流；5.实现单例模式。"
-          },
-          {
-            "q": "JavaScript 继承的实现方式？",
-            "a": "1.构造函数继承：通过call/apply调用父构造函数；2.原型链继承；3.原型式继承Object.create()；4.组合继承（最常用）；5.ES6 class继承。"
-          },
-          {
-            "q": "原型和原型链的理解？",
-            "a": "每个函数有prototype属性指向原型对象；原型对象有constructor指回构造函数；对象有__proto__指向原型对象；通过__proto__层层向上形成原型链，最终指向Object.prototype。"
-          },
-          {
-            "q": "浏览器的事件循环？",
-            "a": "JS单线程通过事件循环实现异步。执行顺序：1.同步代码；2.微任务队列Promise/async；3.宏任务队列setTimeout/UI渲染；4.下一轮循环。微任务优先于宏任务执行。"
-          },
-          {
-            "q": "防抖和节流的区别？",
-            "a": "防抖Debounce：连续触发只执行最后一次，用于搜索框、resize。节流Throttle：按固定间隔执行一次，用于滚动、点击。"
-          },
-          {
-            "q": "从URL到页面展示的过程？",
-            "a": "1.DNS解析；2.TCP三次握手；3.发送HTTP请求；4.服务器响应；5.浏览器解析HTML；6.构建DOM树和CSSOM树；7.合成渲染树；8.布局计算；9.绘制；10.合成层渲染。"
-          },
-          {
-            "q": "DNS劫持与防治？",
-            "a": "DNS劫持是域名被重定向到恶意IP。解决方案：1.CDN和主域名同时承载资源；2.window.addEventListener error监听加载错误；3.检测失败后切换到主域名。"
-          },
-          {
-            "q": "执行上下文和作用域链？",
-            "a": "执行上下文是函数执行时的环境，包含变量对象、作用域链、this指向。作用域链用于逐级查找变量，从内到外。"
-          },
-          {
-            "q": "前端性能优化手段？",
-            "a": "1.资源优化压缩合并CDN；2.减少重排重绘；3.代码分割懒加载；4.缓存策略；5.HTTP2；6.图片优化WebP。"
-          },
-          {
-            "q": "HTTP缓存机制？",
-            "a": "强缓存：Expires/Cache-Control，直接用缓存。协商缓存：Last-Modified/ETag，需服务器验证。Cache-Control优先级更高。"
-          }
-        ]
-      },
       {
         "id": "openclaw",
         "name": "OpenClaw",
@@ -188,7 +143,7 @@
           },
           {
             "q": "OpenClaw 的 Heartbeat？",
-            "a": "定时轮询任务，检查邮件，日历、天气等，可主动推送消息给用户。"
+            "a": "定时轮询任务，检查邮件、日历、天气等，可主动推送消息给用户。"
           },
           {
             "q": "如何开发 OpenClaw 技能？",
@@ -243,6 +198,98 @@
         ]
       }
     ]
+  },
+  "tools": {
+    "title": "AI 编程工具",
+    "subtitle": "主流 AI 代码助手对比",
+    "intro": "了解主流 AI 编程工具的特点及其与 OpenClaw 的关系",
+    "list": [
+      {
+        "name": "OpenClaw",
+        "icon": "🦞",
+        "type": "AI助手框架",
+        "desc": "开源的 AI 助手框架，支持多渠道、多模型、可自定义技能和记忆系统",
+        "highlights": ["多渠道接入", "自定义技能", "记忆系统", "本地部署"],
+        "relation": "本项目使用的核心框架"
+      },
+      {
+        "name": "Codex",
+        "icon": "💻",
+        "type": "AI 代码助手",
+        "desc": "OpenAI 推出的代码专用模型，擅长理解和生成代码",
+        "highlights": ["代码理解", "多语言支持", "API 接入", "GitHub 集成"],
+        "relation": "可作为 OpenClaw 的模型后端"
+      },
+      {
+        "name": "Claude Code",
+        "icon": "🧠",
+        "type": "AI 编程助手",
+        "desc": "Anthropic 推出的编程助手，擅长复杂项目分析和重构",
+        "highlights": ["代码分析", "重构能力", "安全审计", "长上下文"],
+        "relation": "可作为 OpenClaw 的模型后端"
+      },
+      {
+        "name": "Cursor",
+        "icon": "➡️",
+        "type": "AI IDE",
+        "desc": "基于 VS Code 的 AI 集成开发环境，深度集成 AI 编程能力",
+        "highlights": ["无缝IDE集成", "智能补全", "项目感知", "命令行集成"],
+        "relation": "可与 OpenClaw 互补使用"
+      },
+      {
+        "name": "GitHub Copilot",
+        "icon": "🔄",
+        "type": "AI 代码补全",
+        "desc": "GitHub 与 OpenAI 合作的代码补全工具，嵌入主流 IDE",
+        "highlights": ["实时补全", "多语言支持", "学习用户风格", "企业版"],
+        "relation": "IDE 层面的代码辅助"
+      },
+      {
+        "name": "Windsurf",
+        "icon": "🌊",
+        "type": "AI 开发环境",
+        "desc": "新型 AI 集成开发环境，强调人机协作编程体验",
+        "highlights": ["智能 agent", "项目管理", "跨文件理解", "flow state"],
+        "relation": "与 OpenClaw 有相似的协作理念"
+      }
+    ],
+    "comparison": {
+      "title": "工具对比总结",
+      "items": [
+        {
+          "feature": "定位",
+          "openclaw": "AI 助手框架",
+          "codex": "代码模型",
+          "claude": "编程助手",
+          "cursor": "AI IDE",
+          "copilot": "代码补全"
+        },
+        {
+          "feature": "部署方式",
+          "openclaw": "本地/私有部署",
+          "codex": "API 调用",
+          "claude": "API 调用",
+          "cursor": "桌面应用",
+          "copilot": "IDE 插件"
+        },
+        {
+          "feature": "自定义能力",
+          "openclaw": "⭐⭐⭐⭐⭐",
+          "codex": "⭐⭐",
+          "claude": "⭐⭐⭐",
+          "cursor": "⭐⭐⭐⭐",
+          "copilot": "⭐⭐"
+        },
+        {
+          "feature": "多渠道支持",
+          "openclaw": "⭐⭐⭐⭐⭐",
+          "codex": "⭐",
+          "claude": "⭐",
+          "cursor": "⭐⭐",
+          "copilot": "⭐"
+        }
+      ]
+    }
   },
   "footer": {
     "copyright": "Vibe Coding 实践项目",
