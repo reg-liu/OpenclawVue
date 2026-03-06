@@ -286,20 +286,6 @@ const selectedCategory = ref(content.value?.questions?.categories?.[0]?.id || 'f
         </div>
       </div>
     </section>
-            <span>Codex</span>
-            <span>Claude</span>
-            <span>Cursor</span>
-          </div>
-          <div v-for="item in content.tools.comparison.items" :key="item.feature" class="comparison-row">
-            <span class="comparison-feature">{{ item.feature }}</span>
-            <span>{{ item.openclaw }}</span>
-            <span>{{ item.codex }}</span>
-            <span>{{ item.claude }}</span>
-            <span>{{ item.cursor }}</span>
-          </div>
-        </div>
-      </div>
-    </section>
 
     <!-- Footer -->
     <footer class="footer">
@@ -479,21 +465,8 @@ body { font-family: 'Inter', sans-serif; background: #0d0d0d; color: #e5e5e5; li
 .practice-label { color: #22d3ee; font-size: 12px; font-weight: 600; }
 .practice-text { color: #d4d4d8; font-size: 12px; }
 .highlight-tag { background: #262626; color: #d4d4d8; padding: 4px 10px; border-radius: 6px; font-size: 12px; }
-.tool-relation { background: #1a1a2e; border: 1px solid #a78bfa; border-radius: 10px; padding: 12px; }
-.relation-label { color: #a78bfa; font-size: 12px; font-weight: 600; }
-.relation-text { color: #d4d4d8; font-size: 13px; }
-.comparison-section { margin-top: 60px; }
-.comparison-title { font-size: 28px; text-align: center; margin-bottom: 32px; }
-.comparison-table { max-width: 900px; margin: 0 auto; overflow-x: auto; }
-.comparison-row { display: grid; grid-template-columns: 120px repeat(5, 1fr); gap: 12px; padding: 14px 16px; border-bottom: 1px solid #262626; align-items: center; }
-.comparison-row.header { background: #1a1a1a; font-weight: 600; border-radius: 10px 10px 0 0; }
-.comparison-row.header span:not(:first-child) { text-align: center; }
-.comparison-feature { color: #a1a1aa; }
-.comparison-row span:not(:first-child) { text-align: center; color: #d4d4d8; font-size: 14px; }
-
 @media (max-width: 768px) {
   .tools-grid { grid-template-columns: 1fr; }
-  .comparison-row { grid-template-columns: 100px repeat(4, 1fr); font-size: 12px; }
 }
 
 /* Hot Page */
