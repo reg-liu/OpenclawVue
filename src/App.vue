@@ -226,6 +226,18 @@ const selectedCategory = ref(content.value?.questions?.categories?.[0]?.id || 'f
       <div class="hot-intro">
         <p>{{ content.hot.intro }}</p>
       </div>
+      <div class="news-section" v-if="content.hot.news">
+        <h2 class="news-title">{{ content.hot.news.title }}</h2>
+        <div class="news-grid">
+          <div v-for="news in content.hot.news.items" :key="news.title" class="news-item">
+            <div class="news-header">
+              <h3>{{ news.title }}</h3>
+              <span class="news-source">{{ news.source }} · {{ news.date }}</span>
+            </div>
+            <p>{{ news.desc }}</p>
+          </div>
+        </div>
+      </div>
       <div class="hot-categories">
         <div v-for="cat in content.hot.categories" :key="cat.id" class="hot-category">
           <div class="category-header">
@@ -247,18 +259,6 @@ const selectedCategory = ref(content.value?.questions?.categories?.[0]?.id || 'f
                 <span v-for="app in item.application" :key="app" class="app-tag">{{ app }}</span>
               </div>
             </div>
-          </div>
-        </div>
-      </div>
-      <div class="news-section" v-if="content.hot.news">
-        <h2 class="news-title">{{ content.hot.news.title }}</h2>
-        <div class="news-grid">
-          <div v-for="news in content.hot.news.items" :key="news.title" class="news-item">
-            <div class="news-header">
-              <h3>{{ news.title }}</h3>
-              <span class="news-source">{{ news.source }} · {{ news.date }}</span>
-            </div>
-            <p>{{ news.desc }}</p>
           </div>
         </div>
       </div>
@@ -295,9 +295,6 @@ const selectedCategory = ref(content.value?.questions?.categories?.[0]?.id || 'f
           <p class="tool-desc">{{ tool.desc }}</p>
           <div class="tool-highlights">
             <span v-for="h in tool.highlights" :key="h" class="highlight-tag">{{ h }}</span>
-          </div>
-          <div v-if="tool.practice" class="tool-practice">
-            <span class="practice-link" v-html="tool.practice"></span>
           </div>
         </div>
       </div>
