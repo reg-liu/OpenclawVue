@@ -33,8 +33,8 @@ const selectedCategory = ref(content.value.knowledge.categories[0].id)
         </a>
         <div class="nav-links">
           <a :class="{ active: currentPage === 'home' }" @click="navigate('home')">{{ content.nav.home }}</a>
-          <a :class="{ active: currentPage === 'projects' }" @click="navigate('projects')">{{ content.nav.projects }}</a>
-          <a :class="{ active: currentPage === 'knowledge' }" @click="navigate('knowledge')">{{ content.nav.knowledge }}</a>
+          <a :class="{ active: currentPage === 'practice' }" @click="navigate('practice')">{{ content.nav.practice }}</a>
+          <a :class="{ active: currentPage === 'questions' }" @click="navigate('questions')">{{ content.nav.questions }}</a>
         </div>
         <div class="nav-right">
           <span class="badge">{{ content.badge }}</span>
@@ -46,8 +46,8 @@ const selectedCategory = ref(content.value.knowledge.categories[0].id)
     <!-- Mobile Menu -->
     <div v-if="mobileMenuOpen" class="mobile-menu">
       <a @click="navigate('home')">{{ content.nav.home }}</a>
-      <a @click="navigate('projects')">{{ content.nav.projects }}</a>
-      <a @click="navigate('knowledge')">{{ content.nav.knowledge }}</a>
+      <a @click="navigate('practice')">{{ content.nav.practice }}</a>
+      <a @click="navigate('questions')">{{ content.nav.questions }}</a>
     </div>
 
     <!-- Home -->
@@ -62,8 +62,8 @@ const selectedCategory = ref(content.value.knowledge.categories[0].id)
           </h1>
           <p class="hero-desc">{{ content.hero.desc }}</p>
           <div class="hero-btns">
-            <button class="btn-primary" @click="navigate('projects')">{{ content.home.viewProjects }}</button>
-            <button class="btn-outline" @click="navigate('knowledge')">{{ content.home.knowledgeBase }}</button>
+            <button class="btn-primary" @click="navigate('practice')">{{ content.home.viewProjects }}</button>
+            <button class="btn-outline" @click="navigate('questions')">{{ content.home.knowledgeBase }}</button>
           </div>
           <div class="hero-stats">
             <div class="stat"><span class="stat-num">6</span><span class="stat-label">{{ content.home.stats.projects }}</span></div>
@@ -90,25 +90,26 @@ const selectedCategory = ref(content.value.knowledge.categories[0].id)
         <div class="section-container">
           <h2 class="section-title">{{ content.home.tech.title }}</h2>
           <div class="tech-grid">
-            <div class="tech-item"><img src="https://openclaw.ai/img/logo.svg" alt="OpenClaw"/><span>OpenClaw</span></div>
+            <div class="tech-item"><span style="font-size:28px">🦞</span><span>OpenClaw</span></div>
             <div class="tech-item"><img src="https://vuejs.org/logo.svg" alt="Vue"/><span>Vue 3</span></div>
             <div class="tech-item"><img src="https://vitejs.dev/logo.svg" alt="Vite"/><span>Vite</span></div>
             <div class="tech-item"><img src="https://element-plus.org/images/element-plus-logo.svg" alt="Element"/><span>Element Plus</span></div>
             <div class="tech-item"><img src="https://www.feishu.cn/favicon.ico" alt="Feishu"/><span>飞书</span></div>
             <div class="tech-item"><img src="https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png" alt="GitHub"/><span>GitHub</span></div>
+            <div class="tech-item"><span style="font-size:28px">☁️</span><span>Vercel</span></div>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- Projects -->
-    <section v-if="currentPage === 'projects'" class="projects">
+    <!-- Practice -->
+    <section v-if="currentPage === 'practice'" class="practice">
       <div class="page-header">
-        <h1>{{ content.projects.title }}</h1>
-        <p>{{ content.projects.subtitle }}</p>
+        <h1>{{ content.practice.title }}</h1>
+        <p>{{ content.practice.subtitle }}</p>
       </div>
       <div class="projects-grid">
-        <div v-for="project in content.projects.list" :key="project.title" class="project-card" :class="{ highlight: project.highlight }">
+        <div v-for="project in content.practice.list" :key="project.title" class="project-card" :class="{ highlight: project.highlight }">
           <div class="project-header">
             <span class="project-date">{{ project.date }}</span>
             <span v-if="project.highlight" class="project-badge">Featured</span>
@@ -118,23 +119,30 @@ const selectedCategory = ref(content.value.knowledge.categories[0].id)
           <div class="project-tags">
             <span v-for="tag in project.tags" :key="tag">{{ tag }}</span>
           </div>
+          <ul class="project-details">
+            <li v-for="detail in project.details" :key="detail">{{ detail }}</li>
+          </ul>
+          <div v-if="project.prompt" class="project-prompt">
+            <span class="prompt-label">AI Prompt:</span>
+            <span class="prompt-text">"{{ project.prompt }}"</span>
+          </div>
         </div>
       </div>
     </section>
 
-    <!-- Knowledge -->
-    <section v-if="currentPage === 'knowledge'" class="knowledge">
+    <!-- Questions -->
+    <section v-if="currentPage === 'questions'" class="questions">
       <div class="page-header">
-        <h1>{{ content.knowledge.title }}</h1>
-        <p>{{ content.knowledge.subtitle }}</p>
+        <h1>{{ content.questions.title }}</h1>
+        <p>{{ content.questions.subtitle }}</p>
       </div>
       <div class="knowledge-tabs">
-        <button v-for="cat in content.knowledge.categories" :key="cat.id" :class="{ active: selectedCategory === cat.id }" @click="selectedCategory = cat.id">
+        <button v-for="cat in content.questions.categories" :key="cat.id" :class="{ active: selectedCategory === cat.id }" @click="selectedCategory = cat.id">
           {{ cat.name }}
         </button>
       </div>
       <div class="knowledge-list">
-        <div v-for="item in content.knowledge.categories.find(c => c.id === selectedCategory).items" :key="item.q" class="knowledge-item">
+        <div v-for="item in content.questions.categories.find(c => c.id === selectedCategory).items" :key="item.q" class="knowledge-item">
           <div class="knowledge-q">{{ item.q }}</div>
           <div class="knowledge-a">{{ item.a }}</div>
         </div>
@@ -234,8 +242,13 @@ body { font-family: 'Inter', sans-serif; background: #0d0d0d; color: #e5e5e5; li
 .project-badge { background: #22d3ee; color: #000; padding: 4px 10px; border-radius: 6px; font-size: 11px; font-weight: 700; }
 .project-card h3 { font-size: 20px; margin-bottom: 8px; }
 .project-card p { color: #a1a1aa; font-size: 14px; margin-bottom: 16px; }
-.project-tags { display: flex; gap: 8px; flex-wrap: wrap; }
+.project-tags { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 12px; }
 .project-tags span { background: #262626; color: #a1a1aa; padding: 4px 10px; border-radius: 6px; font-size: 12px; }
+.project-details { list-style: none; padding: 0; margin: 0 0 12px 0; display: flex; flex-wrap: wrap; gap: 8px; }
+.project-details li { background: #1f1f1f; color: #737373; padding: 4px 10px; border-radius: 4px; font-size: 12px; }
+.project-prompt { background: linear-gradient(135deg, #1a1a2e, #16213e); border: 1px solid #a78bfa; border-radius: 8px; padding: 12px; }
+.project-prompt .prompt-label { display: block; color: #a78bfa; font-size: 11px; font-weight: 600; margin-bottom: 4px; }
+.project-prompt .prompt-text { color: #d4d4d8; font-size: 13px; font-style: italic; }
 
 /* Knowledge */
 .knowledge { padding: 120px 24px 80px; min-height: 100vh; }

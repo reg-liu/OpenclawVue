@@ -1,8 +1,8 @@
 {
   "nav": {
     "home": "首页",
-    "projects": "项目",
-    "knowledge": "知识库"
+    "practice": "实践路径",
+    "questions": "相关问题"
   },
   "badge": "Vibe Coding",
   "hero": {
@@ -12,12 +12,12 @@
     "desc": "记录从环境部署到项目开发的完整过程，展示 AI 辅助开发能力"
   },
   "home": {
-    "viewProjects": "查看项目",
-    "knowledgeBase": "知识库",
+    "viewProjects": "查看路径",
+    "knowledgeBase": "相关问题",
     "stats": {
-      "projects": "项目",
-      "topics": "知识点",
-      "focus": "技术方向"
+      "projects": "实践",
+      "topics": "问题",
+      "focus": "方向"
     },
     "about": {
       "title": "关于项目",
@@ -40,25 +40,27 @@
       "title": "技术栈"
     }
   },
-  "projects": {
-    "title": "实践项目",
-    "subtitle": "Vibe Coding 实战历程时间线",
+  "practice": {
+    "title": "实践路径",
+    "subtitle": "Vibe Coding 实战历程",
     "list": [
       {
         "title": "OpenClaw 部署",
         "date": "2026-03",
-        "desc": "在 Windows 服务器上部署 OpenClaw，了解其架构和核心组件",
+        "desc": "在 Windows 服务器上手动部署 OpenClaw，了解其架构和核心组件",
         "tags": ["OpenClaw", "Node.js"],
         "highlight": true,
-        "details": ["Node.js 环境配置", "源码克隆", "Gateway 服务", "Chrome 拓展部署"]
+        "prompt": "帮我安装 OpenClaw 并配置 Gateway 服务",
+        "details": ["Node.js 环境配置检查", "克隆源码到本地", "Gateway 服务配置", "Chrome 拓展部署", "多渠道消息测试"]
       },
       {
         "title": "ClawX 桌面端",
         "date": "2026-03",
-        "description": "使用 ClawX 桌面应用简化部署流程，体验自动化魅力",
+        "desc": "使用 ClawX 桌面应用简化部署流程，体验自动化魅力",
         "tags": ["ClawX", "自动化"],
         "highlight": true,
-        "details": ["客户端安装", "一键启动", "飞书配置", "功能验证"]
+        "prompt": "帮我安装 ClawX 并启动服务",
+        "details": ["ClawX 客户端安装", "图形界面配置", "飞书渠道接入", "消息收发验证"]
       },
       {
         "title": "飞书集成",
@@ -66,7 +68,8 @@
         "desc": "将飞书集成到 OpenClaw，实现企业协作场景下的 AI 助手",
         "tags": ["飞书", "API"],
         "highlight": false,
-        "details": ["企业应用创建", "权限配置", "消息通道对接"]
+        "prompt": "帮我把飞书集成到 OpenClaw",
+        "details": ["飞书企业应用创建", "应用权限配置", "机器人消息通道", "文档知识库技能"]
       },
       {
         "title": "VS Code 环境",
@@ -74,28 +77,49 @@
         "desc": "配置前端开发环境，为后续项目开发做准备",
         "tags": ["VS Code", "Git"],
         "highlight": false,
-        "details": ["编辑器安装", "扩展配置", "Git 环境"]
+        "prompt": "帮我安装并配置 VS Code 开发环境",
+        "details": ["VS Code 安装", "前端扩展配置", "Git/GitHub CLI", "环境变量设置"]
       },
       {
-        "title": "Vue3 项目",
+        "title": "Vue3 项目创建",
         "date": "2026-03",
-        "desc": "使用 Vite 创建 Vue3 项目并提交到 GitHub",
+        "desc": "使用 Vite 创建 Vue3 项目，配置 Element Plus UI 库",
         "tags": ["Vue3", "Vite"],
         "highlight": true,
-        "details": ["项目初始化", "界面开发", "GitHub 推送"]
+        "prompt": "帮我创建一个 Vue3 + Element Plus 项目",
+        "details": ["Vite 项目初始化", "Vue3 脚手架配置", "Element Plus 集成", "项目结构搭建"]
       },
       {
-        "title": "界面优化",
+        "title": "GitHub 仓库",
         "date": "2026-03",
-        "desc": "持续优化项目界面和内容，提升展示效果",
-        "tags": ["UI/UX", "设计"],
+        "desc": "创建 GitHub 仓库并推送代码，掌握版本控制流程",
+        "tags": ["GitHub", "Git"],
         "highlight": true,
-        "details": ["布局调整", "样式优化", "动画添加"]
+        "prompt": "帮我把项目提交到 GitHub",
+        "details": ["GitHub 仓库创建", "Git 初始化配置", "代码提交推送", "Token 认证流程"]
+      },
+      {
+        "title": "Vercel 部署",
+        "date": "2026-03",
+        "desc": "将项目部署到 Vercel，实现公网访问",
+        "tags": ["Vercel", "部署"],
+        "highlight": true,
+        "prompt": "帮我部署到 Vercel",
+        "details": ["Vercel 账号配置", "GitHub 授权", "项目导入部署", "自定义域名设置"]
+      },
+      {
+        "title": "项目重构优化",
+        "date": "2026-03",
+        "desc": "参考优秀个人网站设计，持续优化项目界面和内容",
+        "tags": ["UI/UX", "重构"],
+        "highlight": true,
+        "prompt": "帮我优化项目界面设计",
+        "details": ["参考优秀网站设计", "深色主题配置", "响应式布局", "动画效果添加", "中英文内容分离"]
       }
     ]
   },
-  "knowledge": {
-    "title": "知识库",
+  "questions": {
+    "title": "相关问题",
     "subtitle": "核心知识点整理",
     "categories": [
       {
@@ -166,7 +190,7 @@
           },
           {
             "q": "OpenClaw 的 Heartbeat？",
-            "a": "定时轮询任务，检查邮件、日历、天气等，可主动推送消息给用户。"
+            "a": "定时轮询任务，检查邮件，日历、天气等，可主动推送消息给用户。"
           },
           {
             "q": "如何开发 OpenClaw 技能？",
@@ -196,7 +220,7 @@
           },
           {
             "q": "Vibe Coding 核心能力？",
-            "a": "自然语言理解、代码生成、上下文理解、多轮对话修正、工具调用能力。"
+            "a": "自然语言理解、代码生成、上下文理解，多轮对话修正、工具调用能力。"
           },
           {
             "q": "如何提升效果？",
@@ -216,7 +240,7 @@
           },
           {
             "q": "如何成为优秀AI协作者？",
-            "a": "学会清晰表达需求、理解AI思维模式、具备代码审查能力、持续学习和迭代。"
+            "a": "学会清晰表达需求，理解AI思维模式、具备代码审查能力、持续学习和迭代。"
           }
         ]
       }
@@ -225,6 +249,6 @@
   "footer": {
     "copyright": "Vibe Coding 实践项目",
     "github": "GitHub",
-    "openclaw": "OpenClaw"
+    "openclaw": "🦞 OpenClaw"
   }
 }
