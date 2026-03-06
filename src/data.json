@@ -15,11 +15,6 @@
   "home": {
     "viewProjects": "查看路径",
     "knowledgeBase": "相关问题",
-    "stats": {
-      "projects": "实践",
-      "topics": "问题",
-      "focus": "方向"
-    },
     "about": {
       "title": "关于项目",
       "features": [
@@ -29,11 +24,83 @@
         },
         {
           "title": "多渠道集成",
-          "desc": "整合飞书、Discord、Telegram 等多渠道消息，实现企业级 AI 助手应用场景"
+          "desc": "整合飞书、Discord、Telegram 等多渠道消息，实现企业级的 AI 助手应用场景"
         },
         {
           "title": "现代前端技术",
           "desc": "采用 Vue3 + Vite + Element Plus 构建生产级界面，实践最新前端工程化流程"
+        }
+      ]
+    },
+    "flow": {
+      "title": "OpenClaw 响应流程",
+      "steps": [
+        {
+          "num": "01",
+          "title": "用户触发与接入",
+          "desc": "用户通过任意渠道发送消息，Gateway 接收并统一处理"
+        },
+        {
+          "num": "02",
+          "title": "智能路由与代理分配",
+          "desc": "系统分析用户意图，自动选择合适的 AI 模型和 Agent 处理任务"
+        },
+        {
+          "num": "03",
+          "title": "Agent 任务执行",
+          "desc": "AI Agent 调用各种 Skill 能力执行具体任务，如代码生成、文件操作等"
+        },
+        {
+          "num": "04",
+          "title": "结果反馈",
+          "desc": "任务完成后通过原渠道返回结果，支持多种格式输出"
+        },
+        {
+          "num": "05",
+          "title": "定时任务",
+          "desc": "支持 Heartbeat 定时任务，主动推送天气、邮件、日程等信息"
+        }
+      ]
+    },
+    "hot": {
+      "title": "AI 热点聚焦",
+      "subtitle": "当前热门技术方向",
+      "list": [
+        {
+          "tag": "多模态",
+          "title": "多模态 AI",
+          "desc": "GPT-4V、Gemini 等支持图像、语音、视频理解的一体化模型",
+          "trend": "上升"
+        },
+        {
+          "tag": "Agent",
+          "title": "AI Agent",
+          "desc": " autonomous AI 能够自主规划、执行复杂任务的多步骤协作",
+          "trend": "热门"
+        },
+        {
+          "tag": "本地部署",
+          "title": "本地大模型",
+          "desc": "Ollama、LM Studio 等让个人也能运行 70B+ 参数模型",
+          "trend": "上升"
+        },
+        {
+          "tag": "编程",
+          "title": "AI 编程",
+          "desc": "Cursor、Windsurf 等 AI 深度集成的开发环境成为主流",
+          "trend": "热门"
+        },
+        {
+          "tag": "RAG",
+          "title": "RAG 知识库",
+          "desc": "让 AI 接入私有数据，构建企业专属知识问答系统",
+          "trend": "稳定"
+        },
+        {
+          "tag": "语音",
+          "title": "语音交互",
+          "desc": "实时语音对话、语音克隆、TTS 合成技术成熟",
+          "trend": "上升"
         }
       ]
     },
@@ -114,6 +181,33 @@
         "highlight": true,
         "prompt": "请帮我优化这个项目的界面设计，参考优秀的个人作品集网站，使用深色主题，实现响应式布局、添加动画效果，并将中英文内容分离管理",
         "details": ["参考优秀网站设计", "深色主题配置", "响应式布局", "动画效果添加", "中英文内容分离"]
+      },
+      {
+        "title": "安全防护配置",
+        "date": "2026-03",
+        "desc": "加强项目安全性，防止常见攻击和未授权访问",
+        "tags": ["安全", "防护"],
+        "highlight": false,
+        "prompt": "请帮我配置这个项目的安全防护措施，包括：API 密钥环境变量管理、CORS 跨域配置、请求频率限制、输入内容过滤防止 XSS 攻击、HTTPS 强制启用、敏感信息脱敏处理",
+        "details": ["环境变量安全", "CORS 配置", "频率限制", "XSS 防护", "HTTPS 配置"]
+      },
+      {
+        "title": "AI 资讯聚合",
+        "date": "2026-03",
+        "desc": "利用 AI 自动搜集整理 AI 领域最新资讯和技术文章",
+        "tags": ["AI", "资讯"],
+        "highlight": false,
+        "prompt": "请帮我设计并实现一个 AI 资讯聚合功能：1. 定时抓取 AI 领域主流媒体（Hacker News、Reddit AI、Magn AI）RSS 源；2. 使用 AI 提取文章摘要和关键要点；3. 按主题自动分类；4. 生成每日 AI 要闻简报推送给用户",
+        "details": ["RSS 源接入", "AI 摘要提取", "自动分类", "定时推送", "简报生成"]
+      },
+      {
+        "title": "自动化持续更新",
+        "date": "2026-03",
+        "desc": "设置自动化流程，让项目内容随技术发展持续迭代",
+        "tags": ["自动化", "CI/CD"],
+        "highlight": false,
+        "prompt": "请帮我配置项目的自动化持续更新机制：1. GitHub Actions 自动部署流程；2. 定时检查依赖包更新并自动 PR；3. 自动同步 AI 领域最新实践项目到内容中；4. 定期生成项目进展报告",
+        "details": ["CI/CD 流程", "依赖更新自动化", "内容同步", "报告生成", "监控告警"]
       }
     ]
   },

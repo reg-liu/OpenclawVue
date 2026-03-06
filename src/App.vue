@@ -67,10 +67,34 @@ const selectedCategory = ref(content.value?.questions?.categories?.[0]?.id || 'f
             <button class="btn-primary" @click="navigate('practice')">{{ content.home.viewProjects }}</button>
             <button class="btn-outline" @click="navigate('questions')">{{ content.home.knowledgeBase }}</button>
           </div>
-          <div class="hero-stats">
-            <div class="stat"><span class="stat-num">6</span><span class="stat-label">{{ content.home.stats.projects }}</span></div>
-            <div class="stat"><span class="stat-num">26</span><span class="stat-label">{{ content.home.stats.topics }}</span></div>
-            <div class="stat"><span class="stat-num">3</span><span class="stat-label">{{ content.home.stats.focus }}</span></div>
+        </div>
+      </div>
+
+      <!-- Flow Section -->
+      <div class="section flow-section">
+        <div class="section-container">
+          <h2 class="section-title">{{ content.home.flow.title }}</h2>
+          <div class="flow-grid">
+            <div v-for="step in content.home.flow.steps" :key="step.num" class="flow-step">
+              <div class="step-num">{{ step.num }}</div>
+              <h3>{{ step.title }}</h3>
+              <p>{{ step.desc }}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Hot Topics Section -->
+      <div class="section hot-section">
+        <div class="section-container">
+          <h2 class="section-title">{{ content.home.hot.title }}</h2>
+          <p class="section-subtitle">{{ content.home.hot.subtitle }}</p>
+          <div class="hot-grid">
+            <div v-for="item in content.home.hot.list" :key="item.title" class="hot-card">
+              <span class="hot-tag" :class="item.trend">{{ item.tag }}</span>
+              <h3>{{ item.title }}</h3>
+              <p>{{ item.desc }}</p>
+            </div>
           </div>
         </div>
       </div>
@@ -273,6 +297,32 @@ body { font-family: 'Inter', sans-serif; background: #0d0d0d; color: #e5e5e5; li
 
 /* Tech */
 .tech-section { background: #171717; }
+.flow-section { background: linear-gradient(180deg, #171717 0%, #1a1a1a 100%); padding: 80px 24px; }
+.flow-grid { max-width: 1100px; margin: 0 auto; display: grid; grid-template-columns: repeat(5, 1fr); gap: 24px; }
+.flow-step { text-align: center; padding: 24px 16px; }
+.step-num { font-size: 48px; font-weight: 700; color: #22d3ee; opacity: 0.3; margin-bottom: 12px; }
+.flow-step h3 { font-size: 18px; margin-bottom: 10px; }
+.flow-step p { color: #a1a1aa; font-size: 13px; line-height: 1.6; }
+.hot-section { background: #1a1a1a; padding: 80px 24px; }
+.section-subtitle { text-align: center; color: #71717a; margin-bottom: 48px; margin-top: -30px; }
+.hot-grid { max-width: 1100px; margin: 0 auto; display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+.hot-card { background: #0f0f0f; border: 1px solid #262626; border-radius: 14px; padding: 22px; transition: all 0.3s; }
+.hot-card:hover { border-color: #f472b6; transform: translateY(-3px); }
+.hot-tag { display: inline-block; padding: 4px 12px; border-radius: 20px; font-size: 12px; font-weight: 600; margin-bottom: 14px; }
+.hot-tag.热门 { background: rgba(244,114,182,0.15); color: #f472b6; }
+.hot-tag.上升 { background: rgba(34,211,238,0.15); color: #22d3ee; }
+.hot-tag.稳定 { background: rgba(163,163,180,0.15); color: #a1a1aa; }
+.hot-card h3 { font-size: 17px; margin-bottom: 8px; }
+.hot-card p { color: #71717a; font-size: 13px; line-height: 1.5; }
+
+@media (max-width: 900px) {
+  .flow-grid { grid-template-columns: repeat(3, 1fr); }
+  .hot-grid { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 600px) {
+  .flow-grid { grid-template-columns: 1fr 1fr; }
+  .hot-grid { grid-template-columns: 1fr; }
+}
 .tech-grid { display: flex; flex-wrap: wrap; gap: 16px; justify-content: center; }
 .tech-item { display: flex; align-items: center; gap: 12px; padding: 20px 28px; background: #1a1a1a; border: 1px solid #262626; border-radius: 12px; transition: all 0.3s; }
 .tech-item:hover { background: #222; transform: scale(1.05); }
