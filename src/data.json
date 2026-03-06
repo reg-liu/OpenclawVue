@@ -549,7 +549,7 @@
   "tools": {
     "title": "AI 编程工具",
     "subtitle": "主流 AI 编程工具推荐",
-    "intro": "掌握这些工具，提升 AI 编程效率。每个工具都附有实践教程链接。",
+    "intro": "掌握这些工具，提升 AI 编程效率。",
     "list": [
       {
         "name": "Cursor",
