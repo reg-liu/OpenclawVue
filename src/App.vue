@@ -117,7 +117,6 @@ const selectedCategory = ref(content.value?.questions?.categories?.[0]?.id || 'f
           <div class="tech-grid">
             <div class="tech-item"><span style="font-size:28px">🦞</span><span>OpenClaw</span></div>
             <div class="tech-item"><span style="font-size:28px">🧠</span><span>OpenAI</span></div>
-            <div class="tech-item"><span style="font-size:28px">🤖</span><span>Anthropic</span></div>
             <div class="tech-item"><span style="font-size:28px">📡</span><span>飞书</span></div>
             <div class="tech-item"><span style="font-size:28px">🐙</span><span>GitHub</span></div>
             <div class="tech-item"><span style="font-size:28px">☁️</span><span>Vercel</span></div>

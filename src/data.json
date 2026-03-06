@@ -666,7 +666,7 @@
             "level": "⭐⭐⭐⭐"
           },
           {
-            "name": "Portfolio Manager",
+            "name": "OpenClaw Manager",
             "desc": "投资组合管理，资产配置建议、收益归因、再平衡提醒",
             "features": ["资产配置", "收益分析", "再平衡", "税务优化"],
             "level": "⭐⭐⭐⭐"
