@@ -36,7 +36,7 @@ const selectedCategory = ref(content.value?.questions?.categories?.[0]?.id || 'f
       <div class="nav-container">
         <a class="logo" @click="navigate('home')">
           <span class="logo-icon">&#9670;</span>
-          <span>Portfolio</span>
+          <span>OpenClaw</span>
         </a>
         <div class="nav-links">
           <a :class="{ active: currentPage === 'home' }" @click="navigate('home')">{{ content.nav.home }}</a>
@@ -116,10 +116,10 @@ const selectedCategory = ref(content.value?.questions?.categories?.[0]?.id || 'f
           <h2 class="section-title">{{ content.home.tech.title }}</h2>
           <div class="tech-grid">
             <div class="tech-item"><span style="font-size:28px">🦞</span><span>OpenClaw</span></div>
-            <div class="tech-item"><span style="font-size:28px">🧠</span><span>OpenAI</span></div>
-            <div class="tech-item"><span style="font-size:28px">📡</span><span>飞书</span></div>
-            <div class="tech-item"><span style="font-size:28px">🐙</span><span>GitHub</span></div>
-            <div class="tech-item"><span style="font-size:28px">☁️</span><span>Vercel</span></div>
+            <div class="tech-item"><img src="https://upload.wikimedia.org/wikipedia/commons/0/04/ChatGPT_logo.svg" alt="OpenAI"/><span>OpenAI</span></div>
+            <div class="tech-item"><img src="https://s1.feishu.cn/portal-feishu-cn/logo.svg" alt="飞书"/><span>飞书</span></div>
+            <div class="tech-item"><img src="https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png" alt="GitHub"/><span>GitHub</span></div>
+            <div class="tech-item"><img src="https://assets.vercel.com/image/upload/v1588805858/repositories/vercel/logo.png" alt="Vercel"/><span>Vercel</span></div>
           </div>
         </div>
       </div>
@@ -294,7 +294,7 @@ const selectedCategory = ref(content.value?.questions?.categories?.[0]?.id || 'f
     <!-- Footer -->
     <footer class="footer">
       <div class="footer-container">
-        <div class="footer-logo">&#9670; Portfolio</div>
+        <div class="footer-logo">&#9670; OpenClaw</div>
         <p>2026 {{ content.footer.copyright }}</p>
         <div class="footer-links">
           <a href="https://github.com/reg-liu/OpenclawVue" target="_blank">{{ content.footer.github }}</a>
