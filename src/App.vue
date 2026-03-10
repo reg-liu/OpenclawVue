@@ -143,7 +143,6 @@ const getToolsByCategoryScene = (sceneId, category) => {
             </div>
           </div>
         </div>
-      </div>
 
       <!-- Tech section removed -->
     </section>
