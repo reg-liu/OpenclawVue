@@ -76,7 +76,6 @@ const getSceneTools = (sceneId) => {
           <a :class="{ active: currentPage === 'ai_create' }" @click="navigate('ai_create')">{{ content.nav.ai_create }}</a>
           <a :class="{ active: currentPage === 'ai_code' }" @click="navigate('ai_code')">{{ content.nav.ai_code }}</a>
           <a :class="{ active: currentPage === 'ai_study' }" @click="navigate('ai_study')">{{ content.nav.ai_study }}</a>
-          <a :class="{ active: currentPage === 'design' }" @click="navigate('design')" style="color: #06b6d4;">{{ content.nav.design }}</a>
         </div>
         <div class="nav-right">
           <span class="badge">{{ content.badge }}</span>
@@ -93,7 +92,6 @@ const getSceneTools = (sceneId) => {
       <a @click="navigate('ai_create')">{{ content.nav.ai_create }}</a>
       <a @click="navigate('ai_code')">{{ content.nav.ai_code }}</a>
       <a @click="navigate('ai_study')">{{ content.nav.ai_study }}</a>
-      <a @click="navigate('design')" style="color: #06b6d4;">{{ content.nav.design }}</a>
     </div>
 
     <!-- Home -->
@@ -408,6 +406,7 @@ const getSceneTools = (sceneId) => {
         <div class="footer-logo">&#9670; OpenClaw</div>
         <p>2026 {{ content.copyright?.text || 'AI工具导航' }}</p>
         <div class="footer-links">
+          <a @click="navigate('design')" style="color: #06b6d4;">{{ content.nav.design }}</a>
           <a href="https://github.com/reg-liu/OpenclawVue" target="_blank">GitHub</a>
           <a href="https://openclaw.ai" target="_blank">OpenClaw</a>
         </div>
