@@ -9,6 +9,13 @@ const content = ref(data)
 const mousePos = ref({ x: 50, y: 50 })
 
 onMounted(() => {
+  // 从URL读取page参数
+  const urlParams = new URLSearchParams(window.location.search)
+  const page = urlParams.get('page')
+  if (page && ['home', 'practice', 'questions', 'hot', 'models', 'skills', 'tools', 'design'].includes(page)) {
+    currentPage.value = page
+  }
+  
   window.addEventListener('scroll', () => {
     isScrolled.value = window.scrollY > 50
   })
@@ -23,6 +30,10 @@ onMounted(() => {
 const navigate = (page) => {
   currentPage.value = page
   mobileMenuOpen.value = false
+  // 更新URL参数
+  const url = new URL(window.location.href)
+  url.searchParams.set('page', page)
+  window.history.pushState({}, '', url)
   window.scrollTo({ top: 0, behavior: 'smooth' })
 }
 
