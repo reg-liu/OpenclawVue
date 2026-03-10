@@ -614,6 +614,14 @@ const getToolsByCategoryScene = (sceneId, category) => {
             <div class="tool-tags">
               <span :class="tool.price === '免费' ? 'tag tag-free' : 'tag tag-paid'">{{ tool.price }}</span>
               <span :class="['tag', 'tag-' + tool.difficulty]">{{ tool.difficulty }}</span>
+              <span v-if="tool.vpn" class="tag" :class="tool.vpn === '需要' ? 'tag-vpn-need' : 'tag-vpn-no'">{{ tool.vpn === '需要' ? '🔒 翻墙' : '🌐 直连' }}</span>
+            </div>
+            <div v-if="tool.mobile" class="tool-meta">
+              <span class="meta-item">📱 {{ tool.mobile }}</span>
+            </div>
+            <div v-if="tool.pros || tool.cons" class="tool-proscons">
+              <div v-if="tool.pros" class="pros"><span class="label">✅ 优势：</span>{{ tool.pros }}</div>
+              <div v-if="tool.cons" class="cons"><span class="label">⚠️ 劣势：</span>{{ tool.cons }}</div>
             </div>
             <div v-if="tool.workflow" class="tool-workflow">
               <div class="workflow-title">📋 工作流</div>
@@ -1214,6 +1222,13 @@ body { font-family: 'Inter', sans-serif; background: #0d0d0d; color: #e5e5e5; li
 .tool-card .tag-入门 { background: rgba(59, 130, 246, 0.1); color: #3b82f6; }
 .tool-card .tag-进阶 { background: rgba(245, 158, 11, 0.1); color: #f59e0b; }
 .tool-card .tag-高级 { background: rgba(239, 68, 68, 0.1); color: #ef4444; }
+.tool-card .tag-vpn-need { background: rgba(239, 68, 68, 0.1); color: #ef4444; }
+.tool-card .tag-vpn-no { background: rgba(16, 185, 129, 0.1); color: #10b981; }
+.tool-card .tool-meta { font-size: 12px; color: #94a3b8; margin-bottom: 12px; }
+.tool-card .tool-proscons { font-size: 12px; margin-bottom: 12px; padding: 8px; background: #1a1a2e; border-radius: 6px; }
+.tool-card .tool-proscons .pros { color: #10b981; margin-bottom: 4px; }
+.tool-card .tool-proscons .cons { color: #f59e0b; }
+.tool-card .tool-proscons .label { font-weight: 600; }
 .tool-card .tool-workflow { padding: 12px; background: rgba(139, 92, 246, 0.1); border-radius: 8px; border-left: 3px solid #8b5cf6; margin-bottom: 16px; }
 .tool-card .workflow-title { font-size: 12px; color: #8b5cf6; font-weight: 600; margin-bottom: 4px; }
 .tool-card .workflow-desc { font-size: 12px; color: #94a3b8; line-height: 1.5; }
