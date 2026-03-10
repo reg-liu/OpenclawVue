@@ -1,7 +1,6 @@
 // API服务
-// 本地开发: http://localhost:3000
-// 公网地址: https://f9674b1.cpolar.io
-const API_BASE = 'https://f9674b1.cpolar.io'
+// 公网地址: https://5ae24d6d.cpolar.io
+const API_BASE = 'https://5ae24d6d.cpolar.io'
 
 // 从API获取工具数据
 export async function fetchTools(sceneId = null) {

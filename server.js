@@ -17,6 +17,23 @@ const scenes = [
   { id: 'ai-study', name: 'AI学习', icon: '📚', description: '看论文、学新技术' }
 ]
 
+// 场景名称转换 - 数据库用连字符，前端用下划线
+const sceneToApi = {
+  'ai-entry': 'ai_entry',
+  'ai-office': 'ai_office', 
+  'ai-create': 'ai_create',
+  'ai-code': 'ai_code',
+  'ai-study': 'ai_study'
+}
+
+const apiToScene = {
+  'ai_entry': 'ai-entry',
+  'ai_office': 'ai-office', 
+  'ai_create': 'ai-create',
+  'ai_code': 'ai-code',
+  'ai_study': 'ai-study'
+}
+
 const server = http.createServer((req, res) => {
   // 设置CORS
   res.setHeader('Access-Control-Allow-Origin', '*')
@@ -38,9 +55,10 @@ const server = http.createServer((req, res) => {
       let sql = 'SELECT * FROM tools WHERE status = ?'
       const params = ['已发布']
       
-      if (scene) {
+      // 转换场景参数 - 前端用下划线，数据库用连字符
+      if (scene && apiToScene[scene]) {
         sql += ' AND scenes LIKE ?'
-        params.push(`%${scene}%`)
+        params.push(`%${apiToScene[scene]}%`)
       }
       
       sql += ' ORDER BY sort ASC'
@@ -55,7 +73,8 @@ const server = http.createServer((req, res) => {
         category: row.category,
         subcategory: row.subcategory,
         description: row.description,
-        scenes: row.scenes ? row.scenes.split(',') : [],
+        // 转换场景为前端格式（下划线）
+        scenes: row.scenes ? row.scenes.split(',').map(s => sceneToApi[s] || s) : [],
         price: row.price,
         priceDetail: row.price_detail,
         difficulty: row.difficulty,
@@ -96,6 +115,6 @@ server.listen(PORT, () => {
   console.log(`
 ✅ 本地API服务器已启动
 📡 地址: http://localhost:${PORT}/api/tools
-🔧 场景过滤: /api/tools?scene=ai-entry
+🔧 场景过滤: /api/tools?scene=ai_entry
 `)
 })
