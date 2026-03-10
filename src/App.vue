@@ -1,21 +1,27 @@
 <script setup>
 import { ref, onMounted } from 'vue'
 import data from './data.json'
-import { scenes, tools, getToolsByScene, getCategories } from './data/ai-tools.js'
+import { scenes, getCategories, filterToolsByCategory, fetchTools } from './services/api.js'
 
 const currentPage = ref('home')
 const isScrolled = ref(false)
 const mobileMenuOpen = ref(false)
 const content = ref(data)
 const mousePos = ref({ x: 50, y: 50 })
+const toolsData = ref([])
+const isLoading = ref(true)
 
-onMounted(() => {
+onMounted(async () => {
   // 从URL读取page参数
   const urlParams = new URLSearchParams(window.location.search)
   const page = urlParams.get('page')
   if (page && ['home', 'ai_entry', 'ai_office', 'ai_create', 'ai_code', 'ai_study', 'design'].includes(page)) {
     currentPage.value = page
   }
+  
+  // 从API获取工具数据
+  const result = await fetchTools()
+  toolsData.value = result.tools
   
   window.addEventListener('scroll', () => {
     isScrolled.value = window.scrollY > 50
@@ -56,15 +62,19 @@ const getSceneIcon = (sceneId) => {
 }
 
 const getSceneTools = (sceneId) => {
-  return getToolsByScene(sceneId)
+  if (!sceneId || !toolsData.value) return []
+  return toolsData.value.filter(t => t.scenes.includes(sceneId))
 }
 
 const getSceneCategories = (sceneId) => {
-  return getCategories(sceneId)
+  if (!sceneId || !toolsData.value) return []
+  const sceneTools = toolsData.value.filter(t => t.scenes.includes(sceneId))
+  return [...new Set(sceneTools.map(t => t.category))]
 }
 
 const getToolsByCategoryScene = (sceneId, category) => {
-  return tools.filter(t => t.scenes.includes(sceneId) && t.category === category)
+  if (!sceneId || !category || !toolsData.value) return []
+  return toolsData.value.filter(t => t.scenes.includes(sceneId) && t.category === category)
 }
 </script>
 
