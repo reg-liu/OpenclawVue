@@ -111,22 +111,7 @@ const getSceneTools = (sceneId) => {
         </div>
       </div>
 
-      <!-- Flow Section -->
-      <div class="section flow-section">
-        <div class="section-container">
-          <h2 class="section-title">{{ content.home.flow.title }}</h2>
-          <div class="flow-grid">
-            <div v-for="(step, index) in content.home.flow.steps" :key="step.num" class="flow-step-card">
-              <div class="step-arrow" v-if="index > 0">→</div>
-              <div class="step-num">{{ step.num }}</div>
-              <h3>{{ step.title }}</h3>
-              <p>{{ step.desc }}</p>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="section about-section">
+      <!-- About Section -->
         <div class="section-container">
           <h2 class="section-title">{{ content.home.about.title }}</h2>
           <div class="features">
@@ -141,18 +126,7 @@ const getSceneTools = (sceneId) => {
         </div>
       </div>
 
-      <div class="section tech-section">
-        <div class="section-container">
-          <h2 class="section-title">{{ content.home.tech.title }}</h2>
-          <div class="tech-grid">
-            <div class="tech-item"><span style="font-size:28px">🦞</span><span>OpenClaw</span></div>
-            <div class="tech-item"><img src="https://upload.wikimedia.org/wikipedia/commons/0/04/ChatGPT_logo.svg" alt="OpenAI"/><span>OpenAI</span></div>
-            <div class="tech-item"><span style="font-size:28px">📡</span><span>飞书</span></div>
-            <div class="tech-item"><img src="https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png" alt="GitHub"/><span>GitHub</span></div>
-            <div class="tech-item"><img src="https://assets.vercel.com/image/upload/v1588805858/repositories/vercel/logo.png" alt="Vercel"/><span>Vercel</span></div>
-          </div>
-        </div>
-      </div>
+      <!-- Tech section removed -->
     </section>
 
     <!-- Practice -->
