@@ -1,7 +1,7 @@
 <script setup>
 import { ref, onMounted } from 'vue'
 import data from './data.json'
-import { scenes, tools, getToolsByScene } from './data/ai-tools.js'
+import { scenes, tools, getToolsByScene, getCategories } from './data/ai-tools.js'
 
 const currentPage = ref('home')
 const isScrolled = ref(false)
@@ -57,6 +57,14 @@ const getSceneIcon = (sceneId) => {
 
 const getSceneTools = (sceneId) => {
   return getToolsByScene(sceneId)
+}
+
+const getSceneCategories = (sceneId) => {
+  return getCategories(sceneId)
+}
+
+const getToolsByCategoryScene = (sceneId, category) => {
+  return tools.filter(t => t.scenes.includes(sceneId) && t.category === category)
 }
 </script>
 
@@ -581,28 +589,32 @@ const getSceneTools = (sceneId) => {
       <div class="page-header">
         <span class="scene-icon-large">🚀</span>
         <h1>AI入门</h1>
-        <p>零基础用户不知道怎么开始学习AI？这里有完整的入门指南和工具推荐</p>
+        <p>零基础用户不知道怎么开始学习AI？从问答式AI开始，逐步掌握提示词工程</p>
       </div>
-      <div class="tools-grid">
-        <div v-for="tool in getToolsByScene('ai-entry')" :key="tool.id" class="tool-card">
-          <div class="tool-header">
-            <span class="tool-icon">{{ tool.icon }}</span>
-            <span class="tool-name">{{ tool.name }}</span>
+      
+      <div v-for="category in getSceneCategories('ai-entry')" :key="category" class="category-section">
+        <h2 class="category-title">{{ category }}</h2>
+        <div class="tools-grid">
+          <div v-for="tool in getToolsByCategoryScene('ai-entry', category)" :key="tool.id" class="tool-card">
+            <div class="tool-header">
+              <span class="tool-icon">{{ tool.icon }}</span>
+              <span class="tool-name">{{ tool.name }}</span>
+            </div>
+            <p class="tool-desc">{{ tool.description }}</p>
+            <div class="tool-tags">
+              <span :class="tool.price === '免费' ? 'tag tag-free' : 'tag tag-paid'">{{ tool.price }}</span>
+              <span :class="['tag', 'tag-' + tool.difficulty]">{{ tool.difficulty }}</span>
+            </div>
+            <div v-if="tool.workflow" class="tool-workflow">
+              <div class="workflow-title">📋 工作流</div>
+              <p class="workflow-desc">{{ tool.workflow }}</p>
+            </div>
+            <div class="tool-openclaw">
+              <div class="openclaw-title">🔧 OpenClaw 实践</div>
+              <p class="openclaw-desc">{{ tool.openclaw_practice }}</p>
+            </div>
+            <a :href="tool.website" target="_blank" class="tool-link">访问官网 →</a>
           </div>
-          <p class="tool-desc">{{ tool.description }}</p>
-          <div class="tool-tags">
-            <span :class="tool.price === '免费' ? 'tag tag-free' : 'tag tag-paid'">{{ tool.price }}</span>
-            <span :class="['tag', 'tag-' + tool.difficulty]">{{ tool.difficulty }}</span>
-          </div>
-          <div v-if="tool.workflow" class="tool-workflow">
-            <div class="workflow-title">📋 工作流</div>
-            <p class="workflow-desc">{{ tool.workflow }}</p>
-          </div>
-          <div class="tool-openclaw">
-            <div class="openclaw-title">🔧 OpenClaw 实践</div>
-            <p class="openclaw-desc">{{ tool.openclaw_practice }}</p>
-          </div>
-          <a :href="tool.website" target="_blank" class="tool-link">访问官网 →</a>
         </div>
       </div>
     </section>
@@ -1168,6 +1180,9 @@ body { font-family: 'Inter', sans-serif; background: #0d0d0d; color: #e5e5e5; li
 .scene-header { display: flex; align-items: center; gap: 16px; margin-bottom: 32px; }
 .scene-header .scene-icon-large { font-size: 48px; }
 .scene-header h2 { font-size: 28px; }
+
+.category-section { margin-bottom: 48px; }
+.category-title { font-size: 22px; font-weight: 600; margin-bottom: 20px; padding-bottom: 8px; border-bottom: 1px solid #2d2d4a; color: #8b5cf6; }
 
 .tools-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 20px; }
 .tool-card { 
