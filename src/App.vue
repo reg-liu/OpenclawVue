@@ -88,6 +88,9 @@ const getToolsByCategoryScene = (sceneId, category) => {
   const apiScene = sceneMap[sceneId] || sceneId
   return toolsData.value.filter(t => t.scenes.includes(apiScene) && t.category === category)
 }
+
+// 兼容旧函数名
+const getToolsByScene = (sceneId) => getSceneTools(sceneId)
 </script>
 
 <template>
