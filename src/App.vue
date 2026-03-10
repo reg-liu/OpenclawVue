@@ -1,6 +1,7 @@
 <script setup>
 import { ref, onMounted } from 'vue'
 import data from './data.json'
+import { scenes, tools, getToolsByScene } from './data/ai-tools.js'
 
 const currentPage = ref('home')
 const isScrolled = ref(false)
@@ -38,6 +39,25 @@ const navigate = (page) => {
 }
 
 const selectedCategory = ref(content.value?.questions?.categories?.[0]?.id || 'frontend')
+const selectedScene = ref(null)
+
+const selectScene = (sceneId) => {
+  selectedScene.value = sceneId
+}
+
+const getSceneName = (sceneId) => {
+  const scene = scenes.find(s => s.id === sceneId)
+  return scene ? scene.name : ''
+}
+
+const getSceneIcon = (sceneId) => {
+  const scene = scenes.find(s => s.id === sceneId)
+  return scene ? scene.icon : ''
+}
+
+const getSceneTools = (sceneId) => {
+  return getToolsByScene(sceneId)
+}
 </script>
 
 <template>
@@ -58,6 +78,7 @@ const selectedCategory = ref(content.value?.questions?.categories?.[0]?.id || 'f
           <a :class="{ active: currentPage === 'skills' }" @click="navigate('skills')">{{ content.nav.skills }}</a>
           <a :class="{ active: currentPage === 'tools' }" @click="navigate('tools')">{{ content.nav.tools }}</a>
           <a :class="{ active: currentPage === 'design' }" @click="navigate('design')" style="color: #06b6d4;">{{ content.nav.design }}</a>
+          <a :class="{ active: currentPage === 'ai-tools' }" @click="navigate('ai-tools')" style="color: #10b981;">{{ content.nav.ai_tools }}</a>
         </div>
         <div class="nav-right">
           <span class="badge">{{ content.badge }}</span>
@@ -76,6 +97,7 @@ const selectedCategory = ref(content.value?.questions?.categories?.[0]?.id || 'f
       <a @click="navigate('skills')">{{ content.nav.skills }}</a>
       <a @click="navigate('tools')">{{ content.nav.tools }}</a>
           <a @click="navigate('design')" style="color: #06b6d4;">{{ content.nav.design }}</a>
+      <a @click="navigate('ai-tools')" style="color: #10b981;">{{ content.nav.ai_tools }}</a>
     </div>
 
     <!-- Home -->
@@ -585,6 +607,59 @@ const selectedCategory = ref(content.value?.questions?.categories?.[0]?.id || 'f
         </div>
       </div>
     </section>
+
+    <!-- AI Tools Page -->
+    <section v-if="currentPage === 'ai-tools'" class="ai-tools-page">
+      <div class="page-header">
+        <h1>🧭 AI工具导航</h1>
+        <p>按场景分类的AI工具导航，每个工具都有OpenClaw实践指导</p>
+      </div>
+
+      <!-- 场景选择 -->
+      <div v-if="!selectedScene" class="scenes-grid">
+        <div 
+          v-for="scene in scenes" 
+          :key="scene.id" 
+          class="scene-card"
+          @click="selectScene(scene.id)"
+        >
+          <div class="scene-icon">{{ scene.icon }}</div>
+          <div class="scene-name">{{ scene.name }}</div>
+          <div class="scene-desc">{{ scene.description }}</div>
+        </div>
+      </div>
+
+      <!-- 场景详情 -->
+      <div v-else class="scene-detail">
+        <button class="back-btn" @click="selectedScene = null">
+          ← 返回场景列表
+        </button>
+        
+        <div class="scene-header">
+          <span class="scene-icon-large">{{ getSceneIcon(selectedScene) }}</span>
+          <h2>{{ getSceneName(selectedScene) }}</h2>
+        </div>
+
+        <div class="tools-grid">
+          <div v-for="tool in getSceneTools(selectedScene)" :key="tool.id" class="tool-card">
+            <div class="tool-header">
+              <span class="tool-icon">{{ tool.icon }}</span>
+              <span class="tool-name">{{ tool.name }}</span>
+            </div>
+            <p class="tool-desc">{{ tool.description }}</p>
+            <div class="tool-tags">
+              <span :class="tool.price === '免费' ? 'tag tag-free' : 'tag tag-paid'">{{ tool.price }}</span>
+              <span :class="['tag', 'tag-' + tool.difficulty]">{{ tool.difficulty }}</span>
+            </div>
+            <div class="tool-openclaw">
+              <div class="openclaw-title">🔧 OpenClaw 实践</div>
+              <p class="openclaw-desc">{{ tool.openclaw_practice }}</p>
+            </div>
+            <a :href="tool.website" target="_blank" class="tool-link">访问官网 →</a>
+          </div>
+        </div>
+      </div>
+    </section>
   </div>
 </template>
 
@@ -980,6 +1055,82 @@ body { font-family: 'Inter', sans-serif; background: #0d0d0d; color: #e5e5e5; li
   .color-grid { grid-template-columns: 1fr; }
   .button-showcase { flex-direction: column; align-items: flex-start; }
   .scene-showcase { grid-template-columns: repeat(2, 1fr); }
+}
+
+/* AI Tools Page */
+.ai-tools-page { padding: 120px 24px 80px; min-height: 100vh; max-width: 1100px; margin: 0 auto; }
+.ai-tools-page .page-header { text-align: center; margin-bottom: 48px; }
+.ai-tools-page .page-header h1 { font-size: 36px; margin-bottom: 12px; }
+.ai-tools-page .page-header p { color: #94a3b8; font-size: 16px; }
+
+.scenes-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 20px; }
+.scene-card { 
+  background: linear-gradient(135deg, #1f1f3d 0%, #2d2d4a 100%); 
+  border-radius: 16px; 
+  padding: 32px 24px; 
+  text-align: center; 
+  cursor: pointer; 
+  transition: all 0.3s;
+  border: 1px solid #2d2d4a;
+}
+.scene-card:hover { 
+  transform: translateY(-8px); 
+  box-shadow: 0 12px 40px rgba(16, 185, 129, 0.2); 
+  border-color: #10b981; 
+}
+.scene-card .scene-icon { font-size: 48px; margin-bottom: 16px; }
+.scene-card .scene-name { font-size: 20px; font-weight: 600; margin-bottom: 8px; }
+.scene-card .scene-desc { font-size: 13px; color: #94a3b8; }
+
+.scene-detail .back-btn { 
+  background: transparent; 
+  border: 1px solid #2d2d4a; 
+  color: #94a3b8; 
+  padding: 8px 16px; 
+  border-radius: 8px; 
+  cursor: pointer; 
+  margin-bottom: 24px;
+  transition: all 0.2s;
+}
+.scene-detail .back-btn:hover { border-color: #10b981; color: #10b981; }
+
+.scene-header { display: flex; align-items: center; gap: 16px; margin-bottom: 32px; }
+.scene-header .scene-icon-large { font-size: 48px; }
+.scene-header h2 { font-size: 28px; }
+
+.tools-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 20px; }
+.tool-card { 
+  background: #1f1f3d; 
+  border: 1px solid #2d2d4a; 
+  border-radius: 12px; 
+  padding: 24px; 
+  transition: all 0.3s;
+}
+.tool-card:hover { border-color: #10b981; }
+.tool-card .tool-header { display: flex; align-items: center; gap: 12px; margin-bottom: 12px; }
+.tool-card .tool-icon { width: 40px; height: 40px; background: rgba(16, 185, 129, 0.1); border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 20px; }
+.tool-card .tool-name { font-size: 18px; font-weight: 600; }
+.tool-card .tool-desc { color: #94a3b8; font-size: 14px; margin-bottom: 12px; line-height: 1.5; }
+.tool-card .tool-tags { display: flex; gap: 8px; margin-bottom: 16px; }
+.tool-card .tag { padding: 4px 12px; border-radius: 4px; font-size: 12px; font-weight: 500; }
+.tool-card .tag-free { background: rgba(16, 185, 129, 0.1); color: #10b981; }
+.tool-card .tag-paid { background: rgba(245, 158, 11, 0.1); color: #f59e0b; }
+.tool-card .tag-入门 { background: rgba(59, 130, 246, 0.1); color: #3b82f6; }
+.tool-card .tag-进阶 { background: rgba(245, 158, 11, 0.1); color: #f59e0b; }
+.tool-card .tag-高级 { background: rgba(239, 68, 68, 0.1); color: #ef4444; }
+.tool-card .tool-openclaw { padding: 12px; background: rgba(16, 185, 129, 0.1); border-radius: 8px; border-left: 3px solid #10b981; margin-bottom: 16px; }
+.tool-card .openclaw-title { font-size: 12px; color: #10b981; font-weight: 600; margin-bottom: 4px; }
+.tool-card .openclaw-desc { font-size: 12px; color: #94a3b8; }
+.tool-card .tool-link { color: #10b981; text-decoration: none; font-size: 14px; }
+.tool-card .tool-link:hover { text-decoration: underline; }
+
+@media (max-width: 600px) {
+  .ai-tools-page { padding: 100px 16px 40px; }
+  .scenes-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; }
+  .scene-card { padding: 20px 12px; }
+  .scene-card .scene-icon { font-size: 32px; }
+  .scene-card .scene-name { font-size: 16px; }
+  .tools-grid { grid-template-columns: 1fr; }
 }
 
 </style>

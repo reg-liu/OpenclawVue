@@ -7,7 +7,8 @@
     "models": "AI模型",
     "skills": "Skill库",
     "tools": "AI编程工具",
-    "design": "设计规范"
+    "design": "设计规范",
+    "ai-tools": "AI工具导航"
   },
   "badge": "Vibe Coding",
   "hero": {
