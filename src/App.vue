@@ -109,7 +109,6 @@ const getToolsByScene = (sceneId) => getSceneTools(sceneId)
           <a :class="{ active: currentPage === 'ai_create' }" @click="navigate('ai_create')">{{ content.nav.ai_create }}</a>
           <a :class="{ active: currentPage === 'ai_code' }" @click="navigate('ai_code')">{{ content.nav.ai_code }}</a>
           <a :class="{ active: currentPage === 'ai_study' }" @click="navigate('ai_study')">{{ content.nav.ai_study }}</a>
-          <a :class="{ active: currentPage === 'components' }" @click="navigate('components')">🎯 组件</a>
         </div>
         <div class="nav-right">
           <span class="badge">{{ content.badge }}</span>
