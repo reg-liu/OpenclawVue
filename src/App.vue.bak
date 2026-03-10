@@ -406,10 +406,10 @@ const getSceneTools = (sceneId) => {
     <footer class="footer">
       <div class="footer-container">
         <div class="footer-logo">&#9670; OpenClaw</div>
-        <p>2026 {{ content.copyright?.text || 'AI工具导航' }}</p>
+        <p>2026 {{ content.footer.copyright }}</p>
         <div class="footer-links">
-          <a href="https://github.com/reg-liu/OpenclawVue" target="_blank">GitHub</a>
-          <a href="https://openclaw.ai" target="_blank">OpenClaw</a>
+          <a href="https://github.com/reg-liu/OpenclawVue" target="_blank">{{ content.footer.github }}</a>
+          <a href="https://openclaw.ai" target="_blank">{{ content.footer.openclaw }}</a>
         </div>
       </div>
     </footer>
