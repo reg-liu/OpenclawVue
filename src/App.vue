@@ -15,7 +15,7 @@ onMounted(async () => {
   // 从URL读取page参数
   const urlParams = new URLSearchParams(window.location.search)
   const page = urlParams.get('page')
-  if (page && ['home', 'ai_entry', 'ai_office', 'ai_create', 'ai_code', 'ai_study', 'design'].includes(page)) {
+  if (page && ['home', 'ai_entry', 'ai_office', 'ai_create', 'ai_code', 'ai_study', 'design', 'components'].includes(page)) {
     currentPage.value = page
   }
   
@@ -94,6 +94,7 @@ const getToolsByCategoryScene = (sceneId, category) => {
           <a :class="{ active: currentPage === 'ai_create' }" @click="navigate('ai_create')">{{ content.nav.ai_create }}</a>
           <a :class="{ active: currentPage === 'ai_code' }" @click="navigate('ai_code')">{{ content.nav.ai_code }}</a>
           <a :class="{ active: currentPage === 'ai_study' }" @click="navigate('ai_study')">{{ content.nav.ai_study }}</a>
+          <a :class="{ active: currentPage === 'components' }" @click="navigate('components')">🎯 组件</a>
         </div>
         <div class="nav-right">
           <span class="badge">{{ content.badge }}</span>
@@ -760,6 +761,258 @@ const getToolsByCategoryScene = (sceneId, category) => {
         </div>
       </div>
     </section>
+
+    <!-- Visual Components Page -->
+    <section v-if="currentPage === 'components'" class="components-page">
+      <div class="page-header">
+        <span class="scene-icon-large">🎯</span>
+        <h1>视觉组件展示</h1>
+        <p>AI工具导航网站使用的可视化组件库</p>
+      </div>
+
+      <div class="components-intro">
+        <p>本页面展示项目中使用的12种视觉组件设计，每个组件都经过优化以提升用户体验。</p>
+      </div>
+
+      <!-- Component 1: 基础卡片 -->
+      <div class="component-section">
+        <h2 class="component-title">1. 基础卡片组件</h2>
+        <p class="component-desc">最简单的工具展示形式，适合快速浏览</p>
+        <div class="component-demo">
+          <div class="tool-card" style="max-width: 300px;">
+            <div class="tool-header">
+              <span class="tool-icon">💬</span>
+              <span class="tool-name">ChatGPT</span>
+            </div>
+            <p class="tool-desc">OpenAI开发的AI对话工具，适合日常问答和内容创作</p>
+            <div class="tool-tags">
+              <span class="tag tag-free">免费</span>
+              <span class="tag tag-入门">入门</span>
+            </div>
+          </div>
+        </div>
+        <div class="component-usage">
+          <h4>使用场景</h4>
+          <p>工具列表、分类展示、快速预览</p>
+        </div>
+      </div>
+
+      <!-- Component 2: 详细说明 -->
+      <div class="component-section">
+        <h2 class="component-title">2. 详细说明组件</h2>
+        <p class="component-desc">左图右文详细说明，适合单一工具深度展示</p>
+        <div class="component-demo detailed-demo">
+          <div class="detailed-card">
+            <div class="detailed-icon">💬</div>
+            <div class="detailed-content">
+              <h3>ChatGPT</h3>
+              <p>OpenAI开发的AI对话工具，适合日常问答和内容创作</p>
+              <div class="tool-tags">
+                <span class="tag tag-free">免费</span>
+                <span class="tag tag-入门">入门</span>
+                <span class="tag tag-network-global">🌐 全球</span>
+              </div>
+              <div class="pros-cons">
+                <div class="pros">✅ 优势：功能全面、社区活跃</div>
+                <div class="cons">⚠️ 劣势：需要网络工具</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="component-usage">
+          <h4>使用场景</h4>
+          <p>工具详情页、深度介绍、完整信息展示</p>
+        </div>
+      </div>
+
+      <!-- Component 3: 多工具对比 -->
+      <div class="component-section">
+        <h2 class="component-title">3. 多工具对比组件</h2>
+        <p class="component-desc">多个工具横向对比，适合同类型工具选择</p>
+        <div class="component-demo">
+          <table class="comparison-table">
+            <thead>
+              <tr>
+                <th>工具</th>
+                <th>价格</th>
+                <th>网络</th>
+                <th>移动端</th>
+                <th>推荐</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>ChatGPT</td>
+                <td>免费/付费</td>
+                <td>🌐 全球</td>
+                <td>iOS/Android</td>
+                <td>⭐⭐⭐⭐⭐</td>
+              </tr>
+              <tr>
+                <td>Claude</td>
+                <td>免费</td>
+                <td>🌐 全球</td>
+                <td>iOS/Android</td>
+                <td>⭐⭐⭐⭐⭐</td>
+              </tr>
+              <tr>
+                <td>Kimi</td>
+                <td>免费</td>
+                <td>🇨🇳 国内</td>
+                <td>iOS/Android</td>
+                <td>⭐⭐⭐⭐</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="component-usage">
+          <h4>使用场景</h4>
+          <p>问答式AI对比、PPT工具对比、选择困难时参考</p>
+        </div>
+      </div>
+
+      <!-- Component 4: 操作流程 -->
+      <div class="component-section">
+        <h2 class="component-title">4. 操作流程组件</h2>
+        <p class="component-desc">步骤式流程展示，适合工具使用教学</p>
+        <div class="component-demo">
+          <div class="workflow-steps">
+            <div class="workflow-step">
+              <div class="step-number">1</div>
+              <div class="step-content">
+                <h4>输入主题</h4>
+                <p>用一句话描述PPT主题</p>
+              </div>
+            </div>
+            <div class="step-arrow">→</div>
+            <div class="workflow-step">
+              <div class="step-number">2</div>
+              <div class="step-content">
+                <h4>AI生成大纲</h4>
+                <p>AI自动生成PPT大纲结构</p>
+              </div>
+            </div>
+            <div class="step-arrow">→</div>
+            <div class="workflow-step">
+              <div class="step-number">3</div>
+              <div class="step-content">
+                <h4>选择模板</h4>
+                <p>从模板库选择风格</p>
+              </div>
+            </div>
+            <div class="step-arrow">→</div>
+            <div class="workflow-step">
+              <div class="step-number">4</div>
+              <div class="step-content">
+                <h4>自动生成</h4>
+                <p>AI自动填充内容</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="component-usage">
+          <h4>使用场景</h4>
+          <p>工作流展示、操作步骤、教学指南</p>
+        </div>
+      </div>
+
+      <!-- Component 5: 工具组合流程 -->
+      <div class="component-section">
+        <h2 class="component-title">5. 工具组合流程组件</h2>
+        <p class="component-desc">展示多个工具组合使用的工作流</p>
+        <div class="component-demo">
+          <div class="tool-chain">
+            <div class="chain-step">
+              <span class="chain-icon">💬</span>
+              <span class="chain-name">ChatGPT</span>
+              <span class="chain-desc">生成文案脚本</span>
+            </div>
+            <div class="chain-arrow">→</div>
+            <div class="chain-step">
+              <span class="chain-icon">🎨</span>
+              <span class="chain-name">Midjourney</span>
+              <span class="chain-desc">生成配图</span>
+            </div>
+            <div class="chain-arrow">→</div>
+            <div class="chain-step">
+              <span class="chain-icon">🎬</span>
+              <span class="chain-name">Runway</span>
+              <span class="chain-desc">生成视频</span>
+            </div>
+            <div class="chain-arrow">→</div>
+            <div class="chain-step">
+              <span class="chain-icon">🎤</span>
+              <span class="chain-name">ElevenLabs</span>
+              <span class="chain-desc">AI配音</span>
+            </div>
+          </div>
+        </div>
+        <div class="component-usage">
+          <h4>使用场景</h4>
+          <p>AI视频创作、短剧制作、多工具协同</p>
+        </div>
+      </div>
+
+      <!-- Component 6: 场景应对 -->
+      <div class="component-section">
+        <h2 class="component-title">6. 场景应对组件</h2>
+        <p class="component-desc">展示单一工具在不同场景的应用</p>
+        <div class="component-demo">
+          <div class="scene-cards">
+            <div class="scene-card">
+              <span class="scene-icon">📝</span>
+              <h4>写作场景</h4>
+              <p>文章写作、博客内容、营销文案</p>
+            </div>
+            <div class="scene-card">
+              <span class="scene-icon">💻</span>
+              <h4>编程场景</h4>
+              <p>代码补全、Bug修复、技术文档</p>
+            </div>
+            <div class="scene-card">
+              <span class="scene-icon">🎨</span>
+              <h4>创意场景</h4>
+              <p>头脑风暴、灵感激发、故事构思</p>
+            </div>
+          </div>
+        </div>
+        <div class="component-usage">
+          <h4>使用场景</h4>
+          <p>通用工具（如ChatGPT）多场景展示</p>
+        </div>
+      </div>
+
+      <!-- Component 7-12: 简要展示 -->
+      <div class="component-section">
+        <h2 class="component-title">7-12. 其他组件</h2>
+        <div class="other-components">
+          <div class="other-component">
+            <h4>7. 价格方案组件</h4>
+            <p>展示工具的价格方案（免费版/付费版/企业版）</p>
+          </div>
+          <div class="other-component">
+            <h4>8. 优劣势雷达图组件</h4>
+            <p>可视化展示工具各项指标（功能丰富度、易用性、稳定性、性价比）</p>
+          </div>
+          <div class="other-component">
+            <h4>9. 快速入门组件</h4>
+            <p>新手指南，账号注册、网络设置、第一次使用步骤</p>
+          </div>
+          <div class="other-component">
+            <h4>10. API接入组件</h4>
+            <p>开发者向，展示API端点、调用示例、认证方式</p>
+          </div>
+          <div class="other-component">
+            <h4>11. 移动端适配展示组件</h4>
+            <p>展示工具的移动端使用方式、手机Mockup截图</p>
+          </div>
+          <div class="other-component">
+            <h4>12. 生态集成组件</h4>
+            <p>展示工具的生态集成能力（支持平台、API开放程度、插件生态）</p>
+          </div>
+        </div>
+      </div>
+    </section>
   </div>
 </template>
 
@@ -1250,4 +1503,81 @@ body { font-family: 'Inter', sans-serif; background: #0d0d0d; color: #e5e5e5; li
   .tools-grid { grid-template-columns: 1fr; }
 }
 
+/* Visual Components Page */
+.components-page { max-width: 1200px; margin: 0 auto; padding: 120px 24px 60px; }
+.components-page .page-header { text-align: center; margin-bottom: 48px; }
+.components-page .scene-icon-large { font-size: 64px; display: block; margin-bottom: 16px; }
+.components-page h1 { font-size: 42px; font-weight: 800; margin-bottom: 12px; }
+.components-page .page-header p { color: #94a3b8; font-size: 18px; max-width: 600px; margin: 0 auto; }
+
+.components-intro { background: #1a1a2e; padding: 24px; border-radius: 12px; margin-bottom: 48px; text-align: center; }
+.components-intro p { color: #94a3b8; font-size: 16px; }
+
+.component-section { margin-bottom: 64px; padding: 32px; background: #1a1a2e; border-radius: 16px; }
+.component-title { font-size: 28px; font-weight: 700; margin-bottom: 8px; color: #fff; }
+.component-desc { color: #94a3b8; margin-bottom: 24px; font-size: 15px; }
+.component-demo { background: #0f0f1a; padding: 32px; border-radius: 12px; margin-bottom: 20px; }
+
+.component-usage { background: rgba(139, 92, 246, 0.1); padding: 16px; border-radius: 8px; }
+.component-usage h4 { color: #8b5cf6; font-size: 14px; margin-bottom: 8px; }
+.component-usage p { color: #94a3b8; font-size: 14px; }
+
+/* Detailed Card */
+.detailed-demo { padding: 24px; }
+.detailed-card { display: flex; gap: 24px; align-items: flex-start; }
+.detailed-icon { width: 80px; height: 80px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border-radius: 16px; display: flex; align-items: center; justify-content: center; font-size: 36px; flex-shrink: 0; }
+.detailed-content { flex: 1; }
+.detailed-content h3 { font-size: 24px; font-weight: 700; margin-bottom: 8px; }
+.detailed-content p { color: #94a3b8; margin-bottom: 16px; }
+.detailed-content .pros-cons { margin-top: 16px; }
+.detailed-content .pros { color: #10b981; font-size: 14px; margin-bottom: 4px; }
+.detailed-content .cons { color: #f59e0b; font-size: 14px; }
+
+/* Comparison Table */
+.comparison-table { width: 100%; border-collapse: collapse; }
+.comparison-table th, .comparison-table td { padding: 12px 16px; text-align: left; border-bottom: 1px solid #262626; }
+.comparison-table th { background: #262626; font-weight: 600; color: #fff; }
+.comparison-table td { color: #94a3b8; }
+.comparison-table tr:hover td { background: #1a1a2e; }
+
+/* Workflow Steps */
+.workflow-steps { display: flex; align-items: center; justify-content: center; gap: 16px; flex-wrap: wrap; }
+.workflow-step { display: flex; align-items: center; gap: 16px; background: #1a1a2e; padding: 20px; border-radius: 12px; min-width: 200px; }
+.step-number { width: 40px; height: 40px; background: linear-gradient(135deg, #8b5cf6 0%, #a855f7 100%); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; flex-shrink: 0; }
+.step-content h4 { font-size: 16px; margin-bottom: 4px; }
+.step-content p { color: #94a3b8; font-size: 13px; }
+.step-arrow { color: #8b5cf6; font-size: 24px; }
+
+/* Tool Chain */
+.tool-chain { display: flex; align-items: center; justify-content: center; gap: 12px; flex-wrap: wrap; }
+.chain-step { display: flex; flex-direction: column; align-items: center; gap: 8px; background: #1a1a2e; padding: 20px; border-radius: 12px; min-width: 120px; }
+.chain-icon { font-size: 32px; }
+.chain-name { font-weight: 600; font-size: 14px; }
+.chain-desc { color: #94a3b8; font-size: 12px; text-align: center; }
+.chain-arrow { color: #8b5cf6; font-size: 24px; }
+
+/* Scene Cards */
+.scene-cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+.scene-card { background: #1a1a2e; padding: 24px; border-radius: 12px; text-align: center; }
+.scene-card .scene-icon { font-size: 40px; display: block; margin-bottom: 12px; }
+.scene-card h4 { font-size: 18px; margin-bottom: 8px; }
+.scene-card p { color: #94a3b8; font-size: 14px; }
+
+/* Other Components */
+.other-components { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; }
+.other-component { background: #0f0f1a; padding: 20px; border-radius: 8px; }
+.other-component h4 { color: #8b5cf6; font-size: 16px; margin-bottom: 8px; }
+.other-component p { color: #94a3b8; font-size: 14px; }
+
+@media (max-width: 768px) {
+  .components-page { padding: 100px 16px 40px; }
+  .component-section { padding: 20px; }
+  .detailed-card { flex-direction: column; }
+  .scene-cards { grid-template-columns: 1fr; }
+  .other-components { grid-template-columns: 1fr; }
+  .workflow-steps { flex-direction: column; }
+  .step-arrow { transform: rotate(90deg); }
+  .tool-chain { flex-direction: column; }
+  .chain-arrow { transform: rotate(90deg); }
+}
 </style>
