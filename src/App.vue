@@ -400,6 +400,7 @@ const getToolsByCategoryScene = (sceneId, category) => {
         <p>2026 {{ content.copyright?.text || 'AI工具导航' }}</p>
         <div class="footer-links">
           <a @click="navigate('design')" style="color: #06b6d4;">{{ content.nav.design }}</a>
+          <a @click="navigate('components')" style="color: #8b5cf6;">{{ content.nav.components || '视觉组件' }}</a>
           <a href="https://github.com/reg-liu/OpenclawVue" target="_blank">GitHub</a>
           <a href="https://openclaw.ai" target="_blank">OpenClaw</a>
         </div>

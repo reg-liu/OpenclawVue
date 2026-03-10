@@ -6,7 +6,8 @@
     "ai_create": "AI创作",
     "ai_code": "AI编程",
     "ai_study": "AI学习",
-    "design": "设计规范"
+    "design": "设计规范",
+    "components": "视觉组件"
   },
   "badge": "AI产品",
   "hero": {
