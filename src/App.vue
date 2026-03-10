@@ -594,6 +594,10 @@ const getSceneTools = (sceneId) => {
             <span :class="tool.price === '免费' ? 'tag tag-free' : 'tag tag-paid'">{{ tool.price }}</span>
             <span :class="['tag', 'tag-' + tool.difficulty]">{{ tool.difficulty }}</span>
           </div>
+          <div v-if="tool.workflow" class="tool-workflow">
+            <div class="workflow-title">📋 工作流</div>
+            <p class="workflow-desc">{{ tool.workflow }}</p>
+          </div>
           <div class="tool-openclaw">
             <div class="openclaw-title">🔧 OpenClaw 实践</div>
             <p class="openclaw-desc">{{ tool.openclaw_practice }}</p>
@@ -620,6 +624,10 @@ const getSceneTools = (sceneId) => {
           <div class="tool-tags">
             <span :class="tool.price === '免费' ? 'tag tag-free' : 'tag tag-paid'">{{ tool.price }}</span>
             <span :class="['tag', 'tag-' + tool.difficulty]">{{ tool.difficulty }}</span>
+          </div>
+          <div v-if="tool.workflow" class="tool-workflow">
+            <div class="workflow-title">📋 工作流</div>
+            <p class="workflow-desc">{{ tool.workflow }}</p>
           </div>
           <div class="tool-openclaw">
             <div class="openclaw-title">🔧 OpenClaw 实践</div>
@@ -648,6 +656,10 @@ const getSceneTools = (sceneId) => {
             <span :class="tool.price === '免费' ? 'tag tag-free' : 'tag tag-paid'">{{ tool.price }}</span>
             <span :class="['tag', 'tag-' + tool.difficulty]">{{ tool.difficulty }}</span>
           </div>
+          <div v-if="tool.workflow" class="tool-workflow">
+            <div class="workflow-title">📋 工作流</div>
+            <p class="workflow-desc">{{ tool.workflow }}</p>
+          </div>
           <div class="tool-openclaw">
             <div class="openclaw-title">🔧 OpenClaw 实践</div>
             <p class="openclaw-desc">{{ tool.openclaw_practice }}</p>
@@ -675,6 +687,10 @@ const getSceneTools = (sceneId) => {
             <span :class="tool.price === '免费' ? 'tag tag-free' : 'tag tag-paid'">{{ tool.price }}</span>
             <span :class="['tag', 'tag-' + tool.difficulty]">{{ tool.difficulty }}</span>
           </div>
+          <div v-if="tool.workflow" class="tool-workflow">
+            <div class="workflow-title">📋 工作流</div>
+            <p class="workflow-desc">{{ tool.workflow }}</p>
+          </div>
           <div class="tool-openclaw">
             <div class="openclaw-title">🔧 OpenClaw 实践</div>
             <p class="openclaw-desc">{{ tool.openclaw_practice }}</p>
@@ -701,6 +717,10 @@ const getSceneTools = (sceneId) => {
           <div class="tool-tags">
             <span :class="tool.price === '免费' ? 'tag tag-free' : 'tag tag-paid'">{{ tool.price }}</span>
             <span :class="['tag', 'tag-' + tool.difficulty]">{{ tool.difficulty }}</span>
+          </div>
+          <div v-if="tool.workflow" class="tool-workflow">
+            <div class="workflow-title">📋 工作流</div>
+            <p class="workflow-desc">{{ tool.workflow }}</p>
           </div>
           <div class="tool-openclaw">
             <div class="openclaw-title">🔧 OpenClaw 实践</div>
@@ -1169,6 +1189,9 @@ body { font-family: 'Inter', sans-serif; background: #0d0d0d; color: #e5e5e5; li
 .tool-card .tag-入门 { background: rgba(59, 130, 246, 0.1); color: #3b82f6; }
 .tool-card .tag-进阶 { background: rgba(245, 158, 11, 0.1); color: #f59e0b; }
 .tool-card .tag-高级 { background: rgba(239, 68, 68, 0.1); color: #ef4444; }
+.tool-card .tool-workflow { padding: 12px; background: rgba(139, 92, 246, 0.1); border-radius: 8px; border-left: 3px solid #8b5cf6; margin-bottom: 16px; }
+.tool-card .workflow-title { font-size: 12px; color: #8b5cf6; font-weight: 600; margin-bottom: 4px; }
+.tool-card .workflow-desc { font-size: 12px; color: #94a3b8; line-height: 1.5; }
 .tool-card .tool-openclaw { padding: 12px; background: rgba(16, 185, 129, 0.1); border-radius: 8px; border-left: 3px solid #10b981; margin-bottom: 16px; }
 .tool-card .openclaw-title { font-size: 12px; color: #10b981; font-weight: 600; margin-bottom: 4px; }
 .tool-card .openclaw-desc { font-size: 12px; color: #94a3b8; }
