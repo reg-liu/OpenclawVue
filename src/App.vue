@@ -614,7 +614,7 @@ const getToolsByCategoryScene = (sceneId, category) => {
             <div class="tool-tags">
               <span :class="tool.price === '免费' ? 'tag tag-free' : 'tag tag-paid'">{{ tool.price }}</span>
               <span :class="['tag', 'tag-' + tool.difficulty]">{{ tool.difficulty }}</span>
-              <span v-if="tool.vpn" class="tag" :class="tool.vpn === '需要' ? 'tag-vpn-need' : 'tag-vpn-no'">{{ tool.vpn === '需要' ? '🔒 翻墙' : '🌐 直连' }}</span>
+              <span v-if="tool.network" class="tag" :class="tool.network.includes('全球') ? 'tag-network-global' : (tool.network.includes('国内') ? 'tag-network-cn' : 'tag-network-local')">{{ tool.network }}</span>
             </div>
             <div v-if="tool.mobile" class="tool-meta">
               <span class="meta-item">📱 {{ tool.mobile }}</span>
@@ -1224,6 +1224,9 @@ body { font-family: 'Inter', sans-serif; background: #0d0d0d; color: #e5e5e5; li
 .tool-card .tag-高级 { background: rgba(239, 68, 68, 0.1); color: #ef4444; }
 .tool-card .tag-vpn-need { background: rgba(239, 68, 68, 0.1); color: #ef4444; }
 .tool-card .tag-vpn-no { background: rgba(16, 185, 129, 0.1); color: #10b981; }
+.tool-card .tag-network-global { background: rgba(59, 130, 246, 0.1); color: #3b82f6; }
+.tool-card .tag-network-cn { background: rgba(239, 68, 68, 0.1); color: #ef4444; }
+.tool-card .tag-network-local { background: rgba(139, 92, 246, 0.1); color: #8b5cf6; }
 .tool-card .tool-meta { font-size: 12px; color: #94a3b8; margin-bottom: 12px; }
 .tool-card .tool-proscons { font-size: 12px; margin-bottom: 12px; padding: 8px; background: #1a1a2e; border-radius: 6px; }
 .tool-card .tool-proscons .pros { color: #10b981; margin-bottom: 4px; }
