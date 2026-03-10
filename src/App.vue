@@ -396,7 +396,6 @@ const selectedCategory = ref(content.value?.questions?.categories?.[0]?.id || 'f
         </div>
       </div>
     </footer>
-    </div>
 
     <!-- Design Spec Page -->
     <section v-if="currentPage === 'design'" class="design-page">
