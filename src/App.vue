@@ -1027,6 +1027,19 @@ const getToolsByScene = (sceneId) => getSceneTools(sceneId)
         </div>
       </div>
     </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <div class="footer-content">
+        <div class="footer-links">
+          <a @click="navigate('design')" style="color: #06b6d4;">{{ content.nav.design }}</a>
+          <a @click="navigate('components')" style="color: #8b5cf6;">视觉组件</a>
+          <a href="https://github.com/reg-liu/OpenclawVue" target="_blank">GitHub</a>
+          <a href="https://openclaw.ai" target="_blank">OpenClaw</a>
+        </div>
+        <p class="footer-copy">© 2026 AI工具导航. All rights reserved.</p>
+      </div>
+    </footer>
   </div>
 </template>
 
@@ -1594,4 +1607,12 @@ body { font-family: 'Inter', sans-serif; background: #0d0d0d; color: #e5e5e5; li
   .tool-chain { flex-direction: column; }
   .chain-arrow { transform: rotate(90deg); }
 }
+
+/* Footer */
+.footer { background: #0a0a0a; border-top: 1px solid #262626; padding: 40px 24px; margin-top: 60px; }
+.footer-content { max-width: 1100px; margin: 0 auto; text-align: center; }
+.footer-links { display: flex; justify-content: center; gap: 24px; margin-bottom: 16px; flex-wrap: wrap; }
+.footer-links a { color: #71717a; text-decoration: none; font-size: 14px; cursor: pointer; transition: color 0.2s; }
+.footer-links a:hover { color: #fff; }
+.footer-copy { color: #52525b; font-size: 13px; }
 </style>
