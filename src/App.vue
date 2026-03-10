@@ -61,20 +61,32 @@ const getSceneIcon = (sceneId) => {
   return scene ? scene.icon : ''
 }
 
+// 场景ID映射 - 前端模板用连字符，API数据用下划线
+const sceneMap = {
+  'ai-entry': 'ai_entry',
+  'ai-office': 'ai_office',
+  'ai-create': 'ai_create',
+  'ai-code': 'ai_code',
+  'ai-study': 'ai_study'
+}
+
 const getSceneTools = (sceneId) => {
   if (!sceneId || !toolsData.value) return []
-  return toolsData.value.filter(t => t.scenes.includes(sceneId))
+  const apiScene = sceneMap[sceneId] || sceneId
+  return toolsData.value.filter(t => t.scenes.includes(apiScene))
 }
 
 const getSceneCategories = (sceneId) => {
   if (!sceneId || !toolsData.value) return []
-  const sceneTools = toolsData.value.filter(t => t.scenes.includes(sceneId))
+  const apiScene = sceneMap[sceneId] || sceneId
+  const sceneTools = toolsData.value.filter(t => t.scenes.includes(apiScene))
   return [...new Set(sceneTools.map(t => t.category))]
 }
 
 const getToolsByCategoryScene = (sceneId, category) => {
   if (!sceneId || !category || !toolsData.value) return []
-  return toolsData.value.filter(t => t.scenes.includes(sceneId) && t.category === category)
+  const apiScene = sceneMap[sceneId] || sceneId
+  return toolsData.value.filter(t => t.scenes.includes(apiScene) && t.category === category)
 }
 </script>
 
