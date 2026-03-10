@@ -1,6 +1,6 @@
 // API服务
-// 公网地址: https://5ae24d6d.cpolar.io
-const API_BASE = 'https://5ae24d6d.cpolar.io'
+// 公网地址: https://4f66f5e9.cpolar.io
+const API_BASE = 'https://4f66f5e9.cpolar.io'
 
 // 从API获取工具数据
 export async function fetchTools(sceneId = null) {
