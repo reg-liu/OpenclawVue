@@ -760,10 +760,11 @@ const codeTools = ['GitHub Copilot', 'Cursor', 'Claude Code', 'Windsurf', 'Repli
     <section v-if="currentPage === 'ai_entry'" class="scene-page with-toc">
       <!-- 右侧导航 -->
       <nav class="page-toc">
-        <a href="#comparison" class="toc-link">🆚 工具对比</a>
-        <a href="#scenarios" class="toc-link">💡 场景选择</a>
-        <a href="#guide" class="toc-link">🚀 入门指南</a>
-        <a href="#tools" class="toc-link">📁 工具详情</a>
+        <div class="toc-title">目录</div>
+        <a @click.prevent="scrollToAnchor('comparison')" class="toc-link">🆚 工具对比</a>
+        <a @click.prevent="scrollToAnchor('scenarios')" class="toc-link">💡 场景选择</a>
+        <a @click.prevent="scrollToAnchor('guide')" class="toc-link">🚀 入门指南</a>
+        <a @click.prevent="scrollToAnchor('tools')" class="toc-link">📁 工具详情</a>
       </nav>
       
       <div class="page-content">
@@ -936,9 +937,10 @@ const codeTools = ['GitHub Copilot', 'Cursor', 'Claude Code', 'Windsurf', 'Repli
     <section v-if="currentPage === 'ai_office'" class="scene-page with-toc">
       <!-- 右侧导航 -->
       <nav class="page-toc">
-        <a href="#office-workflow" class="toc-link">📊 PPT工作流</a>
-        <a href="#office-comparison" class="toc-link">🆚 工具对比</a>
-        <a href="#office-tools" class="toc-link">📁 工具详情</a>
+        <div class="toc-title">目录</div>
+        <a @click.prevent="scrollToAnchor('office-workflow')" class="toc-link">📊 PPT工作流</a>
+        <a @click.prevent="scrollToAnchor('office-comparison')" class="toc-link">🆚 工具对比</a>
+        <a @click.prevent="scrollToAnchor('office-tools')" class="toc-link">📁 工具详情</a>
       </nav>
       
       <div class="page-content">
@@ -1070,9 +1072,10 @@ const codeTools = ['GitHub Copilot', 'Cursor', 'Claude Code', 'Windsurf', 'Repli
     <section v-if="currentPage === 'ai_create'" class="scene-page with-toc">
       <!-- 右侧导航 -->
       <nav class="page-toc">
-        <a href="#create-workflow" class="toc-link">🎬 创作工作流</a>
-        <a href="#create-comparison" class="toc-link">🆚 图像对比</a>
-        <a href="#create-tools" class="toc-link">📁 工具详情</a>
+        <div class="toc-title">目录</div>
+        <a @click.prevent="scrollToAnchor('create-workflow')" class="toc-link">🎬 创作工作流</a>
+        <a @click.prevent="scrollToAnchor('create-comparison')" class="toc-link">🆚 图像对比</a>
+        <a @click.prevent="scrollToAnchor('create-tools')" class="toc-link">📁 工具详情</a>
       </nav>
       
       <div class="page-content">
@@ -1191,9 +1194,10 @@ const codeTools = ['GitHub Copilot', 'Cursor', 'Claude Code', 'Windsurf', 'Repli
     <section v-if="currentPage === 'ai_code'" class="scene-page with-toc">
       <!-- 右侧导航 -->
       <nav class="page-toc">
-        <a href="#code-comparison" class="toc-link">🆚 工具对比</a>
-        <a href="#code-scenarios" class="toc-link">💡 编程场景</a>
-        <a href="#code-tools" class="toc-link">📁 工具详情</a>
+        <div class="toc-title">目录</div>
+        <a @click.prevent="scrollToAnchor('code-comparison')" class="toc-link">🆚 工具对比</a>
+        <a @click.prevent="scrollToAnchor('code-scenarios')" class="toc-link">💡 编程场景</a>
+        <a @click.prevent="scrollToAnchor('code-tools')" class="toc-link">📁 工具详情</a>
       </nav>
       
       <div class="page-content">
@@ -1337,10 +1341,11 @@ const codeTools = ['GitHub Copilot', 'Cursor', 'Claude Code', 'Windsurf', 'Repli
     <section v-if="currentPage === 'ai_study'" class="scene-page with-toc">
       <!-- 右侧导航 -->
       <nav class="page-toc">
-        <a href="#study-workflow" class="toc-link">📖 研究工作流</a>
-        <a href="#study-comparison" class="toc-link">🆚 工具对比</a>
-        <a href="#study-scenarios" class="toc-link">💡 学习场景</a>
-        <a href="#study-tools" class="toc-link">📁 工具详情</a>
+        <div class="toc-title">目录</div>
+        <a @click.prevent="scrollToAnchor('study-workflow')" class="toc-link">📖 研究工作流</a>
+        <a @click.prevent="scrollToAnchor('study-comparison')" class="toc-link">🆚 工具对比</a>
+        <a @click.prevent="scrollToAnchor('study-scenarios')" class="toc-link">💡 学习场景</a>
+        <a @click.prevent="scrollToAnchor('study-tools')" class="toc-link">📁 工具详情</a>
       </nav>
       
       <div class="page-content">
