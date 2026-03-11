@@ -198,123 +198,85 @@ const codeTools = ['GitHub Copilot', 'Cursor', 'Claude Code', 'Windsurf', 'Repli
         </div>
       </div>
 
-      <!-- About Section -->
-        <div class="section-container">
-          <h2 class="section-title">{{ content.home.about.title }}</h2>
-          <div class="features">
-            <div v-for="feature in content.home.about.features" :key="feature.title" class="feature-card">
-              <div class="feature-icon">{{ feature.icon || '✦' }}</div>
-              <div class="feature-content">
-                <h3>{{ feature.title }}</h3>
-                <p>{{ feature.desc }}</p>
-              </div>
-            </div>
-          </div>
-        </div>
-
       <!-- 产品页概览 -->
       <div class="section-container">
         <h2 class="section-title">🚀 产品页导航</h2>
         <p class="section-subtitle">探索AI工具导航的各个功能模块</p>
         
-        <div class="home-product-grid">
+        <!-- 产品卡片 - 交替布局 -->
+        <div class="product-cards-alternate">
           <!-- AI入门 -->
-          <div class="home-product-card" @click="navigate('ai_entry')">
-            <div class="product-icon">🚀</div>
-            <h3>AI入门</h3>
-            <p>问答式AI工具对比，场景选择建议，快速入门指南</p>
-            <div class="product-stats">
-              <span>9+ 工具</span>
-              <span>免费/付费</span>
-            </div>
-            <div class="product-tools">
-              <span class="tool-tag">ChatGPT</span>
-              <span class="tool-tag">Claude</span>
-              <span class="tool-tag">Kimi</span>
-              <span class="tool-tag">+更多</span>
+          <div class="product-card-row" @click="navigate('ai_entry')">
+            <div class="card-image">🚀</div>
+            <div class="card-content">
+              <h3>AI入门</h3>
+              <p>零基础入门指南，帮助选择适合的第一款AI工具，快速开启AI之旅</p>
+              <div class="card-tags">
+                <span>问答式AI</span>
+                <span>快速入门</span>
+                <span>场景选择</span>
+              </div>
             </div>
           </div>
 
           <!-- AI办公 -->
-          <div class="home-product-card" @click="navigate('ai_office')">
-            <div class="product-icon">💼</div>
-            <h3>AI办公</h3>
-            <p>PPT智能生成，文档处理，语音转写，数据分析</p>
-            <div class="product-stats">
-              <span>8+ 工具</span>
-              <span>免费/付费</span>
-            </div>
-            <div class="product-tools">
-              <span class="tool-tag">Gamma</span>
-              <span class="tool-tag">Notion AI</span>
-              <span class="tool-tag">通义听悟</span>
-              <span class="tool-tag">+更多</span>
+          <div class="product-card-row reverse" @click="navigate('ai_office')">
+            <div class="card-image">💼</div>
+            <div class="card-content">
+              <h3>AI办公</h3>
+              <p>智能PPT生成、文档处理、会议纪要，全面提升办公效率</p>
+              <div class="card-tags">
+                <span>PPT生成</span>
+                <span>文档处理</span>
+                <span>语音转写</span>
+              </div>
             </div>
           </div>
 
           <!-- AI创作 -->
-          <div class="home-product-card" @click="navigate('ai_create')">
-            <div class="product-icon">🎨</div>
-            <h3>AI创作</h3>
-            <p>图像生成，视频制作，音频合成，创意工作流</p>
-            <div class="product-stats">
-              <span>12+ 工具</span>
-              <span>免费/付费</span>
-            </div>
-            <div class="product-tools">
-              <span class="tool-tag">Midjourney</span>
-              <span class="tool-tag">Runway</span>
-              <span class="tool-tag">ElevenLabs</span>
-              <span class="tool-tag">+更多</span>
+          <div class="product-card-row" @click="navigate('ai_create')">
+            <div class="card-image">🎨</div>
+            <div class="card-content">
+              <h3>AI创作</h3>
+              <p>图像生成、视频制作、音频合成，释放创意无限可能</p>
+              <div class="card-tags">
+                <span>Midjourney</span>
+                <span>Runway</span>
+                <span>ElevenLabs</span>
+              </div>
             </div>
           </div>
 
           <!-- AI编程 -->
-          <div class="home-product-card" @click="navigate('ai_code')">
-            <div class="product-icon">💻</div>
-            <h3>AI编程</h3>
-            <p>代码补全，项目分析，API接入，开发者工具</p>
-            <div class="product-stats">
-              <span>8+ 工具</span>
-              <span>免费/付费</span>
-            </div>
-            <div class="product-tools">
-              <span class="tool-tag">Cursor</span>
-              <span class="tool-tag">Copilot</span>
-              <span class="tool-tag">Claude Code</span>
-              <span class="tool-tag">+更多</span>
+          <div class="product-card-row reverse" @click="navigate('ai_code')">
+            <div class="card-image">💻</div>
+            <div class="card-content">
+              <h3>AI编程</h3>
+              <p>代码辅助、调试优化、Bug修复，让开发更高效</p>
+              <div class="card-tags">
+                <span>Cursor</span>
+                <span>Copilot</span>
+                <span>Claude Code</span>
+              </div>
             </div>
           </div>
 
           <!-- AI学习 -->
-          <div class="home-product-card" @click="navigate('ai_study')">
-            <div class="product-icon">📚</div>
-            <h3>AI学习</h3>
-            <p>论文阅读，资料搜索，学术研究，学习工作流</p>
-            <div class="product-stats">
-              <span>6+ 工具</span>
-              <span>免费/付费</span>
-            </div>
-            <div class="product-tools">
-              <span class="tool-tag">Kimi</span>
-              <span class="tool-tag">Perplexity</span>
-              <span class="tool-tag">Zotero</span>
-              <span class="tool-tag">+更多</span>
+          <div class="product-card-row" @click="navigate('ai_study')">
+            <div class="card-image">📚</div>
+            <div class="card-content">
+              <h3>AI学习</h3>
+              <p>论文阅读、资料搜索、学术研究，AI辅助终身学习</p>
+              <div class="card-tags">
+                <span>Kimi</span>
+                <span>Perplexity</span>
+                <span>Zotero</span>
+              </div>
             </div>
           </div>
         </div>
       </div>
-
-      <!-- 精选工具展示 -->
-      <div class="section-container">
-        <h2 class="section-title">⭐ 精选AI工具</h2>
-        <p class="section-subtitle">热门AI工具推荐，覆盖各类使用场景</p>
-        
-        <div class="featured-tools-grid">
-          <div class="featured-tool-card" v-for="tool in (toolsData.value || []).slice(0, 8)" :key="tool.id">
-            <div class="tool-icon">{{ tool.icon }}</div>
-            <div class="tool-info">
-              <h4>{{ tool.name }}</h4>
+    </section>
               <p>{{ tool.description?.substring(0, 50) }}...</p>
             </div>
           </div>
@@ -1780,6 +1742,23 @@ body { font-family: 'Inter', sans-serif; background: #0d0d0d; color: #e5e5e5; li
 .section-container { max-width: 1100px; margin: 0 auto; }
 .section-title { font-size: 32px; font-weight: 700; margin-bottom: 12px; text-align: center; }
 .section-subtitle { text-align: center; color: #71717a; margin-bottom: 40px; }
+
+/* 产品卡片 - 交替布局 */
+.product-cards-alternate { display: flex; flex-direction: column; gap: 24px; max-width: 900px; margin: 0 auto; }
+.product-cards-alternate .product-card-row { display: flex; align-items: center; gap: 40px; padding: 32px; background: linear-gradient(135deg, #1a1a2e 0%, #2d2d4a 100%); border: 1px solid #2d2d4a; border-radius: 20px; cursor: pointer; transition: all 0.3s; }
+.product-cards-alternate .product-card-row:hover { transform: translateY(-4px); border-color: #8b5cf6; box-shadow: 0 20px 40px rgba(139, 92, 246, 0.15); }
+.product-cards-alternate .product-card-row.reverse { flex-direction: row-reverse; }
+.product-cards-alternate .card-image { font-size: 64px; flex-shrink: 0; width: 120px; text-align: center; }
+.product-cards-alternate .card-content { flex: 1; }
+.product-cards-alternate .card-content h3 { font-size: 28px; margin-bottom: 12px; }
+.product-cards-alternate .card-content p { color: #94a3b8; font-size: 15px; line-height: 1.6; margin-bottom: 16px; }
+.product-cards-alternate .card-tags { display: flex; gap: 10px; flex-wrap: wrap; }
+.product-cards-alternate .card-tags span { padding: 6px 14px; background: rgba(139, 92, 246, 0.15); color: #a78bfa; border-radius: 20px; font-size: 13px; }
+
+@media (max-width: 768px) {
+  .product-cards-alternate .product-card-row { flex-direction: column !important; gap: 20px; padding: 24px; }
+  .product-cards-alternate .card-image { width: auto; font-size: 48px; }
+}
 
 /* 首页产品卡片 */
 .home-product-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 24px; max-width: 1100px; margin: 0 auto; }
