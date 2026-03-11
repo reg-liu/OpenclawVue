@@ -276,6 +276,30 @@ const codeTools = ['GitHub Copilot', 'Cursor', 'Claude Code', 'Windsurf', 'Repli
           </div>
         </div>
       </div>
+
+      <!-- 精选工具 -->
+      <div class="section-container">
+        <h2 class="section-title">精选工具</h2>
+        <p class="section-subtitle">热门AI工具推荐</p>
+        
+        <!-- 简洁工具卡片网格 -->
+        <div class="featured-tools-grid">
+          <div 
+            v-for="tool in (toolsData.value || []).slice(0, 8)" 
+            :key="tool.id" 
+            class="tool-simple-card"
+          >
+            <div class="simple-icon">{{ tool.icon }}</div>
+            <div class="simple-info">
+              <h4>{{ tool.name }}</h4>
+              <p>{{ tool.description?.substring(0, 40) }}...</p>
+            </div>
+            <div class="simple-meta">
+              <span class="price-tag" :class="tool.price?.includes('免费') ? 'free' : 'paid'">{{ tool.price?.split('/')[0] }}</span>
+            </div>
+          </div>
+        </div>
+      </div>
     </section>
 
     <!-- Practice -->
@@ -1748,6 +1772,19 @@ body { font-family: 'Inter', sans-serif; background: #0d0d0d; color: #e5e5e5; li
 .product-cards-alternate .card-content p { color: #94a3b8; font-size: 15px; line-height: 1.6; margin-bottom: 16px; }
 .product-cards-alternate .card-tags { display: flex; gap: 10px; flex-wrap: wrap; }
 .product-cards-alternate .card-tags span { padding: 6px 14px; background: rgba(139, 92, 246, 0.15); color: #a78bfa; border-radius: 20px; font-size: 13px; }
+
+/* 简洁工具卡片 */
+.featured-tools-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 16px; }
+.tool-simple-card { display: flex; align-items: center; gap: 16px; padding: 20px; background: #1a1a2e; border: 1px solid #2d2d4a; border-radius: 12px; cursor: pointer; transition: all 0.2s; }
+.tool-simple-card:hover { border-color: #22d3ee; transform: translateY(-2px); }
+.tool-simple-card .simple-icon { font-size: 36px; flex-shrink: 0; }
+.tool-simple-card .simple-info { flex: 1; min-width: 0; }
+.tool-simple-card .simple-info h4 { font-size: 16px; margin-bottom: 4px; }
+.tool-simple-card .simple-info p { font-size: 13px; color: #71717a; line-height: 1.4; }
+.tool-simple-card .simple-meta { flex-shrink: 0; }
+.tool-simple-card .price-tag { padding: 4px 10px; border-radius: 4px; font-size: 12px; }
+.tool-simple-card .price-tag.free { background: rgba(16, 185, 129, 0.15); color: #10b981; }
+.tool-simple-card .price-tag.paid { background: rgba(245, 158, 11, 0.15); color: #f59e0b; }
 
 @media (max-width: 768px) {
   .product-cards-alternate .product-card-row { flex-direction: column !important; gap: 20px; padding: 24px; }
