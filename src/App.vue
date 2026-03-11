@@ -1742,8 +1742,8 @@ body { font-family: 'Inter', sans-serif; background: #0d0d0d; color: #e5e5e5; li
 .product-cards-alternate .product-card-row { display: flex; align-items: center; gap: 40px; padding: 32px; background: linear-gradient(135deg, #1a1a2e 0%, #2d2d4a 100%); border: 1px solid #2d2d4a; border-radius: 20px; cursor: pointer; transition: all 0.3s; }
 .product-cards-alternate .product-card-row:hover { transform: translateY(-4px); border-color: #8b5cf6; box-shadow: 0 20px 40px rgba(139, 92, 246, 0.15); }
 .product-cards-alternate .product-card-row.reverse { flex-direction: row-reverse; }
-.product-cards-alternate .card-image { font-size: 64px; flex-shrink: 0; width: 120px; text-align: center; }
-.product-cards-alternate .card-content { flex: 1; }
+.product-cards-alternate .card-image { font-size: 64px; flex-shrink: 0; width: 120px; text-align: center; padding: 20px 0; }
+.product-cards-alternate .card-content { flex: 1; min-width: 0; }
 .product-cards-alternate .card-content h3 { font-size: 28px; margin-bottom: 12px; }
 .product-cards-alternate .card-content p { color: #94a3b8; font-size: 15px; line-height: 1.6; margin-bottom: 16px; }
 .product-cards-alternate .card-tags { display: flex; gap: 10px; flex-wrap: wrap; }
@@ -2325,9 +2325,9 @@ body { font-family: 'Inter', sans-serif; background: #0d0d0d; color: #e5e5e5; li
 .tool-icon-small { margin-right: 8px; }
 
 /* 详细工具卡片 */
-.tool-detailed-card { background: #1f1f3d; border: 1px solid #2d2d4a; border-radius: 16px; padding: 28px; margin-bottom: 24px; transition: all 0.3s; }
+.tool-detailed-card { background: #1f1f3d; border: 1px solid #2d2d4a; border-radius: 16px; padding: 28px; margin-bottom: 24px; transition: all 0.3s; width: 100%; box-sizing: border-box; }
 .tool-detailed-card:hover { border-color: #10b981; }
-.tool-detailed-card .detailed-header { display: flex; gap: 20px; align-items: flex-start; margin-bottom: 20px; }
+.tool-detailed-card .detailed-header { display: flex; gap: 20px; align-items: center; margin-bottom: 20px; }
 .tool-detailed-card .detailed-icon { width: 64px; height: 64px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border-radius: 16px; display: flex; align-items: center; justify-content: center; font-size: 32px; flex-shrink: 0; }
 .tool-detailed-card .detailed-info h3 { font-size: 24px; font-weight: 700; margin-bottom: 8px; }
 .tool-detailed-card .detailed-info p { color: #94a3b8; font-size: 15px; line-height: 1.6; }
