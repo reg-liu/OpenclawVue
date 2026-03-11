@@ -277,12 +277,6 @@ const codeTools = ['GitHub Copilot', 'Cursor', 'Claude Code', 'Windsurf', 'Repli
         </div>
       </div>
     </section>
-              <p>{{ tool.description?.substring(0, 50) }}...</p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
 
     <!-- Practice -->
     <section v-if="currentPage === 'practice'" class="practice">
