@@ -109,6 +109,30 @@ const getToolsByCategoryScene = (sceneId, category) => {
 // 兼容旧函数名
 const getToolsByScene = (sceneId) => getSceneTools(sceneId)
 
+// 筛选和排序状态
+const filterPrice = ref('all') // all, free, paid
+const sortBy = ref('name') // name, newest
+
+// 筛选和排序函数
+const filterAndSortTools = (tools) => {
+  if (!tools) return []
+  let result = [...tools]
+  
+  // 价格筛选
+  if (filterPrice.value === 'free') {
+    result = result.filter(t => t.price?.includes('免费'))
+  } else if (filterPrice.value === 'paid') {
+    result = result.filter(t => t.price && !t.price.includes('免费'))
+  }
+  
+  // 排序
+  if (sortBy.value === 'name') {
+    result.sort((a, b) => a.name.localeCompare(b.name, 'zh-CN'))
+  }
+  
+  return result
+}
+
 // 获取特定类别的工具（用于对比）
 const getToolsByCategory = (category) => {
   if (!category || !toolsData.value) return []
@@ -862,11 +886,30 @@ const codeTools = ['GitHub Copilot', 'Cursor', 'Claude Code', 'Windsurf', 'Repli
         </div>
       </div>
 
-<!-- 组件4: 各工具详细说明 -->
+      <!-- 筛选排序 -->
+      <div class="filter-bar">
+        <div class="filter-group">
+          <label>价格：</label>
+          <select v-model="filterPrice">
+            <option value="all">全部</option>
+            <option value="free">免费</option>
+            <option value="paid">付费</option>
+          </select>
+        </div>
+        <div class="filter-group">
+          <label>排序：</label>
+          <select v-model="sortBy">
+            <option value="name">名称</option>
+            <option value="newest">最新</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- 组件4: 各工具详细说明 -->
       <div id="tools" v-for="category in getSceneCategories('ai-entry')" :key="category" class="category-section">
-        <h2 class="category-title">📁 {{ category }}</h2>
+        <h2 class="category-title">{{ category }}</h2>
         
-        <div v-for="tool in getToolsByCategoryScene('ai-entry', category)" :key="tool.id" class="tool-detailed-card">
+        <div v-for="tool in filterAndSortTools(getToolsByCategoryScene('ai-entry', category))" :key="tool.id" class="tool-detailed-card">
           <div class="detailed-header">
             <div class="detailed-icon">{{ tool.icon }}</div>
             <div class="detailed-info">
@@ -1785,6 +1828,13 @@ body { font-family: 'Inter', sans-serif; background: #0d0d0d; color: #e5e5e5; li
 .tool-simple-card .price-tag { padding: 4px 10px; border-radius: 4px; font-size: 12px; }
 .tool-simple-card .price-tag.free { background: rgba(16, 185, 129, 0.15); color: #10b981; }
 .tool-simple-card .price-tag.paid { background: rgba(245, 158, 11, 0.15); color: #f59e0b; }
+
+/* 筛选排序栏 */
+.filter-bar { display: flex; gap: 24px; justify-content: flex-end; padding: 16px 24px; background: #1a1a2e; border-radius: 12px; margin-bottom: 24px; }
+.filter-bar .filter-group { display: flex; align-items: center; gap: 8px; }
+.filter-bar label { color: #94a3b8; font-size: 14px; }
+.filter-bar select { padding: 8px 16px; background: #0f0f1a; border: 1px solid #2d2d4a; border-radius: 6px; color: #fff; font-size: 14px; cursor: pointer; }
+.filter-bar select:hover { border-color: #8b5cf6; }
 
 @media (max-width: 768px) {
   .product-cards-alternate .product-card-row { flex-direction: column !important; gap: 20px; padding: 24px; }
