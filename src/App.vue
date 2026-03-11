@@ -152,6 +152,14 @@ const scrollToAnchor = (anchorId) => {
   }
 }
 
+// 平滑滚动到元素
+const scrollToElement = (elementId) => {
+  const element = document.getElementById(elementId)
+  if (element) {
+    element.scrollIntoView({ behavior: 'smooth', block: 'start' })
+  }
+}
+
 const selectedCategory = ref(content.value?.questions?.categories?.[0]?.id || 'frontend')
 const selectedScene = ref(null)
 
@@ -279,11 +287,24 @@ const codeTools = ['GitHub Copilot', 'Cursor', 'Claude Code', 'Windsurf', 'Repli
         </a>
         <div class="nav-links">
           <a :class="{ active: currentPage === 'home' }" @click="navigate('home')">{{ content.nav.home }}</a>
-          <a :class="{ active: currentPage === 'ai_entry' }" @click="navigate('ai_entry')">{{ content.nav.ai_entry }}</a>
-          <a :class="{ active: currentPage === 'ai_office' }" @click="navigate('ai_office')">{{ content.nav.ai_office }}</a>
-          <a :class="{ active: currentPage === 'ai_create' }" @click="navigate('ai_create')">{{ content.nav.ai_create }}</a>
-          <a :class="{ active: currentPage === 'ai_code' }" @click="navigate('ai_code')">{{ content.nav.ai_code }}</a>
-          <a :class="{ active: currentPage === 'ai_study' }" @click="navigate('ai_study')">{{ content.nav.ai_study }}</a>
+          
+          <!-- 一级分类下拉 -->
+          <div class="nav-dropdown" v-for="cat in categoriesData" :key="cat.id">
+            <a class="nav-dropdown-trigger" @click="navigate('product', cat.id)">
+              {{ cat.icon }} {{ cat.name }}
+            </a>
+            <div class="nav-dropdown-menu" v-if="cat.children && cat.children.length">
+              <a 
+                v-for="sub in cat.children" 
+                :key="sub.id"
+                @click="navigate('subproduct', sub.id)"
+              >
+                {{ sub.name }}
+              </a>
+            </div>
+          </div>
+          
+          <a :class="{ active: currentPage === 'components' }" @click="navigate('components')">组件</a>
         </div>
         <div class="nav-right">
           <span class="badge">{{ content.badge }}</span>
@@ -295,11 +316,18 @@ const codeTools = ['GitHub Copilot', 'Cursor', 'Claude Code', 'Windsurf', 'Repli
     <!-- Mobile Menu -->
     <div v-if="mobileMenuOpen" class="mobile-menu">
       <a @click="navigate('home')">{{ content.nav.home }}</a>
-      <a @click="navigate('ai_entry')">{{ content.nav.ai_entry }}</a>
-      <a @click="navigate('ai_office')">{{ content.nav.ai_office }}</a>
-      <a @click="navigate('ai_create')">{{ content.nav.ai_create }}</a>
-      <a @click="navigate('ai_code')">{{ content.nav.ai_code }}</a>
-      <a @click="navigate('ai_study')">{{ content.nav.ai_study }}</a>
+      <template v-for="cat in categoriesData" :key="cat.id">
+        <a @click="navigate('product', cat.id)">{{ cat.icon }} {{ cat.name }}</a>
+        <a 
+          v-for="sub in (cat.children || []).slice(0, 3)" 
+          :key="sub.id"
+          class="mobile-sub"
+          @click="navigate('subproduct', sub.id)"
+        >
+          └ {{ sub.name }}
+        </a>
+      </template>
+      <a @click="navigate('components')">组件</a>
     </div>
 
     <!-- Home -->
@@ -312,15 +340,24 @@ const codeTools = ['GitHub Copilot', 'Cursor', 'Claude Code', 'Windsurf', 'Repli
             {{ content.hero.title }}<br/>
             <span class="gradient">{{ content.hero.subtitle }}</span>
           </h1>
-          <p class="hero-desc">{{ content.hero.desc }}</p>
-          <div class="hero-btns">
-            <button class="btn-primary" @click="navigate('ai_entry')">{{ content.home.cta }}</button>
+          
+          <!-- 入口区域：用户输入框 + 随便逛逛 -->
+          <div class="entry-area">
+            <div class="search-box">
+              <input 
+                type="text" 
+                placeholder="你想用AI做什么？例如：写文案、生成图片、数据分析" 
+                class="search-input"
+              />
+              <button class="search-btn">→</button>
+            </div>
+            <a class="browse-link" @click="scrollToElement('section-explore')">随便逛逛 →</a>
           </div>
         </div>
       </div>
 
       <!-- 产品页概览 -->
-      <div class="section-container">
+      <div id="section-explore" class="section-container">
         <h2 class="section-title">探索 AI 工具生态</h2>
         <p class="section-subtitle">从入门到进阶，覆盖各类使用场景</p>
         
@@ -1994,6 +2031,15 @@ body { font-family: 'Inter', sans-serif; background: #0d0d0d; color: #e5e5e5; li
 .nav-links a { padding: 10px 20px; color: #a1a1aa; text-decoration: none; border-radius: 8px; cursor: pointer; transition: all 0.2s; }
 .nav-links a:hover { color: #fff; }
 .nav-links a.active { color: #fff; background: #22d3ee; }
+
+/* 下拉导航 */
+.nav-dropdown { position: relative; }
+.nav-dropdown-trigger { padding: 10px 20px; color: #a1a1aa; cursor: pointer; transition: all 0.2s; display: block; }
+.nav-dropdown-trigger:hover { color: #fff; }
+.nav-dropdown-menu { display: none; position: absolute; top: 100%; left: 0; background: #1f1f3d; border: 1px solid #2d2d4a; border-radius: 8px; padding: 8px 0; min-width: 160px; z-index: 100; }
+.nav-dropdown:hover .nav-dropdown-menu { display: block; }
+.nav-dropdown-menu a { display: block; padding: 10px 20px; color: #a1a1aa; font-size: 14px; cursor: pointer; }
+.nav-dropdown-menu a:hover { color: #fff; background: #2d2d4a; }
 .nav-right { display: flex; align-items: center; gap: 16px; }
 .badge { background: #22d3ee; color: #000; padding: 4px 12px; border-radius: 20px; font-size: 12px; font-weight: 600; }
 .menu-btn { display: none; background: none; border: none; color: #fff; font-size: 24px; cursor: pointer; }
@@ -2016,6 +2062,16 @@ body { font-family: 'Inter', sans-serif; background: #0d0d0d; color: #e5e5e5; li
 .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 10px 30px rgba(34,211,238,0.3); }
 .btn-outline { padding: 14px 32px; background: transparent; border: 1px solid #333; border-radius: 10px; color: #fff; font-size: 16px; font-weight: 600; cursor: pointer; transition: all 0.3s; }
 .btn-outline:hover { border-color: #22d3ee; }
+
+/* 入口区域 */
+.entry-area { display: flex; flex-direction: column; align-items: center; gap: 16px; max-width: 600px; margin: 0 auto; }
+.search-box { display: flex; width: 100%; background: #1f1f3d; border: 1px solid #333; border-radius: 12px; overflow: hidden; }
+.search-input { flex: 1; padding: 16px 20px; background: transparent; border: none; color: #fff; font-size: 16px; outline: none; }
+.search-input::placeholder { color: #666; }
+.search-btn { padding: 16px 24px; background: linear-gradient(135deg, #22d3ee, #06b6d4); border: none; color: #000; font-size: 18px; cursor: pointer; transition: all 0.3s; }
+.search-btn:hover { background: linear-gradient(135deg, #06b6d4, #0891b2); }
+.browse-link { color: #94a3b8; font-size: 14px; cursor: pointer; transition: color 0.3s; }
+.browse-link:hover { color: #22d3ee; }
 .hero-stats { display: flex; justify-content: center; gap: 48px; }
 .stat { display: flex; flex-direction: column; align-items: center; }
 .stat-num { font-size: 40px; font-weight: 700; background: linear-gradient(135deg, #22d3ee, #a855f7); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
