@@ -29,10 +29,12 @@ const sceneNameMap = {
 
 export default async function handler(req, res) {
   const { scene, type, category } = req.query
+  console.log('API called:', { scene, type, category })
   
   try {
     // 获取分类
     if (type === 'categories') {
+      console.log('Returning categories...')
       const catResult = await client.execute({
         sql: 'SELECT * FROM categories ORDER BY sort ASC',
         args: []

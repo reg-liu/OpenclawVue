@@ -34,7 +34,85 @@ const server = http.createServer(async (req, res) => {
   if (req.url === '/api/tools' || req.url.startsWith('/api/tools?')) {
     const url = new URL(req.url, `http://localhost:${PORT}`)
     const scene = url.searchParams.get('scene')
+    const type = url.searchParams.get('type')
+    const category = url.searchParams.get('category')
     
+    // 获取分类
+    if (type === 'categories') {
+      try {
+        const catResult = await client.execute({
+          sql: 'SELECT * FROM categories ORDER BY sort ASC',
+          args: []
+        })
+        
+        const allCategories = catResult.rows
+        const mainCategories = allCategories.filter(c => !c.parent)
+        const subCategories = allCategories.filter(c => c.parent)
+        
+        const categories = mainCategories.map(main => ({
+          ...main,
+          children: subCategories
+            .filter(sub => sub.parent === main.id)
+            .sort((a, b) => a.sort - b.sort)
+        }))
+        
+        res.writeHead(200, { 'Content-Type': 'application/json' })
+        res.end(JSON.stringify({ success: true, data: categories }))
+      } catch (error) {
+        res.writeHead(500, { 'Content-Type': 'application/json' })
+        res.end(JSON.stringify({ success: false, error: error.message }))
+      }
+      return
+    }
+    
+    // 获取热门任务
+    if (type === 'hot_tasks') {
+      try {
+        let sql = 'SELECT * FROM hot_tasks'
+        const params = []
+        if (category) {
+          sql += ' WHERE category_id = ?'
+          params.push(category)
+        }
+        sql += ' ORDER BY heat DESC'
+        
+        const result = await client.execute({ sql, args: params })
+        res.writeHead(200, { 'Content-Type': 'application/json' })
+        res.end(JSON.stringify({ success: true, data: result.rows }))
+      } catch (error) {
+        res.writeHead(500, { 'Content-Type': 'application/json' })
+        res.end(JSON.stringify({ success: false, error: error.message }))
+      }
+      return
+    }
+    
+    // 获取工作流
+    if (type === 'workflows') {
+      try {
+        let sql = 'SELECT * FROM workflows'
+        const params = []
+        if (category) {
+          sql += ' WHERE category_id = ?'
+          params.push(category)
+        }
+        sql += ' ORDER BY sort ASC'
+        
+        const result = await client.execute({ sql, args: params })
+        const workflows = result.rows.map(w => ({
+          ...w,
+          steps: w.steps ? JSON.parse(w.steps) : []
+        }))
+        
+        res.writeHead(200, { 'Content-Type': 'application/json' })
+        res.end(JSON.stringify({ success: true, data: workflows }))
+      } catch (error) {
+        res.writeHead(500, { 'Content-Type': 'application/json' })
+        res.end(JSON.stringify({ success: false, error: error.message }))
+      }
+      return
+    }
+    
+    // 获取工具
     try {
       let sql = 'SELECT * FROM tools WHERE status = ?'
       const params = ['已发布']
