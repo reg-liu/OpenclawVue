@@ -138,16 +138,6 @@ const filterAndSortTools = (tools) => {
   
   return result
 }
-    result = result.filter(t => t.price && !t.price.includes('免费'))
-  }
-  
-  // 排序
-  if (sortBy.value === 'name') {
-    result.sort((a, b) => a.name.localeCompare(b.name, 'zh-CN'))
-  }
-  
-  return result
-}
 
 // 获取特定类别的工具（用于对比）
 const getToolsByCategory = (category) => {
