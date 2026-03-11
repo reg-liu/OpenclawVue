@@ -2421,9 +2421,9 @@ body { font-family: 'Inter', sans-serif; background: #0d0d0d; color: #e5e5e5; li
 /* 详细工具卡片 */
 .tool-detailed-card { background: #1f1f3d; border: 1px solid #2d2d4a; border-radius: 16px; padding: 28px; margin-bottom: 24px; transition: all 0.3s; width: 100%; max-width: 800px; margin-left: auto; margin-right: auto; box-sizing: border-box; }
 .tool-detailed-card:hover { border-color: #10b981; }
-.tool-detailed-card .detailed-header { display: flex; gap: 20px; align-items: center; margin-bottom: 20px; justify-content: center; }
+.tool-detailed-card .detailed-header { display: flex; gap: 20px; align-items: center; margin-bottom: 20px; }
 .tool-detailed-card .detailed-icon { width: 64px; height: 64px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border-radius: 16px; display: flex; align-items: center; justify-content: center; font-size: 32px; flex-shrink: 0; }
-.tool-detailed-card .detailed-info { text-align: center; }
+.tool-detailed-card .detailed-info { flex: 1; text-align: left; }
 .tool-detailed-card .detailed-info h3 { font-size: 24px; font-weight: 700; margin-bottom: 8px; }
 .tool-detailed-card .detailed-info p { color: #94a3b8; font-size: 15px; line-height: 1.6; }
 .tool-detailed-card .detailed-tags { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 20px; justify-content: center; }
