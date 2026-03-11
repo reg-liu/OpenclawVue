@@ -28,7 +28,7 @@ const sceneNameMap = {
 }
 
 export default async function handler(req, res) {
-  const { scene, type } = req.query
+  const { scene, type, category } = req.query
   
   try {
     // 获取分类
@@ -54,6 +54,52 @@ export default async function handler(req, res) {
       return res.status(200).json({
         success: true,
         data: categories
+      })
+    }
+    
+    // 获取热门任务
+    if (type === 'hot_tasks') {
+      let sql = 'SELECT * FROM hot_tasks'
+      const params = []
+      
+      if (category) {
+        sql += ' WHERE category_id = ?'
+        params.push(category)
+      }
+      
+      sql += ' ORDER BY heat DESC'
+      
+      const result = await client.execute({ sql, args: params })
+      
+      return res.status(200).json({
+        success: true,
+        data: result.rows
+      })
+    }
+    
+    // 获取工作流
+    if (type === 'workflows') {
+      let sql = 'SELECT * FROM workflows'
+      const params = []
+      
+      if (category) {
+        sql += ' WHERE category_id = ?'
+        params.push(category)
+      }
+      
+      sql += ' ORDER BY sort ASC'
+      
+      const result = await client.execute({ sql, args: params })
+      
+      // 解析steps JSON
+      const workflows = result.rows.map(w => ({
+        ...w,
+        steps: w.steps ? JSON.parse(w.steps) : []
+      }))
+      
+      return res.status(200).json({
+        success: true,
+        data: workflows
       })
     }
     
