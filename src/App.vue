@@ -2209,7 +2209,7 @@ body { font-family: 'Inter', sans-serif; background: #0d0d0d; color: #e5e5e5; li
 }
 
 /* AI Tools Page */
-.scene-page { padding: 120px 24px 80px; min-height: 100vh; max-width: 1100px; margin: 0 auto; }
+.scene-page { padding: 120px 24px 80px; min-height: 100vh; max-width: 800px; margin: 0 auto; }
 .scene-page .page-header { text-align: center; margin-bottom: 48px; }
 .scene-page .page-header h1 { font-size: 36px; margin-bottom: 12px; }
 .scene-page .page-header p { color: #94a3b8; font-size: 16px; }
@@ -2250,7 +2250,7 @@ body { font-family: 'Inter', sans-serif; background: #0d0d0d; color: #e5e5e5; li
 .scene-header .scene-icon-large { font-size: 48px; }
 .scene-header h2 { font-size: 28px; }
 
-.category-section { margin-bottom: 48px; }
+.category-section { margin-bottom: 48px; max-width: 800px; margin-left: auto; margin-right: auto; }
 .category-title { font-size: 22px; font-weight: 600; margin-bottom: 20px; padding-bottom: 8px; border-bottom: 1px solid #2d2d4a; color: #8b5cf6; }
 
 .tools-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 20px; }
