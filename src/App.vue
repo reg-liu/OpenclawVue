@@ -199,7 +199,128 @@ const codeTools = ['GitHub Copilot', 'Cursor', 'Claude Code', 'Windsurf', 'Repli
           </div>
         </div>
 
-      <!-- Tech section removed -->
+      <!-- 产品页概览 -->
+      <div class="section-container">
+        <h2 class="section-title">🚀 产品页导航</h2>
+        <p class="section-subtitle">探索AI工具导航的各个功能模块</p>
+        
+        <div class="home-product-grid">
+          <!-- AI入门 -->
+          <div class="home-product-card" @click="navigate('ai_entry')">
+            <div class="product-icon">🚀</div>
+            <h3>AI入门</h3>
+            <p>问答式AI工具对比，场景选择建议，快速入门指南</p>
+            <div class="product-stats">
+              <span>9+ 工具</span>
+              <span>免费/付费</span>
+            </div>
+            <div class="product-components">
+              <span class="comp-tag">🆚 对比</span>
+              <span class="comp-tag">💡 场景</span>
+              <span class="comp-tag">🚀 指南</span>
+            </div>
+          </div>
+
+          <!-- AI办公 -->
+          <div class="home-product-card" @click="navigate('ai_office')">
+            <div class="product-icon">💼</div>
+            <h3>AI办公</h3>
+            <p>PPT智能生成，文档处理，语音转写，数据分析</p>
+            <div class="product-stats">
+              <span>8+ 工具</span>
+              <span>免费/付费</span>
+            </div>
+            <div class="product-components">
+              <span class="comp-tag">📊 工作流</span>
+              <span class="comp-tag">🆚 对比</span>
+              <span class="comp-tag">📁 详情</span>
+            </div>
+          </div>
+
+          <!-- AI创作 -->
+          <div class="home-product-card" @click="navigate('ai_create')">
+            <div class="product-icon">🎨</div>
+            <h3>AI创作</h3>
+            <p>图像生成，视频制作，音频合成，创意工作流</p>
+            <div class="product-stats">
+              <span>12+ 工具</span>
+              <span>免费/付费</span>
+            </div>
+            <div class="product-components">
+              <span class="comp-tag">🎬 工作流</span>
+              <span class="comp-tag">🆚 对比</span>
+              <span class="comp-tag">📋 步骤</span>
+            </div>
+          </div>
+
+          <!-- AI编程 -->
+          <div class="home-product-card" @click="navigate('ai_code')">
+            <div class="product-icon">💻</div>
+            <h3>AI编程</h3>
+            <p>代码补全，项目分析，API接入，开发者工具</p>
+            <div class="product-stats">
+              <span>8+ 工具</span>
+              <span>免费/付费</span>
+            </div>
+            <div class="product-components">
+              <span class="comp-tag">🆚 对比</span>
+              <span class="comp-tag">💡 场景</span>
+              <span class="comp-tag">🔌 API</span>
+            </div>
+          </div>
+
+          <!-- AI学习 -->
+          <div class="home-product-card" @click="navigate('ai_study')">
+            <div class="product-icon">📚</div>
+            <h3>AI学习</h3>
+            <p>论文阅读，资料搜索，学术研究，学习工作流</p>
+            <div class="product-stats">
+              <span>6+ 工具</span>
+              <span>免费/付费</span>
+            </div>
+            <div class="product-components">
+              <span class="comp-tag">📖 工作流</span>
+              <span class="comp-tag">🆚 对比</span>
+              <span class="comp-tag">💡 场景</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 视觉组件展示入口 -->
+      <div class="section-container">
+        <h2 class="section-title">🎨 视觉组件</h2>
+        <p class="section-subtitle">项目中使用的可视化组件设计</p>
+        <div class="components-preview" @click="navigate('components')">
+          <div class="preview-card">
+            <span class="preview-icon">🃏</span>
+            <span>基础卡片</span>
+          </div>
+          <div class="preview-card">
+            <span class="preview-icon">📊</span>
+            <span>对比表格</span>
+          </div>
+          <div class="preview-card">
+            <span class="preview-icon">🔗</span>
+            <span>工具链</span>
+          </div>
+          <div class="preview-card">
+            <span class="preview-icon">📋</span>
+            <span>步骤流程</span>
+          </div>
+          <div class="preview-card">
+            <span class="preview-icon">💡</span>
+            <span>场景应对</span>
+          </div>
+          <div class="preview-card">
+            <span class="preview-icon">🔌</span>
+            <span>API接入</span>
+          </div>
+          <div class="preview-more">
+            <span>查看全部 →</span>
+          </div>
+        </div>
+      </div>
     </section>
 
     <!-- Practice -->
@@ -1695,7 +1816,30 @@ body { font-family: 'Inter', sans-serif; background: #0d0d0d; color: #e5e5e5; li
 /* Sections */
 .section { padding: 100px 24px; }
 .section-container { max-width: 1100px; margin: 0 auto; }
-.section-title { font-size: 32px; font-weight: 700; margin-bottom: 48px; text-align: center; }
+.section-title { font-size: 32px; font-weight: 700; margin-bottom: 12px; text-align: center; }
+.section-subtitle { text-align: center; color: #71717a; margin-bottom: 40px; margin-top: -30px; }
+
+/* 首页产品卡片 */
+.home-product-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 24px; max-width: 1100px; margin: 0 auto; }
+.home-product-card { background: linear-gradient(135deg, #1a1a2e 0%, #2d2d4a 100%); border: 1px solid #2d2d4a; border-radius: 20px; padding: 32px; cursor: pointer; transition: all 0.3s; }
+.home-product-card:hover { transform: translateY(-8px); border-color: #8b5cf6; box-shadow: 0 20px 40px rgba(139, 92, 246, 0.2); }
+.home-product-card .product-icon { font-size: 48px; margin-bottom: 16px; }
+.home-product-card h3 { font-size: 24px; margin-bottom: 12px; }
+.home-product-card p { color: #94a3b8; font-size: 14px; line-height: 1.6; margin-bottom: 20px; }
+.home-product-card .product-stats { display: flex; gap: 16px; margin-bottom: 16px; }
+.home-product-card .product-stats span { padding: 4px 12px; background: #0f0f1a; border-radius: 20px; font-size: 12px; color: #22d3ee; }
+.home-product-card .product-components { display: flex; gap: 8px; flex-wrap: wrap; }
+.home-product-card .comp-tag { padding: 4px 10px; background: rgba(139, 92, 246, 0.15); color: #a78bfa; border-radius: 4px; font-size: 12px; }
+
+/* 视觉组件预览 */
+.components-preview { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; max-width: 900px; margin: 0 auto; }
+.preview-card { background: #1a1a2e; border: 1px solid #2d2d4a; border-radius: 12px; padding: 24px 32px; display: flex; flex-direction: column; align-items: center; gap: 12px; min-width: 120px; cursor: pointer; transition: all 0.2s; }
+.preview-card:hover { border-color: #22d3ee; transform: translateY(-4px); }
+.preview-icon { font-size: 32px; }
+.preview-card span:last-child { font-size: 14px; color: #94a3b8; }
+.preview-more { background: transparent; border: 1px dashed #2d2d4a; border-radius: 12px; padding: 24px; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: all 0.2s; }
+.preview-more:hover { border-color: #22d3ee; }
+.preview-more span { color: #22d3ee; font-size: 14px; }
 
 /* About */
 .about-section { background: linear-gradient(180deg, #0d0d0d 0%, #171717 100%); }
