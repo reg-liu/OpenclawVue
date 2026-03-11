@@ -682,25 +682,119 @@ const codeTools = ['GitHub Copilot', 'Cursor', 'Claude Code', 'Windsurf', 'Repli
         <h1>AI办公</h1>
         <p>日常办公场景（写文档，做PPT、整理数据）AI工具推荐</p>
       </div>
-      <div class="tools-grid">
-        <div v-for="tool in getToolsByScene('ai-office')" :key="tool.id" class="tool-card">
-          <div class="tool-header">
-            <span class="tool-icon">{{ tool.icon }}</span>
-            <span class="tool-name">{{ tool.name }}</span>
+
+      <!-- 组件1: PPT生成工作流 -->
+      <div class="component-section">
+        <h2 class="component-title">📊 PPT智能生成工作流</h2>
+        <p class="component-desc">AI辅助制作PPT的完整流程</p>
+        <div class="workflow-chain">
+          <div class="chain-step">
+            <div class="chain-icon">📝</div>
+            <div class="chain-name">内容规划</div>
+            <div class="chain-desc">确定主题和大纲</div>
+            <div class="chain-arrow">→</div>
           </div>
-          <p class="tool-desc">{{ tool.description }}</p>
-          <div class="tool-tags">
-            <span :class="tool.price === '免费' ? 'tag tag-free' : 'tag tag-paid'">{{ tool.price }}</span>
+          <div class="chain-step">
+            <div class="chain-icon">🤖</div>
+            <div class="chain-name">AI生成</div>
+            <div class="chain-desc">Gamma/AiPPT生成</div>
+            <div class="chain-arrow">→</div>
+          </div>
+          <div class="chain-step">
+            <div class="chain-icon">✏️</div>
+            <div class="chain-name">人工润色</div>
+            <div class="chain-desc">调整内容和布局</div>
+            <div class="chain-arrow">→</div>
+          </div>
+          <div class="chain-step">
+            <div class="chain-icon">✨</div>
+            <div class="chain-name">美化导出</div>
+            <div class="chain-desc">添加动画和效果</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 组件2: PPT工具对比 -->
+      <div class="component-section">
+        <h2 class="component-title">🆚 PPT生成工具对比</h2>
+        <p class="component-desc">主流AI PPT工具横向对比</p>
+        <div class="comparison-grid">
+          <table class="comparison-table">
+            <thead>
+              <tr>
+                <th>工具</th>
+                <th>价格</th>
+                <th>难度</th>
+                <th>网络</th>
+                <th>特点</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr v-for="tool in getToolsByCategory('PPT生成')" :key="tool.id">
+                <td>
+                  <span class="tool-icon-small">{{ tool.icon }}</span>
+                  {{ tool.name }}
+                </td>
+                <td>{{ tool.price }}</td>
+                <td><span :class="['tag', 'tag-' + tool.difficulty]">{{ tool.difficulty }}</span></td>
+                <td>{{ tool.network }}</td>
+                <td>{{ tool.pros?.split(',')[0] || '功能强大' }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- 组件3: 文档处理工具分类 -->
+      <div v-for="category in getSceneCategories('ai-office')" :key="category" class="category-section">
+        <h2 class="category-title">📁 {{ category }}</h2>
+        
+        <div v-for="tool in getToolsByCategoryScene('ai-office', category)" :key="tool.id" class="tool-detailed-card">
+          <div class="detailed-header">
+            <div class="detailed-icon">{{ tool.icon }}</div>
+            <div class="detailed-info">
+              <h3>{{ tool.name }}</h3>
+              <p>{{ tool.description }}</p>
+            </div>
+          </div>
+          
+          <div class="detailed-tags">
+            <span :class="tool.price?.includes('免费') ? 'tag tag-free' : 'tag tag-paid'">{{ tool.price }}</span>
             <span :class="['tag', 'tag-' + tool.difficulty]">{{ tool.difficulty }}</span>
+            <span v-if="tool.network" class="tag" :class="tool.network.includes('全球') ? 'tag-network-global' : (tool.network.includes('国内') ? 'tag-network-cn' : 'tag-network-local')">{{ tool.network }}</span>
+            <span v-if="tool.mobile" class="tag tag-mobile">📱 {{ tool.mobile }}</span>
           </div>
-          <div v-if="tool.workflow" class="tool-workflow">
-            <div class="workflow-title">📋 工作流</div>
-            <p class="workflow-desc">{{ tool.workflow }}</p>
+
+          <!-- 操作流程 -->
+          <div v-if="getToolSteps(tool).length > 0" class="tool-steps">
+            <h4>📋 使用步骤</h4>
+            <div class="steps-container">
+              <div v-for="step in getToolSteps(tool)" :key="step.step" class="step-item">
+                <div class="step-number">{{ step.step }}</div>
+                <div class="step-content">
+                  <div class="step-title">{{ step.title }}</div>
+                  <div class="step-desc">{{ step.desc }}</div>
+                </div>
+              </div>
+            </div>
           </div>
+
+          <!-- 优劣势 -->
+          <div v-if="tool.pros || tool.cons" class="tool-proscons">
+            <div v-if="tool.pros" class="pros">
+              <span class="label">✅ 优势：</span>{{ tool.pros }}
+            </div>
+            <div v-if="tool.cons" class="cons">
+              <span class="label">⚠️ 劣势：</span>{{ tool.cons }}
+            </div>
+          </div>
+
+          <!-- OpenClaw实践 -->
           <div class="tool-openclaw">
             <div class="openclaw-title">🔧 OpenClaw 实践</div>
             <p class="openclaw-desc">{{ tool.openclaw_practice }}</p>
           </div>
+
           <a :href="tool.website" target="_blank" class="tool-link">访问官网 →</a>
         </div>
       </div>
