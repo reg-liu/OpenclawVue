@@ -639,38 +639,161 @@ const codeTools = ['GitHub Copilot', 'Cursor', 'Claude Code', 'Windsurf', 'Repli
         <h1>AI入门</h1>
         <p>零基础用户不知道怎么开始学习AI？从问答式AI开始，逐步掌握提示词工程</p>
       </div>
-      
-      <div v-for="category in getSceneCategories('ai-entry')" :key="category" class="category-section">
-        <h2 class="category-title">{{ category }}</h2>
-        <div class="tools-grid">
-          <div v-for="tool in getToolsByCategoryScene('ai-entry', category)" :key="tool.id" class="tool-card">
-            <div class="tool-header">
-              <span class="tool-icon">{{ tool.icon }}</span>
-              <span class="tool-name">{{ tool.name }}</span>
+
+      <!-- 组件1: 问答式AI工具对比 -->
+      <div class="component-section">
+        <h2 class="component-title">🆚 问答式AI工具对比</h2>
+        <p class="component-desc">支主流问答式AI横向对比，帮助选择最适合你的第一款AI工具</p>
+        <div class="comparison-grid">
+          <table class="comparison-table">
+            <thead>
+              <tr>
+                <th>工具</th>
+                <th>价格</th>
+                <th>难度</th>
+                <th>网络</th>
+                <th>移动端</th>
+                <th>特点</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr v-for="tool in getToolsByCategory('问答式AI')" :key="tool.id">
+                <td>
+                  <span class="tool-icon-small">{{ tool.icon }}</span>
+                  {{ tool.name }}
+                </td>
+                <td>{{ tool.price }}</td>
+                <td><span :class="['tag', 'tag-' + tool.difficulty]">{{ tool.difficulty }}</span></td>
+                <td>{{ tool.network }}</td>
+                <td>{{ tool.mobile }}</td>
+                <td>{{ tool.pros?.split(',')[0] || '功能全面' }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- 组件2: 场景应对 - 不同需求选什么AI -->
+      <div class="component-section">
+        <h2 class="component-title">💡 场景应对 - 选什么AI？</h2>
+        <p class="component-desc">根据你的需求，选择最合适的AI工具</p>
+        <div class="scenes-grid">
+          <div class="scene-card">
+            <div class="scene-icon">📝</div>
+            <h4>日常问答</h4>
+            <p>回答问题、解释概念、聊天陪伴</p>
+            <div class="scene-tools">
+              <span class="tool-tag">ChatGPT</span>
+              <span class="tool-tag">Claude</span>
+              <span class="tool-tag">通义千问</span>
             </div>
-            <p class="tool-desc">{{ tool.description }}</p>
-            <div class="tool-tags">
-              <span :class="tool.price === '免费' ? 'tag tag-free' : 'tag tag-paid'">{{ tool.price }}</span>
-              <span :class="['tag', 'tag-' + tool.difficulty]">{{ tool.difficulty }}</span>
-              <span v-if="tool.network" class="tag" :class="tool.network.includes('全球') ? 'tag-network-global' : (tool.network.includes('国内') ? 'tag-network-cn' : 'tag-network-local')">{{ tool.network }}</span>
-            </div>
-            <div v-if="tool.mobile" class="tool-meta">
-              <span class="meta-item">📱 {{ tool.mobile }}</span>
-            </div>
-            <div v-if="tool.pros || tool.cons" class="tool-proscons">
-              <div v-if="tool.pros" class="pros"><span class="label">✅ 优势：</span>{{ tool.pros }}</div>
-              <div v-if="tool.cons" class="cons"><span class="label">⚠️ 劣势：</span>{{ tool.cons }}</div>
-            </div>
-            <div v-if="tool.workflow" class="tool-workflow">
-              <div class="workflow-title">📋 工作流</div>
-              <p class="workflow-desc">{{ tool.workflow }}</p>
-            </div>
-            <div class="tool-openclaw">
-              <div class="openclaw-title">🔧 OpenClaw 实践</div>
-              <p class="openclaw-desc">{{ tool.openclaw_practice }}</p>
-            </div>
-            <a :href="tool.website" target="_blank" class="tool-link">访问官网 →</a>
           </div>
+          <div class="scene-card">
+            <div class="scene-icon">✍️</div>
+            <h4>文案写作</h4>
+            <p>写文章、写邮件、写文案</p>
+            <div class="scene-tools">
+              <span class="tool-tag">Claude</span>
+              <span class="tool-tag">Kimi</span>
+              <span class="tool-tag">ChatGPT</span>
+            </div>
+          </div>
+          <div class="scene-card">
+            <div class="scene-icon">🔍</div>
+            <h4>搜索研究</h4>
+            <p>查找资料、总结信息、实时联网</p>
+            <div class="scene-tools">
+              <span class="tool-tag">Perplexity</span>
+              <span class="tool-tag">Kimi</span>
+            </div>
+          </div>
+          <div class="scene-card">
+            <div class="scene-icon">🇨🇳</div>
+            <h4>国内用户</h4>
+            <p>无需网络工具，直接访问</p>
+            <div class="scene-tools">
+              <span class="tool-tag">通义千问</span>
+              <span class="tool-tag">Kimi</span>
+              <span class="tool-tag">文心一言</span>
+              <span class="tool-tag">讯飞星火</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 组件3: 快速入门指南 -->
+      <div class="component-section">
+        <h2 class="component-title">🚀 快速入门指南</h2>
+        <p class="component-desc">第一次使用AI？按照这个流程开始</p>
+        <div class="quick-start-steps">
+          <div class="qs-step">
+            <div class="qs-number">1</div>
+            <div class="qs-content">
+              <h4>选择一款AI工具</h4>
+              <p>推荐国内用户选择 Kimi 或通义千问（无需网络工具）；海外用户选择 ChatGPT 或 Claude</p>
+            </div>
+          </div>
+          <div class="qs-step">
+            <div class="qs-number">2</div>
+            <div class="qs-content">
+              <h4>注册账号</h4>
+              <p>访问官网，使用邮箱或手机号注册，部分工具需要海外手机号验证</p>
+            </div>
+          </div>
+          <div class="qs-step">
+            <div class="qs-number">3</div>
+            <div class="qs-content">
+              <h4>开始第一次对话</h4>
+              <p>尝试发送第一条消息，例如："你好，请介绍一下你自己"</p>
+            </div>
+          </div>
+          <div class="qs-step">
+            <div class="qs-number">4</div>
+            <div class="qs-content">
+              <h4>学习提示词技巧</h4>
+              <p>掌握提示词技巧可以大幅提升AI回答质量，建议搜索"提示词工程"学习</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 组件4: 各工具详细说明 -->
+      <div v-for="category in getSceneCategories('ai-entry')" :key="category" class="category-section">
+        <h2 class="category-title">📁 {{ category }}</h2>
+        
+        <div v-for="tool in getToolsByCategoryScene('ai-entry', category)" :key="tool.id" class="tool-detailed-card">
+          <div class="detailed-header">
+            <div class="detailed-icon">{{ tool.icon }}</div>
+            <div class="detailed-info">
+              <h3>{{ tool.name }}</h3>
+              <p>{{ tool.description }}</p>
+            </div>
+          </div>
+          
+          <div class="detailed-tags">
+            <span :class="tool.price?.includes('免费') ? 'tag tag-free' : 'tag tag-paid'">{{ tool.price }}</span>
+            <span :class="['tag', 'tag-' + tool.difficulty]">{{ tool.difficulty }}</span>
+            <span v-if="tool.network" class="tag" :class="tool.network.includes('全球') ? 'tag-network-global' : (tool.network.includes('国内') ? 'tag-network-cn' : 'tag-network-local')">{{ tool.network }}</span>
+            <span v-if="tool.mobile" class="tag tag-mobile">📱 {{ tool.mobile }}</span>
+          </div>
+
+          <!-- 优劣势 -->
+          <div v-if="tool.pros || tool.cons" class="tool-proscons">
+            <div v-if="tool.pros" class="pros">
+              <span class="label">✅ 优势：</span>{{ tool.pros }}
+            </div>
+            <div v-if="tool.cons" class="cons">
+              <span class="label">⚠️ 劣势：</span>{{ tool.cons }}
+            </div>
+          </div>
+
+          <!-- OpenClaw实践 -->
+          <div class="tool-openclaw">
+            <div class="openclaw-title">🔧 OpenClaw 实践</div>
+            <p class="openclaw-desc">{{ tool.openclaw_practice }}</p>
+          </div>
+
+          <a :href="tool.website" target="_blank" class="tool-link">访问官网 →</a>
         </div>
       </div>
     </section>
@@ -1056,25 +1179,152 @@ const codeTools = ['GitHub Copilot', 'Cursor', 'Claude Code', 'Windsurf', 'Repli
         <h1>AI学习</h1>
         <p>看论文、学新技术 - AI学习工具推荐</p>
       </div>
-      <div class="tools-grid">
-        <div v-for="tool in getToolsByScene('ai-study')" :key="tool.id" class="tool-card">
-          <div class="tool-header">
-            <span class="tool-icon">{{ tool.icon }}</span>
-            <span class="tool-name">{{ tool.name }}</span>
+
+      <!-- 组件1: 学习工具组合工作流 -->
+      <div class="component-section">
+        <h2 class="component-title">📖 AI学术研究工作流</h2>
+        <p class="component-desc">从文献搜索到论文写作的完整流程</p>
+        <div class="workflow-chain">
+          <div class="chain-step">
+            <div class="chain-icon">🔍</div>
+            <div class="chain-name">Perplexity</div>
+            <div class="chain-desc">搜索相关资料</div>
+            <div class="chain-arrow">→</div>
           </div>
-          <p class="tool-desc">{{ tool.description }}</p>
-          <div class="tool-tags">
-            <span :class="tool.price === '免费' ? 'tag tag-free' : 'tag tag-paid'">{{ tool.price }}</span>
+          <div class="chain-step">
+            <div class="chain-icon">📄</div>
+            <div class="chain-name">Kimi</div>
+            <div class="chain-desc">文档理解分析</div>
+            <div class="chain-arrow">→</div>
+          </div>
+          <div class="chain-step">
+            <div class="chain-icon">📚</div>
+            <div class="chain-name">Zotero</div>
+            <div class="chain-desc">文献管理</div>
+            <div class="chain-arrow">→</div>
+          </div>
+          <div class="chain-step">
+            <div class="chain-icon">✍️</div>
+            <div class="chain-name">AI写作</div>
+            <div class="chain-desc">论文撰写</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 组件2: 学习工具对比 -->
+      <div class="component-section">
+        <h2 class="component-title">🆚 AI学习工具对比</h2>
+        <p class="component-desc">不同学习场景下的工具选择</p>
+        <div class="comparison-grid">
+          <table class="comparison-table">
+            <thead>
+              <tr>
+                <th>工具</th>
+                <th>价格</th>
+                <th>难度</th>
+                <th>网络</th>
+                <th>适用场景</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr v-for="tool in getToolsByCategory('文档处理').concat(getToolsByCategory('学术研究')).concat(getToolsByCategory('AI搜索'))" :key="tool.id">
+                <td>
+                  <span class="tool-icon-small">{{ tool.icon }}</span>
+                  {{ tool.name }}
+                </td>
+                <td>{{ tool.price }}</td>
+                <td><span :class="['tag', 'tag-' + tool.difficulty]">{{ tool.difficulty }}</span></td>
+                <td>{{ tool.network }}</td>
+                <td>{{ tool.description?.substring(0, 20) }}...</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- 组件3: 快速入门 - 如何用AI学习 -->
+      <div class="component-section">
+        <h2 class="component-title">🚀 如何用AI辅助学习</h2>
+        <p class="component-desc">不同学习场景的AI使用方案</p>
+        <div class="scenes-grid">
+          <div class="scene-card">
+            <div class="scene-icon">📄</div>
+            <h4>论文阅读</h4>
+            <p>上传PDF到Kimi或Zotero+GPT，快速理解论文内容</p>
+            <div class="scene-tools">
+              <span class="tool-tag">Kimi</span>
+              <span class="tool-tag">Zotero</span>
+            </div>
+          </div>
+          <div class="scene-card">
+            <div class="scene-icon">🔍</div>
+            <h4>资料搜索</h4>
+            <p>使用Perplexity搜索最新信息，获取带来源的回答</p>
+            <div class="scene-tools">
+              <span class="tool-tag">Perplexity</span>
+            </div>
+          </div>
+          <div class="scene-card">
+            <div class="scene-icon">📝</div>
+            <h4>笔记整理</h4>
+            <p>让AI帮你总结笔记、整理知识点、生成思维导图</p>
+            <div class="scene-tools">
+              <span class="tool-tag">Kimi</span>
+              <span class="tool-tag">Claude</span>
+            </div>
+          </div>
+          <div class="scene-card">
+            <div class="scene-icon">💬</div>
+            <h4>问答学习</h4>
+            <p>像提问老师一样向AI提问，获得详细解答</p>
+            <div class="scene-tools">
+              <span class="tool-tag">ChatGPT</span>
+              <span class="tool-tag">Claude</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 组件4: 各工具详细说明 -->
+      <div v-for="category in getSceneCategories('ai-study')" :key="category" class="category-section">
+        <h2 class="category-title">📁 {{ category }}</h2>
+        
+        <div v-for="tool in getToolsByCategoryScene('ai-study', category)" :key="tool.id" class="tool-detailed-card">
+          <div class="detailed-header">
+            <div class="detailed-icon">{{ tool.icon }}</div>
+            <div class="detailed-info">
+              <h3>{{ tool.name }}</h3>
+              <p>{{ tool.description }}</p>
+            </div>
+          </div>
+          
+          <div class="detailed-tags">
+            <span :class="tool.price?.includes('免费') ? 'tag tag-free' : 'tag tag-paid'">{{ tool.price }}</span>
             <span :class="['tag', 'tag-' + tool.difficulty]">{{ tool.difficulty }}</span>
+            <span v-if="tool.network" class="tag" :class="tool.network.includes('全球') ? 'tag-network-global' : (tool.network.includes('国内') ? 'tag-network-cn' : 'tag-network-local')">{{ tool.network }}</span>
+            <span v-if="tool.mobile" class="tag tag-mobile">📱 {{ tool.mobile }}</span>
           </div>
-          <div v-if="tool.workflow" class="tool-workflow">
-            <div class="workflow-title">📋 工作流</div>
-            <p class="workflow-desc">{{ tool.workflow }}</p>
+
+          <!-- 操作流程 -->
+          <div v-if="getToolSteps(tool).length > 0" class="tool-steps">
+            <h4>📋 使用步骤</h4>
+            <div class="steps-container">
+              <div v-for="step in getToolSteps(tool)" :key="step.step" class="step-item">
+                <div class="step-number">{{ step.step }}</div>
+                <div class="step-content">
+                  <div class="step-title">{{ step.title }}</div>
+                  <div class="step-desc">{{ step.desc }}</div>
+                </div>
+              </div>
+            </div>
           </div>
+
+          <!-- OpenClaw实践 -->
           <div class="tool-openclaw">
             <div class="openclaw-title">🔧 OpenClaw 实践</div>
             <p class="openclaw-desc">{{ tool.openclaw_practice }}</p>
           </div>
+
           <a :href="tool.website" target="_blank" class="tool-link">访问官网 →</a>
         </div>
       </div>
@@ -1999,6 +2249,13 @@ body { font-family: 'Inter', sans-serif; background: #0d0d0d; color: #e5e5e5; li
 .tool-api h4 { font-size: 14px; color: #8b5cf6; margin-bottom: 8px; }
 .tool-api code { font-family: monospace; font-size: 13px; color: #10b981; background: #0f0f1a; padding: 8px 12px; border-radius: 4px; display: block; }
 .tag-platform { background: rgba(139, 92, 246, 0.15); color: #8b5cf6; }
+
+/* 快速入门 */
+.quick-start-steps { display: flex; flex-direction: column; gap: 20px; }
+.quick-start-steps .qs-step { display: flex; gap: 20px; padding: 24px; background: #0f0f1a; border-radius: 12px; }
+.quick-start-steps .qs-number { width: 48px; height: 48px; background: linear-gradient(135deg, #22d3ee, #06b6d4); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 24px; font-weight: 700; flex-shrink: 0; }
+.quick-start-steps .qs-content h4 { font-size: 18px; margin-bottom: 8px; }
+.quick-start-steps .qs-content p { color: #94a3b8; font-size: 14px; line-height: 1.6; }
 
 @media (max-width: 768px) {
   .component-section { padding: 20px; }
