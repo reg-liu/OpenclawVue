@@ -2329,7 +2329,7 @@ body { font-family: 'Inter', sans-serif; background: #0d0d0d; color: #e5e5e5; li
 
 /* Detailed Card */
 .detailed-demo { padding: 24px; }
-.detailed-card { display: flex; gap: 24px; align-items: flex-start; }
+.detailed-card { display: flex; gap: 24px; align-items: center; }
 .detailed-icon { width: 80px; height: 80px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border-radius: 16px; display: flex; align-items: center; justify-content: center; font-size: 36px; flex-shrink: 0; }
 .detailed-content { flex: 1; }
 .detailed-content h3 { font-size: 24px; font-weight: 700; margin-bottom: 8px; }
