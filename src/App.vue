@@ -9,11 +9,24 @@ const mobileMenuOpen = ref(false)
 const content = ref(data)
 const mousePos = ref({ x: 50, y: 50 })
 const toolsData = ref([])
+const categoriesData = ref([])
 const isLoading = ref(true)
 
 // 右侧导航
 const activeSection = ref('')
 const pageSections = ref([])
+
+// 获取分类数据
+const fetchCategories = async () => {
+  try {
+    const response = await fetch('/api/tools?type=categories')
+    const result = await response.json()
+    return result.data || []
+  } catch (error) {
+    console.error('获取分类数据失败:', error)
+    return []
+  }
+}
 
 onMounted(async () => {
   // 从URL读取page参数
@@ -26,6 +39,9 @@ onMounted(async () => {
   // 从API获取工具数据
   const result = await fetchTools()
   toolsData.value = result.tools
+  
+  // 从API获取分类数据
+  categoriesData.value = await fetchCategories()
   
   window.addEventListener('scroll', () => {
     isScrolled.value = window.scrollY > 50
@@ -235,72 +251,19 @@ const codeTools = ['GitHub Copilot', 'Cursor', 'Claude Code', 'Windsurf', 'Repli
         
         <!-- 产品卡片 - 交替布局 -->
         <div class="product-cards-alternate">
-          <!-- AI入门 -->
-          <div class="product-card-row" @click="navigate('ai_entry')">
-            <div class="card-image">🚀</div>
+          <div 
+            v-for="(cat, index) in categoriesData" 
+            :key="cat.id" 
+            class="product-card-row"
+            :class="{ reverse: index % 2 === 1 }"
+            @click="navigate(cat.id)"
+          >
+            <div class="card-image">{{ cat.icon }}</div>
             <div class="card-content">
-              <h3>AI入门</h3>
-              <p>零基础入门指南，帮助选择适合的第一款AI工具，快速开启AI之旅</p>
+              <h3>{{ cat.name }}</h3>
+              <p>{{ cat.description }}</p>
               <div class="card-tags">
-                <span>问答式AI</span>
-                <span>快速入门</span>
-                <span>场景选择</span>
-              </div>
-            </div>
-          </div>
-
-          <!-- AI办公 -->
-          <div class="product-card-row reverse" @click="navigate('ai_office')">
-            <div class="card-image">💼</div>
-            <div class="card-content">
-              <h3>AI办公</h3>
-              <p>智能PPT生成、文档处理、会议纪要，全面提升办公效率</p>
-              <div class="card-tags">
-                <span>PPT生成</span>
-                <span>文档处理</span>
-                <span>语音转写</span>
-              </div>
-            </div>
-          </div>
-
-          <!-- AI创作 -->
-          <div class="product-card-row" @click="navigate('ai_create')">
-            <div class="card-image">🎨</div>
-            <div class="card-content">
-              <h3>AI创作</h3>
-              <p>图像生成、视频制作、音频合成，释放创意无限可能</p>
-              <div class="card-tags">
-                <span>Midjourney</span>
-                <span>Runway</span>
-                <span>ElevenLabs</span>
-              </div>
-            </div>
-          </div>
-
-          <!-- AI编程 -->
-          <div class="product-card-row reverse" @click="navigate('ai_code')">
-            <div class="card-image">💻</div>
-            <div class="card-content">
-              <h3>AI编程</h3>
-              <p>代码辅助、调试优化、Bug修复，让开发更高效</p>
-              <div class="card-tags">
-                <span>Cursor</span>
-                <span>Copilot</span>
-                <span>Claude Code</span>
-              </div>
-            </div>
-          </div>
-
-          <!-- AI学习 -->
-          <div class="product-card-row" @click="navigate('ai_study')">
-            <div class="card-image">📚</div>
-            <div class="card-content">
-              <h3>AI学习</h3>
-              <p>论文阅读、资料搜索、学术研究，AI辅助终身学习</p>
-              <div class="card-tags">
-                <span>Kimi</span>
-                <span>Perplexity</span>
-                <span>Zotero</span>
+                <span v-for="sub in (cat.children || []).slice(0, 3)" :key="sub.id">{{ sub.name }}</span>
               </div>
             </div>
           </div>

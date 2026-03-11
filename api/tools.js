@@ -28,9 +28,36 @@ const sceneNameMap = {
 }
 
 export default async function handler(req, res) {
-  const { scene } = req.query
+  const { scene, type } = req.query
   
   try {
+    // 获取分类
+    if (type === 'categories') {
+      const catResult = await client.execute({
+        sql: 'SELECT * FROM categories ORDER BY sort ASC',
+        args: []
+      })
+      
+      // 处理分类层级
+      const allCategories = catResult.rows
+      const mainCategories = allCategories.filter(c => !c.parent)
+      const subCategories = allCategories.filter(c => c.parent)
+      
+      // 为每个主分类添加子分类
+      const categories = mainCategories.map(main => ({
+        ...main,
+        children: subCategories
+          .filter(sub => sub.parent === main.id)
+          .sort((a, b) => a.sort - b.sort)
+      }))
+      
+      return res.status(200).json({
+        success: true,
+        data: categories
+      })
+    }
+    
+    // 获取工具
     let sql = 'SELECT * FROM tools WHERE status = ?'
     const params = ['已发布']
     
