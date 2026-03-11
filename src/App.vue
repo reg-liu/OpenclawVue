@@ -303,8 +303,6 @@ const codeTools = ['GitHub Copilot', 'Cursor', 'Claude Code', 'Windsurf', 'Repli
               </a>
             </div>
           </div>
-          
-          <a :class="{ active: currentPage === 'components' }" @click="navigate('components')">组件</a>
         </div>
         <div class="nav-right">
           <span class="badge">{{ content.badge }}</span>
@@ -327,7 +325,6 @@ const codeTools = ['GitHub Copilot', 'Cursor', 'Claude Code', 'Windsurf', 'Repli
           └ {{ sub.name }}
         </a>
       </template>
-      <a @click="navigate('components')">组件</a>
     </div>
 
     <!-- Home -->
