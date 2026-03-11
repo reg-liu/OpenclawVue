@@ -331,14 +331,14 @@ const codeTools = ['GitHub Copilot', 'Cursor', 'Claude Code', 'Windsurf', 'Repli
             :key="cat.id" 
             class="product-card-row"
             :class="{ reverse: index % 2 === 1 }"
-            @click="navigate(cat.id)"
+            @click="navigate('product', cat.id)"
           >
             <div class="card-image">{{ cat.icon }}</div>
             <div class="card-content">
               <h3>{{ cat.name }}</h3>
               <p>{{ cat.description }}</p>
               <div class="card-tags">
-                <span v-for="sub in (cat.children || []).slice(0, 3)" :key="sub.id">{{ sub.name }}</span>
+                <span v-for="sub in (cat.children || []).slice(0, 3)" :key="sub.id" @click.stop="navigate('subproduct', sub.id)">{{ sub.name }}</span>
               </div>
             </div>
           </div>
