@@ -200,8 +200,8 @@ const codeTools = ['GitHub Copilot', 'Cursor', 'Claude Code', 'Windsurf', 'Repli
 
       <!-- 产品页概览 -->
       <div class="section-container">
-        <h2 class="section-title">🚀 产品页导航</h2>
-        <p class="section-subtitle">探索AI工具导航的各个功能模块</p>
+        <h2 class="section-title">探索 AI 工具生态</h2>
+        <p class="section-subtitle">从入门到进阶，覆盖各类使用场景</p>
         
         <!-- 产品卡片 - 交替布局 -->
         <div class="product-cards-alternate">
@@ -1797,7 +1797,7 @@ body { font-family: 'Inter', sans-serif; background: #0d0d0d; color: #e5e5e5; li
 .flow-step-card h3 { font-size: 18px; margin-bottom: 10px; }
 .flow-step-card p { color: #a1a1aa; font-size: 13px; line-height: 1.6; }
 .hot-section { background: #1a1a1a; padding: 80px 24px; }
-.section-subtitle { text-align: center; color: #71717a; margin-bottom: 48px; margin-top: -30px; }
+.section-subtitle { text-align: center; color: #71717a; margin-bottom: 48px; }
 .hot-grid { max-width: 1100px; margin: 0 auto; display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
 .hot-card { background: #0f0f0f; border: 1px solid #262626; border-radius: 14px; padding: 22px; transition: all 0.3s; }
 .hot-card:hover { border-color: #f472b6; transform: translateY(-3px); }
