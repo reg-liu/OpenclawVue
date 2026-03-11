@@ -1805,7 +1805,7 @@ body { font-family: 'Inter', sans-serif; background: #0d0d0d; color: #e5e5e5; li
 .section-subtitle { text-align: center; color: #71717a; margin-bottom: 40px; }
 
 /* 产品卡片 - 交替布局 */
-.product-cards-alternate { display: flex; flex-direction: column; gap: 24px; max-width: 900px; margin: 0 auto; }
+.product-cards-alternate { display: flex; flex-direction: column; gap: 24px; max-width: 1280px; margin: 0 auto 60px; }
 .product-cards-alternate .product-card-row { display: flex; align-items: center; gap: 40px; padding: 32px; background: linear-gradient(135deg, #1a1a2e 0%, #2d2d4a 100%); border: 1px solid #2d2d4a; border-radius: 20px; cursor: pointer; transition: all 0.3s; }
 .product-cards-alternate .product-card-row:hover { transform: translateY(-4px); border-color: #8b5cf6; box-shadow: 0 20px 40px rgba(139, 92, 246, 0.15); }
 .product-cards-alternate .product-card-row.reverse { flex-direction: row-reverse; }
@@ -1817,7 +1817,7 @@ body { font-family: 'Inter', sans-serif; background: #0d0d0d; color: #e5e5e5; li
 .product-cards-alternate .card-tags span { padding: 6px 14px; background: rgba(139, 92, 246, 0.15); color: #a78bfa; border-radius: 20px; font-size: 13px; }
 
 /* 简洁工具卡片 */
-.featured-tools-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 16px; }
+.featured-tools-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 16px; margin-top: 40px; }
 .tool-simple-card { display: flex; align-items: center; gap: 16px; padding: 20px; background: #1a1a2e; border: 1px solid #2d2d4a; border-radius: 12px; cursor: pointer; transition: all 0.2s; }
 .tool-simple-card:hover { border-color: #22d3ee; transform: translateY(-2px); }
 .tool-simple-card .simple-icon { font-size: 36px; flex-shrink: 0; }
