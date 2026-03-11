@@ -11,6 +11,10 @@ const mousePos = ref({ x: 50, y: 50 })
 const toolsData = ref([])
 const isLoading = ref(true)
 
+// 右侧导航
+const activeSection = ref('')
+const pageSections = ref([])
+
 onMounted(async () => {
   // 从URL读取page参数
   const urlParams = new URLSearchParams(window.location.search)
@@ -632,8 +636,17 @@ const codeTools = ['GitHub Copilot', 'Cursor', 'Claude Code', 'Windsurf', 'Repli
       </div>
     </section>
 
-    <!-- AI Entry Page -->
-    <section v-if="currentPage === 'ai_entry'" class="scene-page">
+<!-- AI Entry Page -->
+    <section v-if="currentPage === 'ai_entry'" class="scene-page with-toc">
+      <!-- 右侧导航 -->
+      <nav class="page-toc">
+        <a href="#comparison" class="toc-link">🆚 工具对比</a>
+        <a href="#scenarios" class="toc-link">💡 场景选择</a>
+        <a href="#guide" class="toc-link">🚀 入门指南</a>
+        <a href="#tools" class="toc-link">📁 工具详情</a>
+      </nav>
+      
+      <div class="page-content">
       <div class="page-header">
         <span class="scene-icon-large">🚀</span>
         <h1>AI入门</h1>
@@ -641,8 +654,8 @@ const codeTools = ['GitHub Copilot', 'Cursor', 'Claude Code', 'Windsurf', 'Repli
       </div>
 
       <!-- 组件1: 问答式AI工具对比 -->
-      <div class="component-section">
-        <h2 class="component-title">🆚 问答式AI工具对比</h2>
+      <div id="ai-entry-comparison" class="component-section">
+        <h2 id="comparison" class="component-title">🆚 问答式AI工具对比</h2>
         <p class="component-desc">支主流问答式AI横向对比，帮助选择最适合你的第一款AI工具</p>
         <div class="comparison-grid">
           <table class="comparison-table">
@@ -675,7 +688,7 @@ const codeTools = ['GitHub Copilot', 'Cursor', 'Claude Code', 'Windsurf', 'Repli
 
       <!-- 组件2: 场景应对 - 不同需求选什么AI -->
       <div class="component-section">
-        <h2 class="component-title">💡 场景应对 - 选什么AI？</h2>
+        <h2 id="scenarios" class="component-title">💡 场景应对 - 选什么AI？</h2>
         <p class="component-desc">根据你的需求，选择最合适的AI工具</p>
         <div class="scenes-grid">
           <div class="scene-card">
@@ -723,7 +736,7 @@ const codeTools = ['GitHub Copilot', 'Cursor', 'Claude Code', 'Windsurf', 'Repli
 
       <!-- 组件3: 快速入门指南 -->
       <div class="component-section">
-        <h2 class="component-title">🚀 快速入门指南</h2>
+        <h2 id="guide" class="component-title">🚀 快速入门指南</h2>
         <p class="component-desc">第一次使用AI？按照这个流程开始</p>
         <div class="quick-start-steps">
           <div class="qs-step">
@@ -757,8 +770,8 @@ const codeTools = ['GitHub Copilot', 'Cursor', 'Claude Code', 'Windsurf', 'Repli
         </div>
       </div>
 
-      <!-- 组件4: 各工具详细说明 -->
-      <div v-for="category in getSceneCategories('ai-entry')" :key="category" class="category-section">
+<!-- 组件4: 各工具详细说明 -->
+      <div id="tools" v-for="category in getSceneCategories('ai-entry')" :key="category" class="category-section">
         <h2 class="category-title">📁 {{ category }}</h2>
         
         <div v-for="tool in getToolsByCategoryScene('ai-entry', category)" :key="tool.id" class="tool-detailed-card">
@@ -796,10 +809,19 @@ const codeTools = ['GitHub Copilot', 'Cursor', 'Claude Code', 'Windsurf', 'Repli
           <a :href="tool.website" target="_blank" class="tool-link">访问官网 →</a>
         </div>
       </div>
+      </div>
     </section>
 
     <!-- AI Office Page -->
-    <section v-if="currentPage === 'ai_office'" class="scene-page">
+    <section v-if="currentPage === 'ai_office'" class="scene-page with-toc">
+      <!-- 右侧导航 -->
+      <nav class="page-toc">
+        <a href="#office-workflow" class="toc-link">📊 PPT工作流</a>
+        <a href="#office-comparison" class="toc-link">🆚 工具对比</a>
+        <a href="#office-tools" class="toc-link">📁 工具详情</a>
+      </nav>
+      
+      <div class="page-content">
       <div class="page-header">
         <span class="scene-icon-large">💼</span>
         <h1>AI办公</h1>
@@ -807,7 +829,7 @@ const codeTools = ['GitHub Copilot', 'Cursor', 'Claude Code', 'Windsurf', 'Repli
       </div>
 
       <!-- 组件1: PPT生成工作流 -->
-      <div class="component-section">
+      <div id="office-workflow" class="component-section">
         <h2 class="component-title">📊 PPT智能生成工作流</h2>
         <p class="component-desc">AI辅助制作PPT的完整流程</p>
         <div class="workflow-chain">
@@ -838,7 +860,7 @@ const codeTools = ['GitHub Copilot', 'Cursor', 'Claude Code', 'Windsurf', 'Repli
       </div>
 
       <!-- 组件2: PPT工具对比 -->
-      <div class="component-section">
+      <div id="office-comparison" class="component-section">
         <h2 class="component-title">🆚 PPT生成工具对比</h2>
         <p class="component-desc">主流AI PPT工具横向对比</p>
         <div class="comparison-grid">
@@ -869,7 +891,7 @@ const codeTools = ['GitHub Copilot', 'Cursor', 'Claude Code', 'Windsurf', 'Repli
       </div>
 
       <!-- 组件3: 文档处理工具分类 -->
-      <div v-for="category in getSceneCategories('ai-office')" :key="category" class="category-section">
+      <div id="office-tools" v-for="category in getSceneCategories('ai-office')" :key="category" class="category-section">
         <h2 class="category-title">📁 {{ category }}</h2>
         
         <div v-for="tool in getToolsByCategoryScene('ai-office', category)" :key="tool.id" class="tool-detailed-card">
@@ -921,10 +943,19 @@ const codeTools = ['GitHub Copilot', 'Cursor', 'Claude Code', 'Windsurf', 'Repli
           <a :href="tool.website" target="_blank" class="tool-link">访问官网 →</a>
         </div>
       </div>
+      </div>
     </section>
 
     <!-- AI Create Page -->
-    <section v-if="currentPage === 'ai_create'" class="scene-page">
+    <section v-if="currentPage === 'ai_create'" class="scene-page with-toc">
+      <!-- 右侧导航 -->
+      <nav class="page-toc">
+        <a href="#create-workflow" class="toc-link">🎬 创作工作流</a>
+        <a href="#create-comparison" class="toc-link">🆚 图像对比</a>
+        <a href="#create-tools" class="toc-link">📁 工具详情</a>
+      </nav>
+      
+      <div class="page-content">
       <div class="page-header">
         <span class="scene-icon-large">🎨</span>
         <h1>AI创作</h1>
@@ -932,7 +963,7 @@ const codeTools = ['GitHub Copilot', 'Cursor', 'Claude Code', 'Windsurf', 'Repli
       </div>
 
       <!-- 组件1: AI视频创作工作流（工具链） -->
-      <div class="component-section">
+      <div id="create-workflow" class="component-section">
         <h2 class="component-title">🎬 AI视频创作工作流</h2>
         <p class="component-desc">从0到1的AI视频创作完整流程</p>
         <div class="workflow-chain">
@@ -949,7 +980,7 @@ const codeTools = ['GitHub Copilot', 'Cursor', 'Claude Code', 'Windsurf', 'Repli
       </div>
 
       <!-- 组件2: AI图像生成工具对比 -->
-      <div class="component-section">
+      <div id="create-comparison" class="component-section">
         <h2 class="component-title">🖼️ AI图像生成工具对比</h2>
         <p class="component-desc">主流AI图像生成工具横向对比</p>
         <div class="comparison-grid">
@@ -980,7 +1011,7 @@ const codeTools = ['GitHub Copilot', 'Cursor', 'Claude Code', 'Windsurf', 'Repli
       </div>
 
       <!-- 组件3: 各工具详细步骤流程 -->
-      <div v-for="category in getSceneCategories('ai-create')" :key="category" class="category-section">
+      <div id="create-tools" v-for="category in getSceneCategories('ai-create')" :key="category" class="category-section">
         <h2 class="category-title">📁 {{ category }}</h2>
         
         <!-- 工具列表：详细卡片 + 步骤展示 -->
@@ -1033,10 +1064,19 @@ const codeTools = ['GitHub Copilot', 'Cursor', 'Claude Code', 'Windsurf', 'Repli
           <a :href="tool.website" target="_blank" class="tool-link">访问官网 →</a>
         </div>
       </div>
+      </div>
     </section>
 
     <!-- AI Code Page -->
-    <section v-if="currentPage === 'ai_code'" class="scene-page">
+    <section v-if="currentPage === 'ai_code'" class="scene-page with-toc">
+      <!-- 右侧导航 -->
+      <nav class="page-toc">
+        <a href="#code-comparison" class="toc-link">🆚 工具对比</a>
+        <a href="#code-scenarios" class="toc-link">💡 编程场景</a>
+        <a href="#code-tools" class="toc-link">📁 工具详情</a>
+      </nav>
+      
+      <div class="page-content">
       <div class="page-header">
         <span class="scene-icon-large">💻</span>
         <h1>AI编程</h1>
@@ -1044,7 +1084,7 @@ const codeTools = ['GitHub Copilot', 'Cursor', 'Claude Code', 'Windsurf', 'Repli
       </div>
 
       <!-- 组件1: AI编程工具对比 -->
-      <div class="component-section">
+      <div id="code-comparison" class="component-section">
         <h2 class="component-title">🆚 AI编程工具对比</h2>
         <p class="component-desc">主流AI编程工具横向对比，选择最适合你的</p>
         <div class="comparison-grid">
@@ -1075,7 +1115,7 @@ const codeTools = ['GitHub Copilot', 'Cursor', 'Claude Code', 'Windsurf', 'Repli
       </div>
 
       <!-- 组件2: 编程场景应对 -->
-      <div class="component-section">
+      <div id="code-scenarios" class="component-section">
         <h2 class="component-title">💡 编程场景应对</h2>
         <p class="component-desc">不同场景下如何选择合适的AI编程工具</p>
         <div class="scenes-grid">
@@ -1117,7 +1157,7 @@ const codeTools = ['GitHub Copilot', 'Cursor', 'Claude Code', 'Windsurf', 'Repli
       </div>
 
       <!-- 组件3: 各工具详细说明 -->
-      <div v-for="category in getSceneCategories('ai-code')" :key="category" class="category-section">
+      <div id="code-tools" v-for="category in getSceneCategories('ai-code')" :key="category" class="category-section">
         <h2 class="category-title">📁 {{ category }}</h2>
         
         <div v-for="tool in getToolsByCategoryScene('ai-code', category)" :key="tool.id" class="tool-detailed-card">
@@ -1170,10 +1210,20 @@ const codeTools = ['GitHub Copilot', 'Cursor', 'Claude Code', 'Windsurf', 'Repli
           <a :href="tool.website" target="_blank" class="tool-link">访问官网 →</a>
         </div>
       </div>
+      </div>
     </section>
 
     <!-- AI Study Page -->
-    <section v-if="currentPage === 'ai_study'" class="scene-page">
+    <section v-if="currentPage === 'ai_study'" class="scene-page with-toc">
+      <!-- 右侧导航 -->
+      <nav class="page-toc">
+        <a href="#study-workflow" class="toc-link">📖 研究工作流</a>
+        <a href="#study-comparison" class="toc-link">🆚 工具对比</a>
+        <a href="#study-scenarios" class="toc-link">💡 学习场景</a>
+        <a href="#study-tools" class="toc-link">📁 工具详情</a>
+      </nav>
+      
+      <div class="page-content">
       <div class="page-header">
         <span class="scene-icon-large">📚</span>
         <h1>AI学习</h1>
@@ -1181,7 +1231,7 @@ const codeTools = ['GitHub Copilot', 'Cursor', 'Claude Code', 'Windsurf', 'Repli
       </div>
 
       <!-- 组件1: 学习工具组合工作流 -->
-      <div class="component-section">
+      <div id="study-workflow" class="component-section">
         <h2 class="component-title">📖 AI学术研究工作流</h2>
         <p class="component-desc">从文献搜索到论文写作的完整流程</p>
         <div class="workflow-chain">
@@ -1212,7 +1262,7 @@ const codeTools = ['GitHub Copilot', 'Cursor', 'Claude Code', 'Windsurf', 'Repli
       </div>
 
       <!-- 组件2: 学习工具对比 -->
-      <div class="component-section">
+      <div id="study-comparison" class="component-section">
         <h2 class="component-title">🆚 AI学习工具对比</h2>
         <p class="component-desc">不同学习场景下的工具选择</p>
         <div class="comparison-grid">
@@ -1243,7 +1293,7 @@ const codeTools = ['GitHub Copilot', 'Cursor', 'Claude Code', 'Windsurf', 'Repli
       </div>
 
       <!-- 组件3: 快速入门 - 如何用AI学习 -->
-      <div class="component-section">
+      <div id="study-scenarios" class="component-section">
         <h2 class="component-title">🚀 如何用AI辅助学习</h2>
         <p class="component-desc">不同学习场景的AI使用方案</p>
         <div class="scenes-grid">
@@ -1286,7 +1336,7 @@ const codeTools = ['GitHub Copilot', 'Cursor', 'Claude Code', 'Windsurf', 'Repli
       </div>
 
       <!-- 组件4: 各工具详细说明 -->
-      <div v-for="category in getSceneCategories('ai-study')" :key="category" class="category-section">
+      <div id="study-tools" v-for="category in getSceneCategories('ai-study')" :key="category" class="category-section">
         <h2 class="category-title">📁 {{ category }}</h2>
         
         <div v-for="tool in getToolsByCategoryScene('ai-study', category)" :key="tool.id" class="tool-detailed-card">
@@ -1327,6 +1377,7 @@ const codeTools = ['GitHub Copilot', 'Cursor', 'Claude Code', 'Windsurf', 'Repli
 
           <a :href="tool.website" target="_blank" class="tool-link">访问官网 →</a>
         </div>
+      </div>
       </div>
     </section>
 
@@ -2256,6 +2307,19 @@ body { font-family: 'Inter', sans-serif; background: #0d0d0d; color: #e5e5e5; li
 .quick-start-steps .qs-number { width: 48px; height: 48px; background: linear-gradient(135deg, #22d3ee, #06b6d4); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 24px; font-weight: 700; flex-shrink: 0; }
 .quick-start-steps .qs-content h4 { font-size: 18px; margin-bottom: 8px; }
 .quick-start-steps .qs-content p { color: #94a3b8; font-size: 14px; line-height: 1.6; }
+
+/* 页面右侧导航 */
+.page-toc { position: fixed; right: 20px; top: 150px; background: #1a1a2e; border: 1px solid #2d2d4a; border-radius: 12px; padding: 16px; z-index: 50; max-width: 180px; }
+.page-toc .toc-link { display: block; padding: 8px 12px; color: #94a3b8; text-decoration: none; font-size: 13px; border-radius: 6px; transition: all 0.2s; margin-bottom: 4px; }
+.page-toc .toc-link:hover { background: #2d2d4a; color: #fff; }
+.page-toc .toc-link.active { background: #8b5cf6; color: #fff; }
+
+.scene-page.with-toc { padding-right: 220px; }
+
+@media (max-width: 1200px) {
+  .page-toc { display: none; }
+  .scene-page.with-toc { padding-right: 24px; }
+}
 
 @media (max-width: 768px) {
   .component-section { padding: 20px; }
