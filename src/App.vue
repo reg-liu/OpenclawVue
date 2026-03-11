@@ -111,7 +111,7 @@ const getToolsByScene = (sceneId) => getSceneTools(sceneId)
 
 // 筛选和排序状态
 const filterPrice = ref('all') // all, free, paid
-const sortBy = ref('name') // name, newest
+const sortBy = ref('name') // name, newest, hot
 
 // 筛选和排序函数
 const filterAndSortTools = (tools) => {
@@ -122,6 +122,22 @@ const filterAndSortTools = (tools) => {
   if (filterPrice.value === 'free') {
     result = result.filter(t => t.price?.includes('免费'))
   } else if (filterPrice.value === 'paid') {
+    result = result.filter(t => t.price && !t.price.includes('免费'))
+  }
+  
+  // 排序
+  if (sortBy.value === 'name') {
+    result.sort((a, b) => a.name.localeCompare(b.name, 'zh-CN'))
+  } else if (sortBy.value === 'hot') {
+    // 热门排序：按sort字段降序（数值越大越热门）
+    result.sort((a, b) => (b.sort || 0) - (a.sort || 0))
+  } else if (sortBy.value === 'newest') {
+    // 最新排序：按ID降序（ID越大越新）
+    result.sort((a, b) => (b.id || 0) - (a.id || 0))
+  }
+  
+  return result
+}
     result = result.filter(t => t.price && !t.price.includes('免费'))
   }
   
@@ -900,6 +916,7 @@ const codeTools = ['GitHub Copilot', 'Cursor', 'Claude Code', 'Windsurf', 'Repli
           <label>排序：</label>
           <select v-model="sortBy">
             <option value="name">名称</option>
+            <option value="hot">热门</option>
             <option value="newest">最新</option>
           </select>
         </div>
