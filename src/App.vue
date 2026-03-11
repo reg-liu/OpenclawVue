@@ -48,6 +48,19 @@ const navigate = (page) => {
   window.scrollTo({ top: 0, behavior: 'smooth' })
 }
 
+// 平滑滚动到锚点
+const scrollToAnchor = (anchorId) => {
+  const element = document.getElementById(anchorId)
+  if (element) {
+    const navHeight = 80
+    const elementPosition = element.getBoundingClientRect().top + window.pageYOffset
+    window.scrollTo({
+      top: elementPosition - navHeight,
+      behavior: 'smooth'
+    })
+  }
+}
+
 const selectedCategory = ref(content.value?.questions?.categories?.[0]?.id || 'frontend')
 const selectedScene = ref(null)
 
@@ -214,10 +227,11 @@ const codeTools = ['GitHub Copilot', 'Cursor', 'Claude Code', 'Windsurf', 'Repli
               <span>9+ 工具</span>
               <span>免费/付费</span>
             </div>
-            <div class="product-components">
-              <span class="comp-tag">🆚 对比</span>
-              <span class="comp-tag">💡 场景</span>
-              <span class="comp-tag">🚀 指南</span>
+            <div class="product-tools">
+              <span class="tool-tag">ChatGPT</span>
+              <span class="tool-tag">Claude</span>
+              <span class="tool-tag">Kimi</span>
+              <span class="tool-tag">+更多</span>
             </div>
           </div>
 
@@ -230,10 +244,11 @@ const codeTools = ['GitHub Copilot', 'Cursor', 'Claude Code', 'Windsurf', 'Repli
               <span>8+ 工具</span>
               <span>免费/付费</span>
             </div>
-            <div class="product-components">
-              <span class="comp-tag">📊 工作流</span>
-              <span class="comp-tag">🆚 对比</span>
-              <span class="comp-tag">📁 详情</span>
+            <div class="product-tools">
+              <span class="tool-tag">Gamma</span>
+              <span class="tool-tag">Notion AI</span>
+              <span class="tool-tag">通义听悟</span>
+              <span class="tool-tag">+更多</span>
             </div>
           </div>
 
@@ -246,10 +261,11 @@ const codeTools = ['GitHub Copilot', 'Cursor', 'Claude Code', 'Windsurf', 'Repli
               <span>12+ 工具</span>
               <span>免费/付费</span>
             </div>
-            <div class="product-components">
-              <span class="comp-tag">🎬 工作流</span>
-              <span class="comp-tag">🆚 对比</span>
-              <span class="comp-tag">📋 步骤</span>
+            <div class="product-tools">
+              <span class="tool-tag">Midjourney</span>
+              <span class="tool-tag">Runway</span>
+              <span class="tool-tag">ElevenLabs</span>
+              <span class="tool-tag">+更多</span>
             </div>
           </div>
 
@@ -262,10 +278,11 @@ const codeTools = ['GitHub Copilot', 'Cursor', 'Claude Code', 'Windsurf', 'Repli
               <span>8+ 工具</span>
               <span>免费/付费</span>
             </div>
-            <div class="product-components">
-              <span class="comp-tag">🆚 对比</span>
-              <span class="comp-tag">💡 场景</span>
-              <span class="comp-tag">🔌 API</span>
+            <div class="product-tools">
+              <span class="tool-tag">Cursor</span>
+              <span class="tool-tag">Copilot</span>
+              <span class="tool-tag">Claude Code</span>
+              <span class="tool-tag">+更多</span>
             </div>
           </div>
 
@@ -278,46 +295,28 @@ const codeTools = ['GitHub Copilot', 'Cursor', 'Claude Code', 'Windsurf', 'Repli
               <span>6+ 工具</span>
               <span>免费/付费</span>
             </div>
-            <div class="product-components">
-              <span class="comp-tag">📖 工作流</span>
-              <span class="comp-tag">🆚 对比</span>
-              <span class="comp-tag">💡 场景</span>
+            <div class="product-tools">
+              <span class="tool-tag">Kimi</span>
+              <span class="tool-tag">Perplexity</span>
+              <span class="tool-tag">Zotero</span>
+              <span class="tool-tag">+更多</span>
             </div>
           </div>
         </div>
       </div>
 
-      <!-- 视觉组件展示入口 -->
+      <!-- 精选工具展示 -->
       <div class="section-container">
-        <h2 class="section-title">🎨 视觉组件</h2>
-        <p class="section-subtitle">项目中使用的可视化组件设计</p>
-        <div class="components-preview" @click="navigate('components')">
-          <div class="preview-card">
-            <span class="preview-icon">🃏</span>
-            <span>基础卡片</span>
-          </div>
-          <div class="preview-card">
-            <span class="preview-icon">📊</span>
-            <span>对比表格</span>
-          </div>
-          <div class="preview-card">
-            <span class="preview-icon">🔗</span>
-            <span>工具链</span>
-          </div>
-          <div class="preview-card">
-            <span class="preview-icon">📋</span>
-            <span>步骤流程</span>
-          </div>
-          <div class="preview-card">
-            <span class="preview-icon">💡</span>
-            <span>场景应对</span>
-          </div>
-          <div class="preview-card">
-            <span class="preview-icon">🔌</span>
-            <span>API接入</span>
-          </div>
-          <div class="preview-more">
-            <span>查看全部 →</span>
+        <h2 class="section-title">⭐ 精选AI工具</h2>
+        <p class="section-subtitle">热门AI工具推荐，覆盖各类使用场景</p>
+        
+        <div class="featured-tools-grid">
+          <div class="featured-tool-card" v-for="tool in toolsData.value.slice(0, 8)" :key="tool.id">
+            <div class="tool-icon">{{ tool.icon }}</div>
+            <div class="tool-info">
+              <h4>{{ tool.name }}</h4>
+              <p>{{ tool.description?.substring(0, 50) }}...</p>
+            </div>
           </div>
         </div>
       </div>
@@ -1817,7 +1816,7 @@ body { font-family: 'Inter', sans-serif; background: #0d0d0d; color: #e5e5e5; li
 .section { padding: 100px 24px; }
 .section-container { max-width: 1100px; margin: 0 auto; }
 .section-title { font-size: 32px; font-weight: 700; margin-bottom: 12px; text-align: center; }
-.section-subtitle { text-align: center; color: #71717a; margin-bottom: 40px; margin-top: -30px; }
+.section-subtitle { text-align: center; color: #71717a; margin-bottom: 40px; }
 
 /* 首页产品卡片 */
 .home-product-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 24px; max-width: 1100px; margin: 0 auto; }
@@ -2453,12 +2452,13 @@ body { font-family: 'Inter', sans-serif; background: #0d0d0d; color: #e5e5e5; li
 .quick-start-steps .qs-content p { color: #94a3b8; font-size: 14px; line-height: 1.6; }
 
 /* 页面右侧导航 */
-.page-toc { position: fixed; right: 20px; top: 150px; background: #1a1a2e; border: 1px solid #2d2d4a; border-radius: 12px; padding: 16px; z-index: 50; max-width: 180px; }
-.page-toc .toc-link { display: block; padding: 8px 12px; color: #94a3b8; text-decoration: none; font-size: 13px; border-radius: 6px; transition: all 0.2s; margin-bottom: 4px; }
+.page-toc { position: fixed; right: 24px; top: 180px; background: #1a1a2e; border: 1px solid #2d2d4a; border-radius: 12px; padding: 16px; z-index: 50; width: 180px; }
+.page-toc .toc-title { font-size: 12px; color: #71717a; margin-bottom: 12px; text-transform: uppercase; letter-spacing: 1px; }
+.page-toc .toc-link { display: block; padding: 10px 14px; color: #94a3b8; text-decoration: none; font-size: 13px; border-radius: 6px; transition: all 0.2s; margin-bottom: 4px; }
 .page-toc .toc-link:hover { background: #2d2d4a; color: #fff; }
 .page-toc .toc-link.active { background: #8b5cf6; color: #fff; }
 
-.scene-page.with-toc { padding-right: 220px; }
+.scene-page.with-toc { padding-right: 240px; }
 
 @media (max-width: 1200px) {
   .page-toc { display: none; }
