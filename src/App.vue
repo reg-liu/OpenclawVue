@@ -757,16 +757,7 @@ const codeTools = ['GitHub Copilot', 'Cursor', 'Claude Code', 'Windsurf', 'Repli
     </section>
 
 <!-- AI Entry Page -->
-    <section v-if="currentPage === 'ai_entry'" class="scene-page with-toc">
-      <!-- 右侧导航 -->
-      <nav class="page-toc">
-        <div class="toc-title">目录</div>
-        <a @click.prevent="scrollToAnchor('comparison')" class="toc-link">🆚 工具对比</a>
-        <a @click.prevent="scrollToAnchor('scenarios')" class="toc-link">💡 场景选择</a>
-        <a @click.prevent="scrollToAnchor('guide')" class="toc-link">🚀 入门指南</a>
-        <a @click.prevent="scrollToAnchor('tools')" class="toc-link">📁 工具详情</a>
-      </nav>
-      
+    <section v-if="currentPage === 'ai_entry'" class="scene-page">
       <div class="page-content">
       <div class="page-header">
         <span class="scene-icon-large">🚀</span>
@@ -934,15 +925,7 @@ const codeTools = ['GitHub Copilot', 'Cursor', 'Claude Code', 'Windsurf', 'Repli
     </section>
 
     <!-- AI Office Page -->
-    <section v-if="currentPage === 'ai_office'" class="scene-page with-toc">
-      <!-- 右侧导航 -->
-      <nav class="page-toc">
-        <div class="toc-title">目录</div>
-        <a @click.prevent="scrollToAnchor('office-workflow')" class="toc-link">📊 PPT工作流</a>
-        <a @click.prevent="scrollToAnchor('office-comparison')" class="toc-link">🆚 工具对比</a>
-        <a @click.prevent="scrollToAnchor('office-tools')" class="toc-link">📁 工具详情</a>
-      </nav>
-      
+    <section v-if="currentPage === 'ai_office'" class="scene-page">
       <div class="page-content">
       <div class="page-header">
         <span class="scene-icon-large">💼</span>
@@ -1069,15 +1052,7 @@ const codeTools = ['GitHub Copilot', 'Cursor', 'Claude Code', 'Windsurf', 'Repli
     </section>
 
     <!-- AI Create Page -->
-    <section v-if="currentPage === 'ai_create'" class="scene-page with-toc">
-      <!-- 右侧导航 -->
-      <nav class="page-toc">
-        <div class="toc-title">目录</div>
-        <a @click.prevent="scrollToAnchor('create-workflow')" class="toc-link">🎬 创作工作流</a>
-        <a @click.prevent="scrollToAnchor('create-comparison')" class="toc-link">🆚 图像对比</a>
-        <a @click.prevent="scrollToAnchor('create-tools')" class="toc-link">📁 工具详情</a>
-      </nav>
-      
+    <section v-if="currentPage === 'ai_create'" class="scene-page">
       <div class="page-content">
       <div class="page-header">
         <span class="scene-icon-large">🎨</span>
@@ -1191,15 +1166,7 @@ const codeTools = ['GitHub Copilot', 'Cursor', 'Claude Code', 'Windsurf', 'Repli
     </section>
 
     <!-- AI Code Page -->
-    <section v-if="currentPage === 'ai_code'" class="scene-page with-toc">
-      <!-- 右侧导航 -->
-      <nav class="page-toc">
-        <div class="toc-title">目录</div>
-        <a @click.prevent="scrollToAnchor('code-comparison')" class="toc-link">🆚 工具对比</a>
-        <a @click.prevent="scrollToAnchor('code-scenarios')" class="toc-link">💡 编程场景</a>
-        <a @click.prevent="scrollToAnchor('code-tools')" class="toc-link">📁 工具详情</a>
-      </nav>
-      
+    <section v-if="currentPage === 'ai_code'" class="scene-page">
       <div class="page-content">
       <div class="page-header">
         <span class="scene-icon-large">💻</span>
@@ -1338,16 +1305,7 @@ const codeTools = ['GitHub Copilot', 'Cursor', 'Claude Code', 'Windsurf', 'Repli
     </section>
 
     <!-- AI Study Page -->
-    <section v-if="currentPage === 'ai_study'" class="scene-page with-toc">
-      <!-- 右侧导航 -->
-      <nav class="page-toc">
-        <div class="toc-title">目录</div>
-        <a @click.prevent="scrollToAnchor('study-workflow')" class="toc-link">📖 研究工作流</a>
-        <a @click.prevent="scrollToAnchor('study-comparison')" class="toc-link">🆚 工具对比</a>
-        <a @click.prevent="scrollToAnchor('study-scenarios')" class="toc-link">💡 学习场景</a>
-        <a @click.prevent="scrollToAnchor('study-tools')" class="toc-link">📁 工具详情</a>
-      </nav>
-      
+    <section v-if="currentPage === 'ai_study'" class="scene-page">
       <div class="page-content">
       <div class="page-header">
         <span class="scene-icon-large">📚</span>
