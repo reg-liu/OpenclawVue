@@ -91,6 +91,43 @@ const getToolsByCategoryScene = (sceneId, category) => {
 
 // 兼容旧函数名
 const getToolsByScene = (sceneId) => getSceneTools(sceneId)
+
+// 获取特定类别的工具（用于对比）
+const getToolsByCategory = (category) => {
+  if (!category || !toolsData.value) return []
+  return toolsData.value.filter(t => t.category === category)
+}
+
+// 获取工具的步骤数组
+const getToolSteps = (tool) => {
+  if (tool.workflowSteps && tool.workflowSteps.length > 0) {
+    return tool.workflowSteps
+  }
+  // 如果没有步骤数据，生成默认步骤
+  if (tool.workflow) {
+    return [
+      { step: 1, title: '开始使用', desc: tool.workflow.split('→')[0] || '了解工具功能' },
+      { step: 2, title: '基本操作', desc: tool.workflow.split('→')[1] || '输入需求' },
+      { step: 3, title: '完成', desc: tool.workflow.split('→')[2] || '获取结果' }
+    ]
+  }
+  return []
+}
+
+// AI视频创作工具链
+const videoWorkflow = [
+  { tool: 'ChatGPT', icon: '💬', desc: '生成脚本/文案' },
+  { tool: 'Midjourney', icon: '🎨', desc: '生成关键帧图片' },
+  { tool: 'Runway', icon: '🎬', desc: '图生视频' },
+  { tool: 'ElevenLabs', icon: '🎤', desc: 'AI配音' },
+  { tool: '剪映', icon: '✂️', desc: '后期剪辑' }
+]
+
+// AI图像生成工具对比
+const imageTools = ['Midjourney', 'DALL-E 3', 'Stable Diffusion']
+
+// AI编程工具对比
+const codeTools = ['GitHub Copilot', 'Cursor', 'Claude Code', 'Windsurf', 'Replit AI']
 </script>
 
 <template>
@@ -676,25 +713,106 @@ const getToolsByScene = (sceneId) => getSceneTools(sceneId)
         <h1>AI创作</h1>
         <p>写文章，做视频、生成图片 - AI创作工具推荐</p>
       </div>
-      <div class="tools-grid">
-        <div v-for="tool in getToolsByScene('ai-create')" :key="tool.id" class="tool-card">
-          <div class="tool-header">
-            <span class="tool-icon">{{ tool.icon }}</span>
-            <span class="tool-name">{{ tool.name }}</span>
+
+      <!-- 组件1: AI视频创作工作流（工具链） -->
+      <div class="component-section">
+        <h2 class="component-title">🎬 AI视频创作工作流</h2>
+        <p class="component-desc">从0到1的AI视频创作完整流程</p>
+        <div class="workflow-chain">
+          <div v-for="(step, index) in videoWorkflow" :key="step.tool" class="chain-step">
+            <div class="chain-icon">{{ step.icon }}</div>
+            <div class="chain-name">{{ step.tool }}</div>
+            <div class="chain-desc">{{ step.desc }}</div>
+            <div v-if="index < videoWorkflow.length - 1" class="chain-arrow">→</div>
           </div>
-          <p class="tool-desc">{{ tool.description }}</p>
-          <div class="tool-tags">
-            <span :class="tool.price === '免费' ? 'tag tag-free' : 'tag tag-paid'">{{ tool.price }}</span>
+        </div>
+        <div class="workflow-note">
+          <p>💡 提示：以上流程可以根据实际需求灵活调整，例如可以直接用 Runway 生成视频，或使用 HeyGen 制作数字人视频</p>
+        </div>
+      </div>
+
+      <!-- 组件2: AI图像生成工具对比 -->
+      <div class="component-section">
+        <h2 class="component-title">🖼️ AI图像生成工具对比</h2>
+        <p class="component-desc">主流AI图像生成工具横向对比</p>
+        <div class="comparison-grid">
+          <table class="comparison-table">
+            <thead>
+              <tr>
+                <th>工具</th>
+                <th>价格</th>
+                <th>难度</th>
+                <th>网络</th>
+                <th>特点</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr v-for="tool in getToolsByCategory('AI图像')" :key="tool.id">
+                <td>
+                  <span class="tool-icon-small">{{ tool.icon }}</span>
+                  {{ tool.name }}
+                </td>
+                <td>{{ tool.price }}</td>
+                <td><span :class="['tag', 'tag-' + tool.difficulty]">{{ tool.difficulty }}</span></td>
+                <td>{{ tool.network }}</td>
+                <td>{{ tool.pros?.split(',')[0] || '功能强大' }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- 组件3: 各工具详细步骤流程 -->
+      <div v-for="category in getSceneCategories('ai-create')" :key="category" class="category-section">
+        <h2 class="category-title">📁 {{ category }}</h2>
+        
+        <!-- 工具列表：详细卡片 + 步骤展示 -->
+        <div v-for="tool in getToolsByCategoryScene('ai-create', category)" :key="tool.id" class="tool-detailed-card">
+          <div class="detailed-header">
+            <div class="detailed-icon">{{ tool.icon }}</div>
+            <div class="detailed-info">
+              <h3>{{ tool.name }}</h3>
+              <p>{{ tool.description }}</p>
+            </div>
+          </div>
+          
+          <div class="detailed-tags">
+            <span :class="tool.price?.includes('免费') ? 'tag tag-free' : 'tag tag-paid'">{{ tool.price }}</span>
             <span :class="['tag', 'tag-' + tool.difficulty]">{{ tool.difficulty }}</span>
+            <span v-if="tool.network" class="tag" :class="tool.network.includes('全球') ? 'tag-network-global' : (tool.network.includes('国内') ? 'tag-network-cn' : 'tag-network-local')">{{ tool.network }}</span>
+            <span v-if="tool.mobile" class="tag tag-mobile">📱 {{ tool.mobile }}</span>
           </div>
-          <div v-if="tool.workflow" class="tool-workflow">
-            <div class="workflow-title">📋 工作流</div>
-            <p class="workflow-desc">{{ tool.workflow }}</p>
+
+          <!-- 操作流程组件 -->
+          <div v-if="getToolSteps(tool).length > 0" class="tool-steps">
+            <h4>📋 使用步骤</h4>
+            <div class="steps-container">
+              <div v-for="step in getToolSteps(tool)" :key="step.step" class="step-item">
+                <div class="step-number">{{ step.step }}</div>
+                <div class="step-content">
+                  <div class="step-title">{{ step.title }}</div>
+                  <div class="step-desc">{{ step.desc }}</div>
+                </div>
+              </div>
+            </div>
           </div>
+
+          <!-- 优劣势组件 -->
+          <div v-if="tool.pros || tool.cons" class="tool-proscons">
+            <div v-if="tool.pros" class="pros">
+              <span class="label">✅ 优势：</span>{{ tool.pros }}
+            </div>
+            <div v-if="tool.cons" class="cons">
+              <span class="label">⚠️ 劣势：</span>{{ tool.cons }}
+            </div>
+          </div>
+
+          <!-- OpenClaw实践 -->
           <div class="tool-openclaw">
             <div class="openclaw-title">🔧 OpenClaw 实践</div>
             <p class="openclaw-desc">{{ tool.openclaw_practice }}</p>
           </div>
+
           <a :href="tool.website" target="_blank" class="tool-link">访问官网 →</a>
         </div>
       </div>
@@ -707,25 +825,131 @@ const getToolsByScene = (sceneId) => getSceneTools(sceneId)
         <h1>AI编程</h1>
         <p>代码辅助、调试、Bug修复 - AI编程工具推荐</p>
       </div>
-      <div class="tools-grid">
-        <div v-for="tool in getToolsByScene('ai-code')" :key="tool.id" class="tool-card">
-          <div class="tool-header">
-            <span class="tool-icon">{{ tool.icon }}</span>
-            <span class="tool-name">{{ tool.name }}</span>
+
+      <!-- 组件1: AI编程工具对比 -->
+      <div class="component-section">
+        <h2 class="component-title">🆚 AI编程工具对比</h2>
+        <p class="component-desc">主流AI编程工具横向对比，选择最适合你的</p>
+        <div class="comparison-grid">
+          <table class="comparison-table">
+            <thead>
+              <tr>
+                <th>工具</th>
+                <th>价格</th>
+                <th>难度</th>
+                <th>平台</th>
+                <th>特点</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr v-for="tool in getToolsByCategory('编程工具').concat(getToolsByCategory('IDE插件'))" :key="tool.id">
+                <td>
+                  <span class="tool-icon-small">{{ tool.icon }}</span>
+                  {{ tool.name }}
+                </td>
+                <td>{{ tool.price }}</td>
+                <td><span :class="['tag', 'tag-' + tool.difficulty]">{{ tool.difficulty }}</span></td>
+                <td>{{ tool.mobile || '桌面端' }}</td>
+                <td>{{ tool.pros?.split(',')[0] || '功能强大' }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- 组件2: 编程场景应对 -->
+      <div class="component-section">
+        <h2 class="component-title">💡 编程场景应对</h2>
+        <p class="component-desc">不同场景下如何选择合适的AI编程工具</p>
+        <div class="scenes-grid">
+          <div class="scene-card">
+            <div class="scene-icon">🔰</div>
+            <h4>新手入门</h4>
+            <p>推荐 Replit AI，无需配置，直接在浏览器中学习和实践编程</p>
+            <div class="scene-tools">
+              <span class="tool-tag">Replit AI</span>
+            </div>
           </div>
-          <p class="tool-desc">{{ tool.description }}</p>
-          <div class="tool-tags">
-            <span :class="tool.price === '免费' ? 'tag tag-free' : 'tag tag-paid'">{{ tool.price }}</span>
+          <div class="scene-card">
+            <div class="scene-icon">💼</div>
+            <h4>日常开发</h4>
+            <p>推荐 Cursor 或 GitHub Copilot，深度集成IDE，提升开发效率</p>
+            <div class="scene-tools">
+              <span class="tool-tag">Cursor</span>
+              <span class="tool-tag">Copilot</span>
+            </div>
+          </div>
+          <div class="scene-card">
+            <div class="scene-icon">🔧</div>
+            <h4>复杂项目</h4>
+            <p>推荐 Claude Code 或 Windsurf，对代码库有深度理解能力</p>
+            <div class="scene-tools">
+              <span class="tool-tag">Claude Code</span>
+              <span class="tool-tag">Windsurf</span>
+            </div>
+          </div>
+          <div class="scene-card">
+            <div class="scene-icon">⚡</div>
+            <h4>CLI爱好者</h4>
+            <p>推荐 Claude Code，终端直接使用，效率更高</p>
+            <div class="scene-tools">
+              <span class="tool-tag">Claude Code</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 组件3: 各工具详细说明 -->
+      <div v-for="category in getSceneCategories('ai-code')" :key="category" class="category-section">
+        <h2 class="category-title">📁 {{ category }}</h2>
+        
+        <div v-for="tool in getToolsByCategoryScene('ai-code', category)" :key="tool.id" class="tool-detailed-card">
+          <div class="detailed-header">
+            <div class="detailed-icon">{{ tool.icon }}</div>
+            <div class="detailed-info">
+              <h3>{{ tool.name }}</h3>
+              <p>{{ tool.description }}</p>
+            </div>
+          </div>
+          
+          <div class="detailed-tags">
+            <span :class="tool.price?.includes('免费') ? 'tag tag-free' : 'tag tag-paid'">{{ tool.price }}</span>
             <span :class="['tag', 'tag-' + tool.difficulty]">{{ tool.difficulty }}</span>
+            <span class="tag tag-platform">{{ tool.mobile || '桌面端' }}</span>
           </div>
-          <div v-if="tool.workflow" class="tool-workflow">
-            <div class="workflow-title">📋 工作流</div>
-            <p class="workflow-desc">{{ tool.workflow }}</p>
+
+          <!-- API接入组件 -->
+          <div class="tool-api">
+            <h4>🔌 API接入</h4>
+            <div class="api-info">
+              <code>{{ tool.openclaw_practice || '通过官方API接入' }}</code>
+            </div>
           </div>
-          <div class="tool-openclaw">
-            <div class="openclaw-title">🔧 OpenClaw 实践</div>
-            <p class="openclaw-desc">{{ tool.openclaw_practice }}</p>
+
+          <!-- 操作流程 -->
+          <div v-if="getToolSteps(tool).length > 0" class="tool-steps">
+            <h4>📋 使用步骤</h4>
+            <div class="steps-container">
+              <div v-for="step in getToolSteps(tool)" :key="step.step" class="step-item">
+                <div class="step-number">{{ step.step }}</div>
+                <div class="step-content">
+                  <div class="step-title">{{ step.title }}</div>
+                  <div class="step-desc">{{ step.desc }}</div>
+                </div>
+              </div>
+            </div>
           </div>
+
+          <!-- 优劣势 -->
+          <div v-if="tool.pros || tool.cons" class="tool-proscons">
+            <div v-if="tool.pros" class="pros">
+              <span class="label">✅ 优势：</span>{{ tool.pros }}
+            </div>
+            <div v-if="tool.cons" class="cons">
+              <span class="label">⚠️ 劣势：</span>{{ tool.cons }}
+            </div>
+          </div>
+
           <a :href="tool.website" target="_blank" class="tool-link">访问官网 →</a>
         </div>
       </div>
@@ -1601,4 +1825,94 @@ body { font-family: 'Inter', sans-serif; background: #0d0d0d; color: #e5e5e5; li
 .footer-links a { color: #71717a; text-decoration: none; font-size: 14px; cursor: pointer; transition: color 0.2s; }
 .footer-links a:hover { color: #fff; }
 .footer-copy { color: #52525b; font-size: 13px; }
+
+/* 产品页新增组件样式 */
+.component-section { background: #1a1a2e; border-radius: 16px; padding: 32px; margin-bottom: 40px; }
+.component-section .component-title { font-size: 24px; font-weight: 700; margin-bottom: 8px; color: #fff; }
+.component-section .component-desc { color: #94a3b8; margin-bottom: 24px; font-size: 15px; }
+
+/* 工具链组件 */
+.workflow-chain { display: flex; align-items: flex-start; justify-content: center; gap: 8px; flex-wrap: wrap; padding: 24px; background: #0f0f1a; border-radius: 12px; }
+.workflow-chain .chain-step { display: flex; flex-direction: column; align-items: center; gap: 8px; padding: 16px; background: #1a1a2e; border-radius: 12px; min-width: 120px; position: relative; }
+.workflow-chain .chain-icon { font-size: 32px; }
+.workflow-chain .chain-name { font-weight: 600; font-size: 14px; text-align: center; }
+.workflow-chain .chain-desc { color: #94a3b8; font-size: 12px; text-align: center; }
+.workflow-chain .chain-arrow { position: absolute; right: -20px; top: 50%; transform: translateY(-50%); color: #8b5cf6; font-size: 20px; font-weight: bold; }
+.workflow-note { margin-top: 20px; padding: 16px; background: rgba(139, 92, 246, 0.1); border-radius: 8px; }
+.workflow-note p { color: #94a3b8; font-size: 14px; margin: 0; }
+
+/* 对比表格 */
+.comparison-grid { overflow-x: auto; }
+.comparison-grid .comparison-table { width: 100%; border-collapse: collapse; }
+.comparison-grid .comparison-table th, .comparison-grid .comparison-table td { padding: 14px 16px; text-align: left; border-bottom: 1px solid #262626; }
+.comparison-grid .comparison-table th { background: #262626; font-weight: 600; color: #fff; }
+.comparison-grid .comparison-table td { color: #94a3b8; }
+.comparison-grid .comparison-table tr:hover td { background: #1a1a2e; }
+.tool-icon-small { margin-right: 8px; }
+
+/* 详细工具卡片 */
+.tool-detailed-card { background: #1f1f3d; border: 1px solid #2d2d4a; border-radius: 16px; padding: 28px; margin-bottom: 24px; transition: all 0.3s; }
+.tool-detailed-card:hover { border-color: #10b981; }
+.tool-detailed-card .detailed-header { display: flex; gap: 20px; align-items: flex-start; margin-bottom: 20px; }
+.tool-detailed-card .detailed-icon { width: 64px; height: 64px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border-radius: 16px; display: flex; align-items: center; justify-content: center; font-size: 32px; flex-shrink: 0; }
+.tool-detailed-card .detailed-info h3 { font-size: 24px; font-weight: 700; margin-bottom: 8px; }
+.tool-detailed-card .detailed-info p { color: #94a3b8; font-size: 15px; line-height: 1.6; }
+.tool-detailed-card .detailed-tags { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 20px; }
+.tool-detailed-card .tag { padding: 6px 14px; border-radius: 6px; font-size: 13px; font-weight: 500; }
+.tool-detailed-card .tag-free { background: rgba(16, 185, 129, 0.15); color: #10b981; }
+.tool-detailed-card .tag-paid { background: rgba(245, 158, 11, 0.15); color: #f59e0b; }
+.tool-detailed-card .tag-入门 { background: rgba(59, 130, 246, 0.15); color: #3b82f6; }
+.tool-detailed-card .tag-进阶 { background: rgba(245, 158, 11, 0.15); color: #f59e0b; }
+.tool-detailed-card .tag-高级 { background: rgba(239, 68, 68, 0.15); color: #ef4444; }
+.tool-detailed-card .tag-network-global { background: rgba(59, 130, 246, 0.15); color: #3b82f6; }
+.tool-detailed-card .tag-network-cn { background: rgba(239, 68, 68, 0.15); color: #ef4444; }
+.tool-detailed-card .tag-mobile { background: rgba(139, 92, 246, 0.15); color: #8b5cf6; }
+
+/* 步骤组件 */
+.tool-steps { margin-bottom: 20px; }
+.tool-steps h4 { font-size: 16px; margin-bottom: 16px; color: #fff; }
+.tool-steps .steps-container { display: flex; gap: 16px; flex-wrap: wrap; }
+.tool-steps .step-item { display: flex; gap: 12px; align-items: flex-start; flex: 1; min-width: 200px; padding: 16px; background: #1a1a2e; border-radius: 12px; }
+.tool-steps .step-number { width: 32px; height: 32px; background: linear-gradient(135deg, #8b5cf6, #a855f7); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; flex-shrink: 0; }
+.tool-steps .step-title { font-weight: 600; font-size: 14px; margin-bottom: 4px; }
+.tool-steps .step-desc { color: #94a3b8; font-size: 13px; }
+
+/* 优劣势 */
+.tool-detailed-card .tool-proscons { display: flex; flex-direction: column; gap: 8px; margin-bottom: 20px; padding: 16px; background: #1a1a2e; border-radius: 8px; }
+.tool-detailed-card .pros { color: #10b981; font-size: 14px; }
+.tool-detailed-card .cons { color: #f59e0b; font-size: 14px; }
+.tool-detailed-card .label { font-weight: 600; }
+
+/* OpenClaw实践 */
+.tool-detailed-card .tool-openclaw { padding: 16px; background: rgba(16, 185, 129, 0.1); border-radius: 8px; border-left: 4px solid #10b981; margin-bottom: 20px; }
+.tool-detailed-card .openclaw-title { font-size: 14px; color: #10b981; font-weight: 600; margin-bottom: 6px; }
+.tool-detailed-card .openclaw-desc { font-size: 13px; color: #94a3b8; }
+
+.tool-detailed-card .tool-link { display: inline-block; color: #10b981; text-decoration: none; font-size: 14px; font-weight: 500; }
+.tool-detailed-card .tool-link:hover { text-decoration: underline; }
+
+/* 编程场景应对 */
+.scenes-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; }
+.scenes-grid .scene-card { background: #0f0f1a; padding: 24px; border-radius: 12px; }
+.scenes-grid .scene-icon { font-size: 32px; margin-bottom: 12px; }
+.scenes-grid h4 { font-size: 18px; margin-bottom: 8px; }
+.scenes-grid p { color: #94a3b8; font-size: 14px; margin-bottom: 16px; line-height: 1.5; }
+.scenes-grid .scene-tools { display: flex; gap: 8px; flex-wrap: wrap; }
+.scenes-grid .tool-tag { padding: 4px 12px; background: #8b5cf6; color: #fff; border-radius: 4px; font-size: 12px; }
+
+/* API接入组件 */
+.tool-api { margin-bottom: 20px; padding: 16px; background: #1a1a2e; border-radius: 8px; }
+.tool-api h4 { font-size: 14px; color: #8b5cf6; margin-bottom: 8px; }
+.tool-api code { font-family: monospace; font-size: 13px; color: #10b981; background: #0f0f1a; padding: 8px 12px; border-radius: 4px; display: block; }
+.tag-platform { background: rgba(139, 92, 246, 0.15); color: #8b5cf6; }
+
+@media (max-width: 768px) {
+  .component-section { padding: 20px; }
+  .workflow-chain { flex-direction: column; align-items: center; }
+  .workflow-chain .chain-arrow { display: none; }
+  .tool-detailed-card .detailed-header { flex-direction: column; }
+  .tool-detailed-card .detailed-icon { width: 100%; height: auto; padding: 16px; }
+  .tool-steps .steps-container { flex-direction: column; }
+  .tool-steps .step-item { min-width: auto; }
+}
 </style>
