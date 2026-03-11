@@ -356,10 +356,9 @@ const codeTools = ['GitHub Copilot', 'Cursor', 'Claude Code', 'Windsurf', 'Repli
         </div>
       </div>
 
-      <!-- 产品页概览 -->
+      <!-- 场景导航 -->
       <div id="section-explore" class="section-container">
-        <h2 class="section-title">探索 AI 工具生态</h2>
-        <p class="section-subtitle">从入门到进阶，覆盖各类使用场景</p>
+        <h2 class="section-title">场景导航</h2>
         
         <!-- 产品卡片 - 交替布局 -->
         <div class="product-cards-alternate">
@@ -377,15 +376,11 @@ const codeTools = ['GitHub Copilot', 'Cursor', 'Claude Code', 'Windsurf', 'Repli
               <div class="card-tags">
                 <span v-for="sub in (cat.children || []).slice(0, 3)" :key="sub.id" @click.stop="navigate('subproduct', sub.id)">{{ sub.name }}</span>
               </div>
-            </div>
           </div>
+            </div>
         </div>
       </div>
-
-      <!-- 精选工具 -->
-      <div class="section-container">
-        <h2 class="section-title">精选工具</h2>
-        <p class="section-subtitle">热门AI工具推荐</p>
+    </section>
         
         <!-- 简洁工具卡片网格 -->
         <div class="featured-tools-grid">
