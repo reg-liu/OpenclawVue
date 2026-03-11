@@ -4,17 +4,41 @@ import data from './data.json'
 import { scenes, getCategories, filterToolsByCategory, fetchTools } from './services/api.js'
 
 const currentPage = ref('home')
+const currentCategory = ref('')  // 当前分类ID
 const isScrolled = ref(false)
 const mobileMenuOpen = ref(false)
 const content = ref(data)
 const mousePos = ref({ x: 50, y: 50 })
 const toolsData = ref([])
 const categoriesData = ref([])
+const hotTasksData = ref([])
+const workflowsData = ref([])
 const isLoading = ref(true)
 
-// 右侧导航
-const activeSection = ref('')
-const pageSections = ref([])
+// 获取当前分类信息
+const getCurrentCategory = () => {
+  if (!currentCategory.value) return null
+  // 从categoriesData中查找
+  for (const cat of categoriesData.value) {
+    if (cat.id === currentCategory.value) return cat
+    if (cat.children) {
+      const sub = cat.children.find(c => c.id === currentCategory.value)
+      if (sub) return sub
+    }
+  }
+  return null
+}
+
+// 获取主分类
+const getParentCategory = () => {
+  if (!currentCategory.value) return null
+  for (const cat of categoriesData.value) {
+    if (cat.children && cat.children.find(c => c.id === currentCategory.value)) {
+      return cat
+    }
+  }
+  return null
+}
 
 // 获取分类数据
 const fetchCategories = async () => {
@@ -28,12 +52,50 @@ const fetchCategories = async () => {
   }
 }
 
+// 获取热门任务
+const fetchHotTasks = async (categoryId) => {
+  try {
+    const url = categoryId ? `/api/tools?type=hot_tasks&category=${categoryId}` : '/api/tools?type=hot_tasks'
+    const response = await fetch(url)
+    const result = await response.json()
+    return result.data || []
+  } catch (error) {
+    console.error('获取热门任务失败:', error)
+    return []
+  }
+}
+
+// 获取工作流
+const fetchWorkflows = async (categoryId) => {
+  try {
+    const url = categoryId ? `/api/tools?type=workflows&category=${categoryId}` : '/api/tools?type=workflows'
+    const response = await fetch(url)
+    const result = await response.json()
+    return result.data || []
+  } catch (error) {
+    console.error('获取工作流失败:', error)
+    return []
+  }
+}
+
 onMounted(async () => {
-  // 从URL读取page参数
+  // 从URL读取page和category参数
   const urlParams = new URLSearchParams(window.location.search)
   const page = urlParams.get('page')
-  if (page && ['home', 'ai_entry', 'ai_office', 'ai_create', 'ai_code', 'ai_study', 'design', 'components'].includes(page)) {
+  const category = urlParams.get('category')
+  
+  // 支持的页面列表
+  const validPages = ['home', 'product', 'subproduct', 'design', 'components']
+  
+  if (page && validPages.includes(page)) {
     currentPage.value = page
+    currentCategory.value = category || ''
+    
+    // 如果是产品页或副产品页，获取对应数据
+    if (page === 'product' || page === 'subproduct') {
+      hotTasksData.value = await fetchHotTasks(category)
+      workflowsData.value = await fetchWorkflows(category)
+    }
   }
   
   // 从API获取工具数据
@@ -54,14 +116,27 @@ onMounted(async () => {
   })
 })
 
-const navigate = (page) => {
+const navigate = (page, category = '') => {
   currentPage.value = page
+  currentCategory.value = category
   mobileMenuOpen.value = false
+  
   // 更新URL参数
   const url = new URL(window.location.href)
   url.searchParams.set('page', page)
+  if (category) {
+    url.searchParams.set('category', category)
+  } else {
+    url.searchParams.delete('category')
+  }
   window.history.pushState({}, '', url)
   window.scrollTo({ top: 0, behavior: 'smooth' })
+  
+  // 如果是产品页或副产品页，获取对应数据
+  if (page === 'product' || page === 'subproduct') {
+    fetchHotTasks(category).then(data => hotTasksData.value = data)
+    fetchWorkflows(category).then(data => workflowsData.value = data)
+  }
 }
 
 // 平滑滚动到锚点
@@ -289,6 +364,184 @@ const codeTools = ['GitHub Copilot', 'Cursor', 'Claude Code', 'Windsurf', 'Repli
             </div>
             <div class="simple-meta">
               <span class="price-tag" :class="tool.price?.includes('免费') ? 'free' : 'paid'">{{ tool.price?.split('/')[0] }}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 通用产品页（一级页面） -->
+    <section v-if="currentPage === 'product'" class="product-page">
+      <div class="page-container">
+        <!-- 页面标题 -->
+        <div class="product-header">
+          <div class="header-icon">{{ getCurrentCategory()?.icon || '📁' }}</div>
+          <div class="header-content">
+            <h1>{{ getCurrentCategory()?.name || '产品页' }}</h1>
+            <p>{{ getCurrentCategory()?.description || '' }}</p>
+          </div>
+        </div>
+        
+        <!-- 右侧导航 -->
+        <div class="toc-sidebar">
+          <div class="toc-list">
+            <a v-for="task in hotTasksData.slice(0, 5)" :key="task.id" :href="'#task-' + task.id" class="toc-item">{{ task.name }}</a>
+          </div>
+        </div>
+        
+        <!-- 热门任务 -->
+        <div id="section-hot-tasks" class="content-section">
+          <h2 class="section-title">热门任务</h2>
+          <p class="section-subtitle">最受欢迎的AI使用场景</p>
+          <div class="hot-tasks-grid">
+            <div v-for="task in hotTasksData" :key="task.id" :id="'task-' + task.id" class="hot-task-card">
+              <h3>{{ task.name }}</h3>
+              <p>{{ task.description }}</p>
+              <span class="heat-tag">{{ task.heat > 1000 ? (task.heat/1000).toFixed(1) + 'k' : task.heat }}</span>
+            </div>
+          </div>
+        </div>
+        
+        <!-- 工作流 -->
+        <div id="section-workflow" class="content-section">
+          <h2 class="section-title">工作流</h2>
+          <p class="section-subtitle">使用AI完成任务的典型流程</p>
+          <div class="workflows-list">
+            <div v-for="wf in workflowsData" :key="wf.id" class="workflow-card">
+              <h3>{{ wf.title }}</h3>
+              <p>{{ wf.description }}</p>
+              <div class="workflow-steps">
+                <div v-for="(step, idx) in wf.steps" :key="idx" class="step-item">
+                  <span class="step-num">{{ step.step }}</span>
+                  <div class="step-content">
+                    <h4>{{ step.title }}</h4>
+                    <p>{{ step.desc }}</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- 推荐工具 -->
+        <div id="section-tools" class="content-section">
+          <h2 class="section-title">推荐工具</h2>
+          <p class="section-subtitle">适合该场景的AI工具</p>
+          <div class="tools-grid">
+            <div v-for="tool in toolsData.slice(0, 8)" :key="tool.id" class="tool-card" @click="navigate('tool_detail', tool.id)">
+              <div class="tool-icon">{{ tool.icon }}</div>
+              <h3>{{ tool.name }}</h3>
+              <p>{{ tool.description }}</p>
+              <div class="tool-tags">
+                <span class="tag">{{ tool.price }}</span>
+                <span class="tag">{{ tool.difficulty }}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 通用副产品页（二级页面） -->
+    <section v-if="currentPage === 'subproduct'" class="subproduct-page">
+      <div class="page-container">
+        <!-- 面包屑导航 -->
+        <div class="breadcrumb">
+          <a @click="navigate('home')">首页</a>
+          <span>/</span>
+          <a v-if="getParentCategory()" @click="navigate('product', getParentCategory()?.id)">{{ getParentCategory()?.name }}</a>
+          <span>/</span>
+          <span class="current">{{ getCurrentCategory()?.name }}</span>
+        </div>
+        
+        <!-- 页面标题 -->
+        <div class="product-header">
+          <div class="header-icon">{{ getCurrentCategory()?.icon || '📁' }}</div>
+          <div class="header-content">
+            <h1>{{ getCurrentCategory()?.name }}</h1>
+            <p>{{ getCurrentCategory()?.description }}</p>
+          </div>
+        </div>
+        
+        <!-- 右侧导航 -->
+        <div class="toc-sidebar">
+          <div class="toc-list">
+            <a href="#section-workflow" class="toc-item">工作流</a>
+            <a href="#section-tools" class="toc-item">工具对比</a>
+            <a href="#section-detail" class="toc-item">详细说明</a>
+          </div>
+        </div>
+        
+        <!-- 工作流 -->
+        <div id="section-workflow" class="content-section">
+          <h2 class="section-title">工作流</h2>
+          <p class="section-subtitle">完成该任务的步骤</p>
+          <div class="workflows-list">
+            <div v-for="wf in workflowsData" :key="wf.id" class="workflow-card">
+              <h3>{{ wf.title }}</h3>
+              <p>{{ wf.description }}</p>
+              <div class="workflow-steps">
+                <div v-for="(step, idx) in wf.steps" :key="idx" class="step-item">
+                  <span class="step-num">{{ step.step }}</span>
+                  <div class="step-content">
+                    <h4>{{ step.title }}</h4>
+                    <p>{{ step.desc }}</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- 工具对比 -->
+        <div id="section-tools" class="content-section">
+          <h2 class="section-title">工具对比</h2>
+          <p class="section-subtitle">各工具在此场景的对比</p>
+          <div class="tools-comparison">
+            <table class="comparison-table">
+              <thead>
+                <tr>
+                  <th>工具</th>
+                  <th>擅长</th>
+                  <th>难度</th>
+                  <th>价格</th>
+                  <th>网络</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr v-for="tool in toolsData.slice(0, 6)" :key="tool.id">
+                  <td><span class="tool-name">{{ tool.icon }} {{ tool.name }}</span></td>
+                  <td>{{ tool.features?.[0] || '-' }}</td>
+                  <td>{{ tool.difficulty }}</td>
+                  <td>{{ tool.price }}</td>
+                  <td>{{ tool.network }}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        
+        <!-- 详细说明 -->
+        <div id="section-detail" class="content-section">
+          <h2 class="section-title">详细说明</h2>
+          <div class="detailed-cards">
+            <div v-for="tool in toolsData.slice(0, 6)" :key="tool.id" class="tool-detailed-card">
+              <div class="detailed-header">
+                <div class="detailed-icon">{{ tool.icon }}</div>
+                <div class="detailed-info">
+                  <h3>{{ tool.name }}</h3>
+                  <p>{{ tool.description }}</p>
+                </div>
+              </div>
+              <div class="detailed-tags">
+                <span :class="tool.price?.includes('免费') ? 'tag tag-free' : 'tag tag-paid'">{{ tool.price }}</span>
+                <span :class="['tag', 'tag-' + tool.difficulty]">{{ tool.difficulty }}</span>
+                <span v-if="tool.network" class="tag">{{ tool.network }}</span>
+              </div>
+              <div v-if="tool.pros || tool.cons" class="tool-proscons">
+                <div v-if="tool.pros" class="pros"><span class="label">✅ 优势：</span>{{ tool.pros }}</div>
+                <div v-if="tool.cons" class="cons"><span class="label">⚠️ 劣势：</span>{{ tool.cons }}</div>
+              </div>
             </div>
           </div>
         </div>
@@ -2270,6 +2523,71 @@ body { font-family: 'Inter', sans-serif; background: #0d0d0d; color: #e5e5e5; li
   .scene-card .scene-name { font-size: 16px; }
   .tools-grid { grid-template-columns: 1fr; }
 }
+
+/* Product & Subproduct Pages */
+.product-page, .subproduct-page { padding: 100px 24px 60px; max-width: 1200px; margin: 0 auto; position: relative; }
+.product-page .page-container, .subproduct-page .page-container { position: relative; }
+
+/* 页面头部 */
+.product-header { display: flex; align-items: center; gap: 24px; margin-bottom: 48px; padding: 32px; background: linear-gradient(135deg, #1f1f3d 0%, #2d2d4a 100%); border-radius: 20px; }
+.product-header .header-icon { font-size: 56px; }
+.product-header .header-content h1 { font-size: 36px; margin-bottom: 8px; }
+.product-header .header-content p { color: #94a3b8; font-size: 16px; }
+
+/* 面包屑导航 */
+.breadcrumb { display: flex; align-items: center; gap: 8px; margin-bottom: 24px; font-size: 14px; }
+.breadcrumb a { color: #10b981; cursor: pointer; }
+.breadcrumb a:hover { text-decoration: underline; }
+.breadcrumb .current { color: #94a3b8; }
+
+/* 右侧导航 */
+.toc-sidebar { position: fixed; right: 40px; top: 50%; transform: translateY(-50%); z-index: 100; }
+.toc-list { background: #1f1f3d; border-radius: 12px; padding: 16px; border: 1px solid #2d2d4a; }
+.toc-item { display: block; color: #94a3b8; font-size: 13px; padding: 8px 0; border-bottom: 1px solid #2d2d4a; cursor: pointer; }
+.toc-item:last-child { border-bottom: none; }
+.toc-item:hover { color: #10b981; }
+
+/* 内容区块 */
+.content-section { margin-bottom: 64px; }
+.section-title { font-size: 28px; font-weight: 700; margin-bottom: 8px; text-align: center; }
+.section-subtitle { color: #94a3b8; text-align: center; margin-bottom: 32px; }
+
+/* 热门任务网格 */
+.hot-tasks-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px; }
+.hot-task-card { background: #1f1f3d; border: 1px solid #2d2d4a; border-radius: 16px; padding: 24px; transition: all 0.3s; }
+.hot-task-card:hover { border-color: #10b981; transform: translateY(-4px); }
+.hot-task-card h3 { font-size: 18px; margin-bottom: 8px; }
+.hot-task-card p { color: #94a3b8; font-size: 14px; margin-bottom: 12px; }
+.hot-task-card .heat-tag { display: inline-block; background: linear-gradient(135deg, #667eea, #764ba2); padding: 4px 12px; border-radius: 20px; font-size: 12px; }
+
+/* 工作流卡片 */
+.workflows-list { display: flex; flex-direction: column; gap: 24px; }
+.workflow-card { background: #1f1f3d; border: 1px solid #2d2d4a; border-radius: 16px; padding: 24px; }
+.workflow-card h3 { font-size: 20px; margin-bottom: 8px; }
+.workflow-card > p { color: #94a3b8; margin-bottom: 20px; }
+.workflow-steps { display: flex; flex-direction: column; gap: 16px; }
+.step-item { display: flex; gap: 16px; align-items: flex-start; }
+.step-num { width: 32px; height: 32px; background: linear-gradient(135deg, #667eea, #764ba2); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; flex-shrink: 0; }
+.step-content h4 { font-size: 16px; margin-bottom: 4px; }
+.step-content p { color: #94a3b8; font-size: 14px; }
+
+/* 工具网格 */
+.tools-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 20px; }
+.tool-card { background: #1f1f3d; border: 1px solid #2d2d4a; border-radius: 16px; padding: 24px; cursor: pointer; transition: all 0.3s; }
+.tool-card:hover { border-color: #10b981; transform: translateY(-4px); }
+.tool-card .tool-icon { font-size: 40px; margin-bottom: 12px; }
+.tool-card h3 { font-size: 18px; margin-bottom: 8px; }
+.tool-card p { color: #94a3b8; font-size: 14px; margin-bottom: 16px; }
+.tool-tags { display: flex; gap: 8px; flex-wrap: wrap; }
+.tool-tags .tag { padding: 4px 12px; background: #2d2d4a; border-radius: 20px; font-size: 12px; }
+
+/* 工具对比表格 */
+.tools-comparison { overflow-x: auto; }
+.comparison-table { width: 100%; border-collapse: collapse; background: #1f1f3d; border-radius: 16px; overflow: hidden; }
+.comparison-table th, .comparison-table td { padding: 16px; text-align: left; border-bottom: 1px solid #2d2d4a; }
+.comparison-table th { background: #2d2d4a; font-weight: 600; }
+.comparison-table td { color: #94a3b8; }
+.comparison-table .tool-name { font-weight: 600; color: #fff; }
 
 /* Visual Components Page */
 .components-page { max-width: 1200px; margin: 0 auto; padding: 120px 24px 60px; }
