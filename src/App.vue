@@ -376,31 +376,13 @@ const codeTools = ['GitHub Copilot', 'Cursor', 'Claude Code', 'Windsurf', 'Repli
               <div class="card-tags">
                 <span v-for="sub in (cat.children || []).slice(0, 3)" :key="sub.id" @click.stop="navigate('subproduct', sub.id)">{{ sub.name }}</span>
               </div>
-          </div>
-            </div>
-        </div>
-      </div>
-    </section>
-        
-        <!-- 简洁工具卡片网格 -->
-        <div class="featured-tools-grid">
-          <div 
-            v-for="tool in (toolsData.value || []).slice(0, 8)" 
-            :key="tool.id" 
-            class="tool-simple-card"
-          >
-            <div class="simple-icon">{{ tool.icon }}</div>
-            <div class="simple-info">
-              <h4>{{ tool.name }}</h4>
-              <p>{{ tool.description?.substring(0, 40) }}...</p>
-            </div>
-            <div class="simple-meta">
-              <span class="price-tag" :class="tool.price?.includes('免费') ? 'free' : 'paid'">{{ tool.price?.split('/')[0] }}</span>
             </div>
           </div>
         </div>
       </div>
     </section>
+    
+    <!-- 其他页面继续 -->
 
     <!-- 通用产品页（一级页面） -->
     <section v-if="currentPage === 'product'" class="product-page">
