@@ -18,26 +18,6 @@
   },
   "home": {
     "cta": "开始探索"
-  }
-}
-      "features": [
-        {
-          "icon": "🎯",
-          "title": "按场景分类",
-          "desc": "不是按工具类型分类，而是按用户意图/场景来组织"
-        },
-        {
-          "icon": "🔧",
-          "title": "OpenClaw实践",
-          "desc": "每个工具都提供OpenClaw实践指导，学以致用"
-        },
-        {
-          "icon": "📖",
-          "title": "中文优先",
-          "desc": "面向中文用户的中文界面和工具推荐"
-        }
-      ]
-    }
   },
   "copyright": {
     "text": "© 2026 AI工具导航. All rights reserved."
