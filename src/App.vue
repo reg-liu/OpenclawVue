@@ -61,13 +61,13 @@ const getSceneIcon = (sceneId) => {
   return scene ? scene.icon : ''
 }
 
-// 场景ID映射 - 前端模板用连字符，API数据用下划线
+// 场景ID映射 - API返回的场景已经是连字符格式，不需要转换
 const sceneMap = {
-  'ai-entry': 'ai_entry',
-  'ai-office': 'ai_office',
-  'ai-create': 'ai_create',
-  'ai-code': 'ai_code',
-  'ai-study': 'ai_study'
+  'ai-entry': 'ai-entry',
+  'ai-office': 'ai-office',
+  'ai-create': 'ai-create',
+  'ai-code': 'ai-code',
+  'ai-study': 'ai-study'
 }
 
 const getSceneTools = (sceneId) => {
@@ -406,21 +406,7 @@ const getToolsByScene = (sceneId) => getSceneTools(sceneId)
       </div>
     </section>
 
-    <!-- Footer -->
-    <footer class="footer">
-      <div class="footer-container">
-        <div class="footer-logo">&#9670; OpenClaw</div>
-        <p>2026 {{ content.copyright?.text || 'AI工具导航' }}</p>
-        <div class="footer-links">
-          <a @click="navigate('design')" style="color: #06b6d4;">{{ content.nav.design }}</a>
-          <a @click="navigate('components')" style="color: #8b5cf6;">{{ content.nav.components || '视觉组件' }}</a>
-          <a href="https://github.com/reg-liu/OpenclawVue" target="_blank">GitHub</a>
-          <a href="https://openclaw.ai" target="_blank">OpenClaw</a>
-        </div>
-      </div>
-    </footer>
 
-    <!-- Design Spec Page -->
     <section v-if="currentPage === 'design'" class="design-page">
       <div class="page-header">
         <h1>🎨 AI工具导航 - 设计规范</h1>

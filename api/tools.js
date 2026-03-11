@@ -1,12 +1,14 @@
-// 工具数据API - SQLite版
-import Database from 'better-sqlite3'
-import path from 'path'
-import { fileURLToPath } from 'url'
+// 工具数据API - Turso云数据库版
+import { createClient } from '@libsql/client'
 
-const __dirname = path.dirname(fileURLToPath(import.meta.url))
-const dbPath = path.join(__dirname, '..', 'data', 'tools.db')
+// Turso 配置
+const TURSO_URL = 'libsql://openclaw-reg-liu.aws-ap-northeast-1.turso.io'
+const TURSO_TOKEN = process.env.TURSO_TOKEN || 'eyJhbGciOiJFZERTQSIsInR5cCI6IkpXVCJ9.eyJhIjoicnciLCJpYXQiOjE3NzMyMDE0OTksImlkIjoiMDE5Y2RiMGItNDQwMS03NmJmLWJiZmEtYTZhYzc5ZDM5Y2VjIiwicmlkIjoiMWIzY2E4MDQtODk5MS00NTViLTlhMDgtNzIzMTY5NDczYWMxIn0.8bA-3CpXA7I_hR9jCLKTNoAj8kSf_krSEFaciqykcfA0EwbMy8wDHAsoNe78N60kf8dfKV-eHaxn4_Jz01B9Aw'
 
-const db = new Database(dbPath)
+const client = createClient({
+  url: TURSO_URL,
+  authToken: TURSO_TOKEN
+})
 
 const scenes = [
   { id: 'ai-entry', name: 'AI入门', icon: '🚀', description: '零基础用户不知道怎么开始学习AI' },
@@ -25,7 +27,7 @@ const sceneNameMap = {
   'ai-study': 'AI学习'
 }
 
-export default function handler(req, res) {
+export default async function handler(req, res) {
   const { scene } = req.query
   
   try {
@@ -40,8 +42,11 @@ export default function handler(req, res) {
     
     sql += ' ORDER BY sort ASC'
     
-    const stmt = db.prepare(sql)
-    const rows = stmt.all(...params)
+    const result = await client.execute({
+      sql,
+      args: params
+    })
+    const rows = result.rows
     
     // 转换数据格式
     const tools = rows.map(row => ({

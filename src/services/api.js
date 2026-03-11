@@ -1,6 +1,6 @@
 // API服务
-// 公网地址: https://6a295361.cpolar.io/api
-const API_BASE = 'https://6a295361.cpolar.io/api'
+// Vercel 部署版本 - 直接调用同源API
+const API_BASE = '/api'
 
 // 从API获取工具数据
 export async function fetchTools(sceneId = null) {

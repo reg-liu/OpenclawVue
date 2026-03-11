@@ -1,38 +1,26 @@
-// 本地API服务器 - 读取SQLite
-const Database = require('better-sqlite3')
-const path = require('path')
+// 本地API服务器 - Turso云数据库版
+// 注意：此文件仅用于本地开发，生产环境使用 Vercel API
+const { createClient } = require('@libsql/client')
 const http = require('http')
 
-const dbPath = path.join(__dirname, 'data', 'tools.db')
+// Turso 配置
+const TURSO_URL = 'libsql://openclaw-reg-liu.aws-ap-northeast-1.turso.io'
+const TURSO_TOKEN = 'eyJhbGciOiJFZERTQSIsInR5cCI6IkpXVCJ9.eyJhIjoicnciLCJpYXQiOjE3NzMyMDE0OTksImlkIjoiMDE5Y2RiMGItNDQwMS03NmJmLWJiZmEtYTZhYzc5ZDM5Y2VjIiwicmlkIjoiMWIzY2E4MDQtODk5MS00NTViLTlhMDgtNzIzMTY5NDczYWMxIn0.8bA-3CpXA7I_hR9jCLKTNoAj8kSf_krSEFaciqykcfA0EwbMy8wDHAsoNe78N60kf8dfKV-eHaxn4_Jz01B9Aw'
 
-const db = new Database(dbPath)
+const client = createClient({
+  url: TURSO_URL,
+  authToken: TURSO_TOKEN
+})
 
 const scenes = [
   { id: 'ai-entry', name: 'AI入门', icon: '🚀', description: '零基础用户不知道怎么开始学习AI' },
   { id: 'ai-office', name: 'AI办公', icon: '💼', description: '日常办公场景' },
   { id: 'ai-create', name: 'AI创作', icon: '🎨', description: '写文章，做视频、生成图片' },
-  { id: 'ai-code', name: 'AI编程', icon: '💻', description: '代码辅助、调试，Bug修复' },
+  { id: 'ai-code', name: 'AI编程', icon: '💻', description: '代码辅助、调试、Bug修复' },
   { id: 'ai-study', name: 'AI学习', icon: '📚', description: '看论文、学新技术' }
 ]
 
-// 场景名称转换
-const apiToScene = {
-  'ai_entry': 'ai-entry',
-  'ai_office': 'ai-office', 
-  'ai_create': 'ai-create',
-  'ai_code': 'ai-code',
-  'ai_study': 'ai-study'
-}
-
-const sceneToApi = {
-  'ai-entry': 'ai_entry',
-  'ai-office': 'ai_office', 
-  'ai-create': 'ai_create',
-  'ai-code': 'ai_code',
-  'ai-study': 'ai_study'
-}
-
-const server = http.createServer((req, res) => {
+const server = http.createServer(async (req, res) => {
   res.setHeader('Access-Control-Allow-Origin', '*')
   res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS')
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type')
@@ -51,15 +39,15 @@ const server = http.createServer((req, res) => {
       let sql = 'SELECT * FROM tools WHERE status = ?'
       const params = ['已发布']
       
-      if (scene && apiToScene[scene]) {
+      if (scene) {
         sql += ' AND scenes LIKE ?'
-        params.push(`%${apiToScene[scene]}%`)
+        params.push(`%${scene}%`)
       }
       
       sql += ' ORDER BY sort ASC'
       
-      const stmt = db.prepare(sql)
-      const rows = stmt.all(...params)
+      const result = await client.execute({ sql, args: params })
+      const rows = result.rows
       
       const tools = rows.map(row => ({
         id: row.id,
@@ -68,7 +56,7 @@ const server = http.createServer((req, res) => {
         category: row.category,
         subcategory: row.subcategory,
         description: row.description,
-        scenes: row.scenes ? row.scenes.split(',').map(s => sceneToApi[s] || s) : [],
+        scenes: row.scenes ? row.scenes.split(',') : [],
         price: row.price,
         priceDetail: row.price_detail,
         difficulty: row.difficulty,
@@ -106,7 +94,8 @@ const server = http.createServer((req, res) => {
 const PORT = 3000
 server.listen(PORT, () => {
   console.log(`
-✅ 本地API服务器已启动
+✅ 本地API服务器已启动 (Turso云数据库)
 📡 地址: http://localhost:${PORT}/api/tools
+☁️ 数据源: Turso (libSQL)
 `)
 })
