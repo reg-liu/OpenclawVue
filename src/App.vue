@@ -1805,15 +1805,15 @@ body { font-family: 'Inter', sans-serif; background: #0d0d0d; color: #e5e5e5; li
 .section-subtitle { text-align: center; color: #71717a; margin-bottom: 40px; }
 
 /* 产品卡片 - 交替布局 */
-.product-cards-alternate { display: flex; flex-direction: column; gap: 24px; width: 1200px; margin: 0 auto 60px; }
+.product-cards-alternate { display: flex; flex-direction: column; gap: 24px; width: 800px; margin: 0 auto 60px; }
 .product-cards-alternate .product-card-row { display: flex; align-items: center; gap: 40px; padding: 32px; background: linear-gradient(135deg, #1a1a2e 0%, #2d2d4a 100%); border: 1px solid #2d2d4a; border-radius: 20px; cursor: pointer; transition: all 0.3s; }
 .product-cards-alternate .product-card-row:hover { transform: translateY(-4px); border-color: #8b5cf6; box-shadow: 0 20px 40px rgba(139, 92, 246, 0.15); }
 .product-cards-alternate .product-card-row.reverse { flex-direction: row-reverse; }
 .product-cards-alternate .card-image { font-size: 64px; flex-shrink: 0; width: 120px; text-align: center; padding: 20px 0; }
-.product-cards-alternate .card-content { flex: 1; min-width: 0; }
+.product-cards-alternate .card-content { flex: 1; min-width: 0; text-align: center; }
 .product-cards-alternate .card-content h3 { font-size: 28px; margin-bottom: 12px; }
 .product-cards-alternate .card-content p { color: #94a3b8; font-size: 15px; line-height: 1.6; margin-bottom: 16px; }
-.product-cards-alternate .card-tags { display: flex; gap: 10px; flex-wrap: wrap; }
+.product-cards-alternate .card-tags { display: flex; gap: 10px; flex-wrap: wrap; justify-content: center; }
 .product-cards-alternate .card-tags span { padding: 6px 14px; background: rgba(139, 92, 246, 0.15); color: #a78bfa; border-radius: 20px; font-size: 13px; }
 
 /* 简洁工具卡片 */
