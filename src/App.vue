@@ -311,7 +311,7 @@ const codeTools = ['GitHub Copilot', 'Cursor', 'Claude Code', 'Windsurf', 'Repli
         <p class="section-subtitle">热门AI工具推荐，覆盖各类使用场景</p>
         
         <div class="featured-tools-grid">
-          <div class="featured-tool-card" v-for="tool in toolsData.value.slice(0, 8)" :key="tool.id">
+          <div class="featured-tool-card" v-for="tool in (toolsData.value || []).slice(0, 8)" :key="tool.id">
             <div class="tool-icon">{{ tool.icon }}</div>
             <div class="tool-info">
               <h4>{{ tool.name }}</h4>
