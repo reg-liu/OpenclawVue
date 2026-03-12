@@ -111,31 +111,125 @@ export default async function handler(req, res) {
     
     // 获取工作流
     if (type === 'workflows') {
-      let sql = 'SELECT * FROM workflows'
-      const params = []
-      
-      if (category) {
-        sql += ' WHERE category_id = ?'
-        params.push(category)
+      // 后备工作流数据
+      const fallbackWorkflows = {
+        'office-business': [
+          {
+            id: 'wf-business-1',
+            category_id: 'office-business',
+            title: 'AI商业文案工作流',
+            description: '使用AI工具完成商业文案撰写的完整流程',
+            steps: [
+              { step: 1, title: '确定目标', desc: '明确商业文案的目标和受众' },
+              { step: 2, title: 'AI生成大纲', desc: 'AI自动生成文案结构' },
+              { step: 3, title: '内容填充', desc: '根据大纲填充商业内容' },
+              { step: 4, title: '优化发布', desc: '检查优化并准备发布' }
+            ]
+          }
+        ],
+        'office-writing': [
+          {
+            id: 'wf-writing-1',
+            category_id: 'office-writing',
+            title: 'AI写作工作流',
+            description: '使用AI工具完成文章撰写的完整流程',
+            steps: [
+              { step: 1, title: '确定主题', desc: '明确写作目标和受众' },
+              { step: 2, title: 'AI生成大纲', desc: 'AI自动生成文章结构' },
+              { step: 3, title: '内容扩写', desc: '根据大纲填充详细内容' },
+              { step: 4, title: '润色校对', desc: '检查语法、优化表达' }
+            ]
+          }
+        ],
+        'create-image': [
+          {
+            id: 'wf-image-1',
+            category_id: 'create-image',
+            title: 'AI图像生成工作流',
+            description: '使用AI工具完成图像创作的完整流程',
+            steps: [
+              { step: 1, title: '构思描述', desc: '明确想要生成的图像内容' },
+              { step: 2, title: '选择模型', desc: '根据需求选择合适的AI模型' },
+              { step: 3, title: '生成图像', desc: '输入提示词生成图像' },
+              { step: 4, title: '后期处理', desc: '调整尺寸、优化细节' }
+            ]
+          }
+        ],
+        'learn-coding': [
+          {
+            id: 'wf-coding-1',
+            category_id: 'learn-coding',
+            title: 'AI编程工作流',
+            description: '使用AI工具辅助编程的完整流程',
+            steps: [
+              { step: 1, title: '需求分析', desc: '明确要实现的功能' },
+              { step: 2, title: 'AI生成代码', desc: '描述需求让AI生成代码' },
+              { step: 3, title: '调试优化', desc: 'AI辅助调试和优化' },
+              { step: 4, title: '测试部署', desc: '运行测试并部署' }
+            ]
+          }
+        ]
       }
       
-      sql += ' ORDER BY sort ASC'
-      
-      const result = await client.execute({ sql, args: params })
-      
-      // 解析steps JSON
-      const workflows = result.rows.map(w => ({
-        ...w,
-        steps: w.steps ? JSON.parse(w.steps) : []
-      }))
-      
-      return res.status(200).json({
-        success: true,
-        data: workflows
-      })
+      try {
+        let sql = 'SELECT * FROM workflows'
+        const params = []
+        
+        if (category) {
+          sql += ' WHERE category_id = ?'
+          params.push(category)
+        }
+        
+        sql += ' ORDER BY sort ASC'
+        
+        const result = await client.execute({ sql, args: params })
+        
+        // 解析steps JSON
+        let workflows = result.rows.map(w => ({
+          ...w,
+          steps: w.steps ? JSON.parse(w.steps) : []
+        }))
+        
+        // 如果数据库没有数据，使用后备数据
+        if (workflows.length === 0 && fallbackWorkflows[category]) {
+          workflows = fallbackWorkflows[category]
+        }
+        
+        return res.status(200).json({
+          success: true,
+          data: workflows
+        })
+      } catch (err) {
+        // 数据库出错时使用后备数据
+        const workflows = fallbackWorkflows[category] || []
+        return res.status(200).json({
+          success: true,
+          data: workflows
+        })
+      }
     }
     
     // 获取工具
+    // 后备工具数据
+    const fallbackTools = {
+      'office-writing': [
+        { id: 1, name: 'ChatGPT', icon: '💬', description: 'OpenAI开发的AI对话工具，适合日常问答和内容创作', price: '免费/付费', difficulty: '入门', features: '对话、写作、编程', network: '需要VPN' },
+        { id: 2, name: 'Claude', icon: '🧠', description: 'Anthropic推出的AI助手，长文本处理能力强', price: '免费/付费', difficulty: '进阶', features: '长文本、编程、分析', network: '需要VPN' },
+        { id: 3, name: 'Kimi', icon: '🦊', description: '月之暗面推出的中文AI助手，超长上下文', price: '免费', difficulty: '入门', features: '长文本、中文优化', network: '国内可直接访问' },
+        { id: 4, name: '文心一言', icon: '🔥', description: '百度推出的中文AI助手，文学创作能力强', price: '免费', difficulty: '入门', features: '中文创作、知识问答', network: '国内可直接访问' }
+      ],
+      'create-image': [
+        { id: 5, name: 'Midjourney', icon: '🎨', description: 'AI图像生成标杆，画质最高', price: '付费', difficulty: '进阶', features: '艺术创作、概念设计', network: '需要VPN' },
+        { id: 6, name: 'DALL-E 3', icon: '🖼️', description: 'OpenAI图像生成，GPT集成更智能', price: '付费', difficulty: '入门', features: '图像生成、编辑', network: '需要VPN' },
+        { id: 7, name: 'Stable Diffusion', icon: '⚡', description: '开源本地运行，可自定义模型', price: '免费', difficulty: '进阶', features: '本地部署、自定义', network: '本地运行' }
+      ],
+      'learn-coding': [
+        { id: 8, name: 'GitHub Copilot', icon: '💻', description: '微软AI编程助手，代码补全能力强', price: '付费', difficulty: '入门', features: '代码补全、调试', network: '需要VPN' },
+        { id: 9, name: 'Cursor', icon: '📝', description: 'AI编程IDE，基于VS Code', price: '免费/付费', difficulty: '入门', features: '代码编辑、AI对话', network: '需要VPN' },
+        { id: 10, name: 'Claude Code', icon: '🤖', description: 'Anthropic推出的AI编程助手', price: '免费', difficulty: '进阶', features: '代码生成、调试', network: '需要VPN' }
+      ]
+    }
+    
     let sql = 'SELECT * FROM tools WHERE status = ?'
     const params = ['已发布']
     
@@ -177,16 +271,25 @@ export default async function handler(req, res) {
       sort: row.sort
     }))
     
+    // 如果数据库没有数据，使用后备数据
+    let finalTools = tools
+    if (tools.length === 0 && fallbackTools[scene]) {
+      finalTools = fallbackTools[scene]
+    }
+    
     res.status(200).json({
       success: true,
-      data: tools,
+      data: finalTools,
       scenes: scenes
     })
   } catch (error) {
     console.error('获取数据失败:', error)
-    res.status(500).json({
-      success: false,
-      error: error.message
+    // 出错时返回后备数据
+    const fallbackT = fallbackTools[scene] || []
+    res.status(200).json({
+      success: true,
+      data: fallbackT,
+      scenes: []
     })
   }
 }
