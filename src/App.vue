@@ -106,10 +106,14 @@ const navigate = (page, category = '') => {
   window.history.pushState({}, '', url)
   window.scrollTo({ top: 0, behavior: 'smooth' })
   
-  // 如果是产品页或副产品页，获取对应数据
+  // 如果是产品页或副产品页，使用统一API获取数据
   if (page === 'product' || page === 'subproduct') {
-    fetchHotTasks(category).then(data => hotTasksData.value = data)
-    fetchWorkflows(category).then(data => workflowsData.value = data)
+    const pageData = await fetchPageData(page, category)
+    if (pageData) {
+      hotTasksData.value = pageData.hotTasks || []
+      workflowsData.value = pageData.workflows || []
+      toolsData.value = pageData.tools || []
+    }
   }
 }
 
