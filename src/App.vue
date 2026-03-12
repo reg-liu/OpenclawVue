@@ -384,12 +384,15 @@ const codeTools = ['GitHub Copilot', 'Cursor', 'Claude Code', 'Windsurf', 'Repli
     <!-- 通用产品页（一级页面） -->
     <section v-if="currentPage === 'product'" class="product-page">
       <div class="page-container">
-        <!-- 页面标题 -->
-        <div class="product-header">
-          <div class="header-icon">{{ getCurrentCategory()?.icon || '📁' }}</div>
-          <div class="header-content">
-            <h1>{{ getCurrentCategory()?.name || '产品页' }}</h1>
+        <!-- 概览卡片 -->
+        <div class="overview-card">
+          <div class="overview-icon">{{ getCurrentCategory()?.icon || '📁' }}</div>
+          <div class="overview-content">
+            <h3>{{ getCurrentCategory()?.name || '产品页' }}</h3>
             <p>{{ getCurrentCategory()?.description || '' }}</p>
+            <div class="overview-tags">
+              <span v-for="child in getCurrentCategory()?.children" :key="child.id" class="overview-tag">{{ child.icon }} {{ child.name }}</span>
+            </div>
           </div>
         </div>
         
@@ -561,6 +564,25 @@ const codeTools = ['GitHub Copilot', 'Cursor', 'Claude Code', 'Windsurf', 'Repli
                 </tr>
               </tbody>
             </table>
+          </div>
+        </div>
+        
+        <!-- 工具擅长展示 -->
+        <div id="section-strengths" class="content-section">
+          <h2 class="section-title">工具擅长</h2>
+          <p class="section-subtitle">各工具在此场景的优势</p>
+          <div class="tool-strengths">
+            <div v-for="tool in toolsData.slice(0, 4)" :key="tool.id" class="strength-card">
+              <div class="strength-header">
+                <span class="strength-icon">{{ tool.icon }}</span>
+                <h4>{{ tool.name }}</h4>
+              </div>
+              <div class="strength-tags">
+                <span class="strength-tag">✅ 擅长{{ tool.difficulty }}</span>
+                <span class="strength-tag">✅ {{ tool.price }}</span>
+              </div>
+              <p class="strength-desc">{{ tool.description }}</p>
+            </div>
           </div>
         </div>
         
@@ -2002,6 +2024,68 @@ const codeTools = ['GitHub Copilot', 'Cursor', 'Claude Code', 'Windsurf', 'Repli
         </div>
       </div>
 
+      <!-- Component 概览卡片 -->
+      <div class="component-section">
+        <h2 class="component-title">概览卡片组件</h2>
+        <p class="component-desc">用于产品页概述，展示该场景能做什么</p>
+        <div class="component-demo">
+          <div class="overview-card">
+            <div class="overview-icon">💼</div>
+            <div class="overview-content">
+              <h3>AI办公场景</h3>
+              <p>利用AI提升日常办公效率，涵盖文档处理、数据分析、演示制作等场景，让工作更高效、更专业。</p>
+              <div class="overview-tags">
+                <span class="overview-tag">📝 文档处理</span>
+                <span class="overview-tag">📊 数据分析</span>
+                <span class="overview-tag">📑 PPT制作</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="component-usage">
+          <h4>使用场景</h4>
+          <p>产品页（一级）概述模块</p>
+        </div>
+      </div>
+
+      <!-- Component 工具擅长展示 -->
+      <div class="component-section">
+        <h2 class="component-title">工具擅长展示组件</h2>
+        <p class="component-desc">展示各工具在此场景的优势和擅长领域</p>
+        <div class="component-demo">
+          <div class="tool-strengths">
+            <div class="strength-card">
+              <div class="strength-header">
+                <span class="strength-icon">💬</span>
+                <h4>ChatGPT</h4>
+              </div>
+              <div class="strength-tags">
+                <span class="strength-tag">✅ 文案创作</span>
+                <span class="strength-tag">✅ 问答对话</span>
+                <span class="strength-tag">✅ 代码辅助</span>
+              </div>
+              <p class="strength-desc">最适合日常对话和内容创作，响应速度快</p>
+            </div>
+            <div class="strength-card">
+              <div class="strength-header">
+                <span class="strength-icon">🎨</span>
+                <h4>Midjourney</h4>
+              </div>
+              <div class="strength-tags">
+                <span class="strength-tag">✅ 艺术创作</span>
+                <span class="strength-tag">✅ 概念设计</span>
+                <span class="strength-tag">✅ 插画生成</span>
+              </div>
+              <p class="strength-desc">图像质量最高，适合创意设计和艺术创作</p>
+            </div>
+          </div>
+        </div>
+        <div class="component-usage">
+          <h4>使用场景</h4>
+          <p>副产品页（二级）工具擅长模块</p>
+        </div>
+      </div>
+
       <!-- Component 7-12: 简要展示 -->
       <div class="component-section">
         <h2 class="component-title">7-12. 其他组件</h2>
@@ -3015,6 +3099,61 @@ body { font-family: 'Inter', sans-serif; background: #0d0d0d; color: #e5e5e5; li
 .scene-card .scene-icon { font-size: 40px; display: block; margin-bottom: 12px; }
 .scene-card h4 { font-size: 18px; margin-bottom: 8px; }
 .scene-card p { color: #94a3b8; font-size: 14px; }
+
+/* 概览卡片组件 */
+.overview-card {
+  display: flex;
+  gap: 32px;
+  align-items: flex-start;
+  background: linear-gradient(135deg, #1a1a2e 0%, #2d2d4a 100%);
+  border: 1px solid #3d3d5c;
+  border-radius: 20px;
+  padding: 32px;
+  max-width: 700px;
+}
+.overview-card:hover {
+  border-color: #8b5cf6;
+  box-shadow: 0 8px 24px rgba(139, 92, 246, 0.15);
+}
+.overview-icon { font-size: 56px; flex-shrink: 0; }
+.overview-content { flex: 1; }
+.overview-content h3 { font-size: 24px; margin-bottom: 12px; color: #fff; }
+.overview-content p { color: #94a3b8; font-size: 15px; line-height: 1.6; margin-bottom: 16px; }
+.overview-tags { display: flex; gap: 12px; flex-wrap: wrap; }
+.overview-tag { 
+  padding: 8px 16px; 
+  background: rgba(139, 92, 246, 0.15); 
+  color: #a78bfa; 
+  border-radius: 20px; 
+  font-size: 14px;
+}
+
+/* 工具擅长展示组件 */
+.tool-strengths { display: flex; gap: 24px; flex-wrap: wrap; justify-content: center; }
+.strength-card {
+  background: #1a1a2e;
+  border: 1px solid #2d2d4a;
+  border-radius: 16px;
+  padding: 24px;
+  width: 300px;
+  transition: all 0.3s;
+}
+.strength-card:hover {
+  border-color: #10b981;
+  transform: translateY(-4px);
+}
+.strength-header { display: flex; align-items: center; gap: 12px; margin-bottom: 16px; }
+.strength-icon { font-size: 32px; }
+.strength-header h4 { font-size: 18px; color: #fff; }
+.strength-tags { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 12px; }
+.strength-tag { 
+  padding: 4px 10px; 
+  background: rgba(16, 185, 129, 0.15); 
+  color: #10b981; 
+  border-radius: 6px; 
+  font-size: 12px;
+}
+.strength-desc { color: #94a3b8; font-size: 13px; line-height: 1.5; }
 
 /* Other Components */
 .other-components { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; }
