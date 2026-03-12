@@ -27,29 +27,94 @@ const defaultCategories = [
 
 // 后备工作流数据
 const fallbackWorkflows = {
-  'office-writing': [{ id: 'wf-1', category_id: 'office-writing', title: 'AI写作工作流', description: '使用AI工具完成文章撰写的完整流程', steps: [{ step: 1, title: '确定主题', desc: '明确写作目标和受众' }, { step: 2, title: 'AI生成大纲', desc: 'AI自动生成文章结构' }, { step: 3, title: '内容扩写', desc: '根据大纲填充详细内容' }, { step: 4, title: '润色校对', desc: '检查语法、优化表达' }] }],
-  'office-business': [{ id: 'wf-2', category_id: 'office-business', title: 'AI商业文案工作流', description: '使用AI工具完成商业文案撰写的完整流程', steps: [{ step: 1, title: '确定目标', desc: '明确商业文案的目标和受众' }, { step: 2, title: 'AI生成大纲', desc: 'AI自动生成文案结构' }, { step: 3, title: '内容填充', desc: '根据大纲填充商业内容' }, { step: 4, title: '优化发布', desc: '检查优化并准备发布' }] }],
-  'create-video': [{ id: 'wf-3', category_id: 'create-video', title: 'AI视频生成工作流', description: '使用AI工具完成视频创作的完整流程', steps: [{ step: 1, title: '确定主题', desc: '明确视频主题和内容' }, { step: 2, title: '生成脚本', desc: 'AI生成视频脚本' }, { step: 3, title: '生成视频', desc: 'AI生成视频内容' }, { step: 4, title: '后期剪辑', desc: 'AI辅助剪辑和优化' }] }],
-  'create-image': [{ id: 'wf-4', category_id: 'create-image', title: 'AI图像生成工作流', description: '使用AI工具完成图像创作的完整流程', steps: [{ step: 1, title: '构思描述', desc: '明确想要生成的图像内容' }, { step: 2, title: '选择模型', desc: '根据需求选择合适的AI模型' }, { step: 3, title: '生成图像', desc: '输入提示词生成图像' }, { step: 4, title: '后期处理', desc: '调整尺寸、优化细节' }] }],
-  'learn-coding': [{ id: 'wf-5', category_id: 'learn-coding', title: 'AI编程工作流', description: '使用AI工具辅助编程的完整流程', steps: [{ step: 1, title: '需求分析', desc: '明确要实现的功能' }, { step: 2, title: 'AI生成代码', desc: '描述需求让AI生成代码' }, { step: 3, title: '调试优化', desc: 'AI辅助调试和优化' }, { step: 4, title: '测试部署', desc: '运行测试并部署' }] }]
+  'ai-office': [
+    { id: 'wf-1', category_id: 'ai-office', title: 'AI办公工作流', description: '使用AI工具提升办公效率的完整流程', steps: [] },
+    { id: 'wf-2', category_id: 'ai-office', title: 'AI写作工作流', description: 'AI辅助文章撰写流程', steps: [] }
+  ],
+  'ai-create': [
+    { id: 'wf-3', category_id: 'ai-create', title: 'AI创作工作流', description: '使用AI工具完成创意作品的完整流程', steps: [] }
+  ],
+  'video': [
+    { id: 'wf-v1', category_id: 'video', title: '视频制作工作流', description: 'AI辅助视频制作的完整流程', steps: [] }
+  ],
+  'image': [
+    { id: 'wf-i1', category_id: 'image', title: 'AI绘画工作流', description: '从提示词到成图的AI绘画流程', steps: [] }
+  ],
+  'coding': [
+    { id: 'wf-c1', category_id: 'coding', title: '编程开发工作流', description: 'AI辅助编程的完整流程', steps: [] }
+  ],
+  'ai-learn': [
+    { id: 'wf-l1', category_id: 'ai-learn', title: 'AI学习工作流', description: 'AI辅助学习新知识的流程', steps: [] }
+  ],
+  'ai-life': [
+    { id: 'wf-lf1', category_id: 'ai-life', title: 'AI生活工作流', description: 'AI让生活更智能', steps: [] }
+  ]
 }
 
 // 后备工具数据
 const fallbackTools = {
-  'ai-entry': [{ id: 1, name: 'ChatGPT', icon: '💬', description: 'OpenAI开发的AI对话工具，适合日常问答和内容创作', price: '免费/付费', difficulty: '入门', features: '对话、写作、编程', network: '需要VPN' }, { id: 2, name: 'Claude', icon: '🧠', description: 'Anthropic推出的AI助手，长文本处理能力强', price: '免费/付费', difficulty: '进阶', features: '长文本、编程，分析', network: '需要VPN' }, { id: 3, name: 'Kimi', icon: '🦊', description: '月之暗面推出的中文AI助手，超长上下文', price: '免费', difficulty: '入门', features: '长文本、中文优化', network: '国内可直接访问' }],
-  'create-video': [{ id: 1, name: 'Runway', icon: '🎬', description: 'AI视频生成和编辑平台，功能全面', price: '免费/付费', difficulty: '进阶', features: '视频生成、编辑、特效', network: '需要VPN' }, { id: 2, name: 'Pika', icon: '🎥', description: 'AI视频生成工具，快速生成视频', price: '免费/付费', difficulty: '入门', features: '文字转视频、视频编辑', network: '需要VPN' }, { id: 3, name: '可灵', icon: '🦁', description: '快手AI视频生成，国产视频生成标杆', price: '免费/付费', difficulty: '入门', features: '视频生成、文字转视频', network: '国内可直接访问' }, { id: 4, name: '即梦', icon: '✨', description: '字节跳动AI视频生成工具', price: '免费', difficulty: '入门', features: '视频生成、AI作图', network: '国内可直接访问' }, { id: 5, name: 'Sora', icon: '🌊', description: 'OpenAI视频生成模型（未公测）', price: '待定', difficulty: '进阶', features: '视频生成、世界模拟', network: '需要VPN' }, { id: 6, name: 'Luma Dream Machine', icon: '💫', description: 'AI视频生成新星，效果惊艳', price: '免费/付费', difficulty: '入门', features: '视频生成、动画', network: '需要VPN' }],
-  'create-image': [{ id: 1, name: 'Midjourney', icon: '🎨', description: 'AI图像生成标杆，画质最高', price: '付费', difficulty: '进阶', features: '艺术创作、概念设计', network: '需要VPN' }, { id: 2, name: 'DALL-E 3', icon: '🖼️', description: 'OpenAI图像生成，GPT集成更智能', price: '付费', difficulty: '入门', features: '图像生成、编辑', network: '需要VPN' }, { id: 3, name: 'Stable Diffusion', icon: '⚡', description: '开源本地运行，可自定义模型', price: '免费', difficulty: '进阶', features: '本地部署、自定义', network: '本地运行' }],
-  'learn-coding': [{ id: 1, name: 'GitHub Copilot', icon: '💻', description: '微软AI编程助手，代码补全能力强', price: '付费', difficulty: '入门', features: '代码补全、调试', network: '需要VPN' }, { id: 2, name: 'Cursor', icon: '📝', description: 'AI编程IDE，基于VS Code', price: '免费/付费', difficulty: '入门', features: '代码编辑、AI对话', network: '需要VPN' }, { id: 3, name: 'Claude Code', icon: '🤖', description: 'Anthropic推出的AI编程助手', price: '免费', difficulty: '进阶', features: '代码生成、调试', network: '需要VPN' }]
+  'ai-office': [
+    { id: 1, name: 'WPS AI', icon: '📝', description: '智能文档处理助手', price: '免费', difficulty: '入门', features: '智能写作', network: '在线', tags: '["文档处理"]', strengths: '中文处理强', pros: '集成办公', cons: '高级付费', mobile: '支持', recommended: '是' },
+    { id: 2, name: 'Notion AI', icon: '📋', description: '智能笔记工具', price: '付费', difficulty: '入门', features: '笔记管理', network: '在线', tags: '["项目管理"]', strengths: '多功能', pros: '协作方便', cons: '需翻墙', mobile: '支持', recommended: '是' },
+    { id: 3, name: 'ChatGPT', icon: '🤖', description: '通用AI助手', price: '免费', difficulty: '入门', features: '问答对话', network: '在线', tags: '["通用AI"]', strengths: '通用力强', pros: '能力全面', cons: '需翻墙', mobile: '支持', recommended: '是' },
+    { id: 4, name: 'Copilot', icon: '💡', description: '微软AI助手', price: '付费', difficulty: '入门', features: 'PPT生成', network: '在线', tags: '["Office"]', strengths: 'Office集成', pros: '自动化高', cons: '需订阅', mobile: '支持', recommended: '是' }
+  ],
+  'ai-create': [
+    { id: 5, name: 'Midjourney', icon: '🎨', description: 'AI图像生成', price: '付费', difficulty: '进阶', features: '文生图', network: '在线', tags: '["AI绘画"]', strengths: '图像质量高', pros: '艺术感强', cons: '需Discord', mobile: '不支持', recommended: '是' },
+    { id: 6, name: 'Runway', icon: '🎬', description: 'AI视频生成', price: '付费', difficulty: '进阶', features: '视频生成', network: '在线', tags: '["视频"]', strengths: '视频功能全', pros: '效果好', cons: '价格高', mobile: '不支持', recommended: '是' }
+  ],
+  'video': [
+    { id: 6, name: 'Runway', icon: '🎬', description: 'AI视频生成和编辑平台', price: '付费', difficulty: '进阶', features: '视频生成、编辑、特效', network: '在线', tags: '["视频"]', strengths: '视频功能全面', pros: '效果好', cons: '价格高', mobile: '不支持', recommended: '是' },
+    { id: 7, name: 'Pika', icon: '🎥', description: 'AI视频生成工具', price: '免费/付费', difficulty: '入门', features: '文字转视频', network: '在线', tags: '["视频"]', strengths: '快速生成', pros: '使用简单', cons: '功能有限', mobile: '不支持', recommended: '是' },
+    { id: 8, name: '可灵', icon: '🦁', description: '快手AI视频生成', price: '免费/付费', difficulty: '入门', features: '视频生成', network: '在线', tags: '["视频"]', strengths: '中文友好', pros: '免费可用', cons: '功能较少', mobile: '支持', recommended: '是' },
+    { id: 9, name: '即梦', icon: '✨', description: '字节跳动AI视频工具', price: '免费', difficulty: '入门', features: '视频生成', network: '在线', tags: '["视频"]', strengths: '字节生态', pros: '免费', cons: '较新', mobile: '支持', recommended: '是' }
+  ],
+  'image': [
+    { id: 5, name: 'Midjourney', icon: '🎨', description: 'AI图像生成标杆', price: '付费', difficulty: '进阶', features: '文生图', network: '在线', tags: '["AI绘画"]', strengths: '图像质量高', pros: '艺术感强', cons: '需Discord', mobile: '不支持', recommended: '是' },
+    { id: 10, name: 'DALL-E', icon: '🖼️', description: 'OpenAI图像生成', price: '付费', difficulty: '入门', features: '图像生成', network: '在线', tags: '["AI绘画"]', strengths: 'GPT集成', pros: '使用简单', cons: '价格较高', mobile: '支持', recommended: '是' },
+    { id: 11, name: 'Stable Diffusion', icon: '⚡', description: '开源AI图像模型', price: '免费', difficulty: '困难', features: '本地部署', network: '离线', tags: '["开源"]', strengths: '可定制', pros: '免费开源', cons: '需要显卡', mobile: '不支持', recommended: '是' }
+  ],
+  'coding': [
+    { id: 12, name: 'GitHub Copilot', icon: '👨‍💻', description: 'AI编程助手', price: '付费', difficulty: '入门', features: '代码补全', network: '在线', tags: '["编程"]', strengths: '补全准确', pros: '支持支流IDE', cons: '需付费', mobile: '不支持', recommended: '是' },
+    { id: 13, name: 'Cursor', icon: '⌨️', description: 'AI代码编辑器', price: '免费/付费', difficulty: '入门', features: '代码编辑', network: '在线', tags: '["IDE"]', strengths: 'AI深度集成', pros: '免费可用', cons: '功能较少', mobile: '不支持', recommended: '是' },
+    { id: 14, name: 'Claude', icon: '🧠', description: 'AI编程助手', price: '免费', difficulty: '入门', features: '代码编写', network: '在线', tags: '["编程"]', strengths: '编程能力强', pros: '输出稳定', cons: '需翻墙', mobile: '支持', recommended: '是' }
+  ],
+  'ai-learn': [
+    { id: 15, name: 'DeepL', icon: '🌐', description: 'AI翻译工具', price: '免费', difficulty: '入门', features: '翻译', network: '在线', tags: '["翻译"]', strengths: '翻译质量高', pros: '支持文档', cons: '额度有限', mobile: '支持', recommended: '是' }
+  ]
 }
 
 // 后备热门任务数据
-const fallbackHotTasks = [
-  { id: 1, name: '文案创作', description: '使用AI生成营销文案、博客文章', heat: 5200 },
-  { id: 2, name: 'PPT制作', description: 'AI辅助制作演示文稿', heat: 4800 },
-  { id: 3, name: '代码辅助', description: 'AI编程助手，提高开发效率', heat: 4500 },
-  { id: 4, name: '图像生成', description: 'AI生成创意图片和插画', heat: 4200 },
-  { id: 5, name: '视频剪辑', description: 'AI辅助视频编辑和生成', heat: 3800 },
-  { id: 6, name: '数据分析', description: 'AI处理和分析数据', heat: 3500 }
+const fallbackHotTasks = {
+  'ai-office': [
+    { id: 1, name: '智能写作', description: '输入主题，AI帮你完成文章', heat: 100, sort: 1 },
+    { id: 2, name: 'PPT制作', description: '输入内容大纲，AI生成演示文稿', heat: 95, sort: 2 },
+    { id: 3, name: '数据整理', description: '自动整理和分析Excel数据', heat: 90, sort: 3 }
+  ],
+  'ai-create': [
+    { id: 4, name: 'AI绘画', description: '文字描述生成精美图片', heat: 100, sort: 1 },
+    { id: 5, name: '视频生成', description: '输入文案自动生成视频', heat: 95, sort: 2 }
+  ],
+  'video': [
+    { id: 5, name: '视频生成', description: '输入文案自动生成视频', heat: 100, sort: 1 },
+    { id: 6, name: '视频剪辑', description: 'AI辅助视频编辑和生成', heat: 90, sort: 2 }
+  ],
+  'image': [
+    { id: 4, name: 'AI绘画', description: '文字描述生成精美图片', heat: 100, sort: 1 }
+  ],
+  'coding': [
+    { id: 7, name: '代码编写', description: '描述需求，AI生成代码', heat: 100, sort: 1 },
+    { id: 8, name: '代码调试', description: 'AI辅助调试和修复bug', heat: 85, sort: 2 }
+  ],
+  'ai-learn': [
+    { id: 9, name: '英语翻译', description: '高质量中英文互译', heat: 95, sort: 1 },
+    { id: 10, name: '作业辅导', description: 'AI辅导解答学习问题', heat: 85, sort: 2 }
+  ],
+  'ai-life': [
+    { id: 11, name: '健康咨询', description: 'AI提供健康建议和咨询', heat: 85, sort: 1 },
+    { id: 12, name: '旅行规划', description: '输入目的地，AI规划行程', heat: 80, sort: 2 }
+  ]
+}
 ]
 
 export default async function handler(req, res) {
@@ -61,66 +126,23 @@ export default async function handler(req, res) {
     const categoryId = cat || scene || ''
     console.log('page API:', page, categoryId)
     
-    try {
-      // 获取一级分类（parent为空或空字符串）
-      const catResult = await client.execute('SELECT * FROM categories WHERE parent = "" OR parent IS NULL ORDER BY sort')
-      const categories = catResult.rows
-      
-      // 获取当前分类的子分类
-      let subCategories = []
-      if (categoryId) {
-        const subResult = await client.execute({
-          sql: 'SELECT * FROM categories WHERE parent = ? ORDER BY sort',
-          args: [categoryId]
-        })
-        subCategories = subResult.rows
-      }
-      
-      // 获取工作流
-      const wfResult = await client.execute({
-        sql: 'SELECT * FROM workflows WHERE category_id = ? ORDER BY sort',
-        args: [categoryId]
-      })
-      const workflows = wfResult.rows
-      
-      // 获取工具
-      const toolsResult = await client.execute({
-        sql: 'SELECT * FROM tools WHERE category = ? OR subcategory = ? ORDER BY sort',
-        args: [categoryId, categoryId]
-      })
-      const tools = toolsResult.rows
-      
-      // 获取热门任务
-      const htResult = await client.execute({
-        sql: 'SELECT * FROM hot_tasks WHERE category_id = ? ORDER BY heat DESC',
-        args: [categoryId]
-      })
-      const hotTasks = htResult.rows
-      
+    if (!categoryId) {
       return res.status(200).json({
         success: true,
-        data: {
-          categories: categories.map(c => ({
-            ...c,
-            children: subCategories.filter(sc => sc.parent === c.id)
-          })),
-          workflows,
-          tools,
-          hotTasks
-        }
-      })
-    } catch (err) {
-      console.error('Database error:', err)
-      return res.status(200).json({
-        success: true,
-        data: {
-          categories: defaultCategories,
-          workflows: fallbackWorkflows[categoryId] || [],
-          tools: fallbackTools[categoryId] || [],
-          hotTasks: fallbackHotTasks
-        }
+        data: { categories: [], workflows: [], tools: [], hotTasks: [] }
       })
     }
+    
+    // 使用后备数据
+    return res.status(200).json({
+      success: true,
+      data: {
+        categories: defaultCategories,
+        workflows: fallbackWorkflows[categoryId] || [],
+        tools: fallbackTools[categoryId] || [],
+        hotTasks: fallbackHotTasks[categoryId] || fallbackHotTasks['ai-office'] || []
+      }
+    })
   }
   
   // 获取分类
