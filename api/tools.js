@@ -155,6 +155,20 @@ export default async function handler(req, res) {
             ]
           }
         ],
+        'create-video': [
+          {
+            id: 'wf-video-1',
+            category_id: 'create-video',
+            title: 'AI视频生成工作流',
+            description: '使用AI工具完成视频创作的完整流程',
+            steps: [
+              { step: 1, title: '确定主题', desc: '明确视频主题和内容' },
+              { step: 2, title: '生成脚本', desc: 'AI生成视频脚本' },
+              { step: 3, title: '生成视频', desc: 'AI生成视频内容' },
+              { step: 4, title: '后期剪辑', desc: 'AI辅助剪辑和优化' }
+            ]
+          }
+        ],
         'learn-coding': [
           {
             id: 'wf-coding-1',
@@ -171,42 +185,12 @@ export default async function handler(req, res) {
         ]
       }
       
-      try {
-        let sql = 'SELECT * FROM workflows'
-        const params = []
-        
-        if (category) {
-          sql += ' WHERE category_id = ?'
-          params.push(category)
-        }
-        
-        sql += ' ORDER BY sort ASC'
-        
-        const result = await client.execute({ sql, args: params })
-        
-        // 解析steps JSON
-        let workflows = result.rows.map(w => ({
-          ...w,
-          steps: w.steps ? JSON.parse(w.steps) : []
-        }))
-        
-        // 如果数据库没有数据，使用后备数据
-        if (workflows.length === 0 && fallbackWorkflows[category]) {
-          workflows = fallbackWorkflows[category]
-        }
-        
-        return res.status(200).json({
-          success: true,
-          data: workflows
-        })
-      } catch (err) {
-        // 数据库出错时使用后备数据
-        const workflows = fallbackWorkflows[category] || []
-        return res.status(200).json({
-          success: true,
-          data: workflows
-        })
-      }
+      // 直接返回后备数据
+      const workflows = fallbackWorkflows[category] || []
+      return res.status(200).json({
+        success: true,
+        data: workflows
+      })
     }
     
     // 获取工具
