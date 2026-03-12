@@ -506,26 +506,6 @@ const codeTools = ['GitHub Copilot', 'Cursor', 'Claude Code', 'Windsurf', 'Repli
             </div>
           </div>
         </div>
-                    </svg>
-                  </div>
-                  <div class="step-node">
-                    <div class="step-icon-wrapper">
-                      <span class="step-icon">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                          <path v-if="idx === 0" d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/>
-                          <path v-else-if="idx === wf.steps.length - 1" d="M22 11.08V12a10 10 0 11-5.93-9.14"/>
-                          <path v-else d="M22 12a10 10 0 10-20 0 10 10 0 0020 0z"/>
-                        </svg>
-                      </span>
-                      <div class="step-glow"></div>
-                    </div>
-                    <span class="step-label">{{ step.title }}</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
         
         <!-- 工具对比 -->
         <div id="section-tools" class="content-section">
