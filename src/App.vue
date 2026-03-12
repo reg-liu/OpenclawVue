@@ -1,7 +1,7 @@
 <script setup>
 import { ref, onMounted } from 'vue'
 import data from './data.json'
-import { scenes, getCategories, filterToolsByCategory, fetchTools } from './services/api.js'
+import { scenes, getCategories, filterToolsByCategory, fetchPageData, fetchTools, fetchCategories, fetchWorkflows, fetchHotTasks } from './services/api.js'
 
 const currentPage = ref('home')
 const currentCategory = ref('')  // 当前分类ID
@@ -97,12 +97,14 @@ onMounted(async () => {
     currentPage.value = page
     currentCategory.value = category || ''
     
-    // 如果是产品页或副产品页，获取对应数据
+    // 使用统一API获取页面所有数据
     if (page === 'product' || page === 'subproduct') {
-      hotTasksData.value = await fetchHotTasks(category)
-      workflowsData.value = await fetchWorkflows(category)
-      // 获取对应分类的工具数据
-      toolsData.value = await fetchTools(category)
+      const pageData = await fetchPageData(page, category)
+      if (pageData) {
+        hotTasksData.value = pageData.hotTasks || []
+        workflowsData.value = pageData.workflows || []
+        toolsData.value = pageData.tools || []
+      }
     }
   }
   

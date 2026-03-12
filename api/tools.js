@@ -385,4 +385,39 @@ export default async function handler(req, res) {
       scenes: []
     })
   }
+  
+  // 统一页面数据接口
+  if (type === 'page') {
+    const { page, cat } = req.query
+    const categoryId = cat || category
+    
+    // 获取工作流数据
+    const workflows = fallbackWorkflows[categoryId] || []
+    
+    // 获取工具数据
+    const tools = fallbackTools[categoryId] || fallbackTools[scene] || []
+    
+    // 获取热门任务
+    const hotTasks = [
+      { id: 1, name: '文案创作', description: '使用AI生成营销文案、博客文章', heat: 5200 },
+      { id: 2, name: 'PPT制作', description: 'AI辅助制作演示文稿', heat: 4800 },
+      { id: 3, name: '代码辅助', description: 'AI编程助手，提高开发效率', heat: 4500 },
+      { id: 4, name: '图像生成', description: 'AI生成创意图片和插画', heat: 4200 },
+      { id: 5, name: '视频剪辑', description: 'AI辅助视频编辑和生成', heat: 3800 },
+      { id: 6, name: '数据分析', description: 'AI处理和分析数据', heat: 3500 }
+    ]
+    
+    // 获取分类数据
+    const categories = defaultCategories
+    
+    return res.status(200).json({
+      success: true,
+      data: {
+        categories,
+        workflows,
+        tools,
+        hotTasks
+      }
+    })
+  }
 }
