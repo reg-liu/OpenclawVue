@@ -388,7 +388,9 @@ const codeTools = ['GitHub Copilot', 'Cursor', 'Claude Code', 'Windsurf', 'Repli
         <div class="overview-card">
           <div class="overview-icon">{{ getCurrentCategory()?.icon || '📁' }}</div>
           <div class="overview-content">
-            <h3>{{ getCurrentCategory()?.name || '产品页' }}</h3>
+            <div class="overview-header">
+              <h3>{{ getCurrentCategory()?.name || '产品页' }}</h3>
+            </div>
             <p>{{ getCurrentCategory()?.description || '' }}</p>
             <div class="overview-tags">
               <span v-for="child in getCurrentCategory()?.children" :key="child.id" class="overview-tag">{{ child.icon }} {{ child.name }}</span>
@@ -2032,7 +2034,9 @@ const codeTools = ['GitHub Copilot', 'Cursor', 'Claude Code', 'Windsurf', 'Repli
           <div class="overview-card">
             <div class="overview-icon">💼</div>
             <div class="overview-content">
-              <h3>AI办公场景</h3>
+              <div class="overview-header">
+                <h3>AI办公场景</h3>
+              </div>
               <p>利用AI提升日常办公效率，涵盖文档处理、数据分析、演示制作等场景，让工作更高效、更专业。</p>
               <div class="overview-tags">
                 <span class="overview-tag">📝 文档处理</span>
@@ -3103,13 +3107,13 @@ body { font-family: 'Inter', sans-serif; background: #0d0d0d; color: #e5e5e5; li
 /* 概览卡片组件 */
 .overview-card {
   display: flex;
-  gap: 32px;
-  align-items: flex-start;
+  gap: 24px;
+  align-items: center;
   justify-content: center;
   background: linear-gradient(135deg, #1a1a2e 0%, #2d2d4a 100%);
   border: 1px solid #3d3d5c;
   border-radius: 20px;
-  padding: 32px;
+  padding: 24px 32px;
   margin-bottom: 32px;
   flex-wrap: wrap;
 }
@@ -3117,13 +3121,14 @@ body { font-family: 'Inter', sans-serif; background: #0d0d0d; color: #e5e5e5; li
   border-color: #8b5cf6;
   box-shadow: 0 8px 24px rgba(139, 92, 246, 0.15);
 }
-.overview-icon { font-size: 56px; flex-shrink: 0; }
-.overview-content { flex: 1; }
-.overview-content h3 { font-size: 24px; margin-bottom: 12px; color: #fff; }
+.overview-icon { font-size: 48px; flex-shrink: 0; }
+.overview-content { flex: 1; min-width: 200px; }
+.overview-header { display: flex; align-items: center; gap: 16px; margin-bottom: 12px; }
+.overview-header h3 { font-size: 24px; color: #fff; margin: 0; }
 .overview-content p { color: #94a3b8; font-size: 15px; line-height: 1.6; margin-bottom: 16px; }
-.overview-tags { display: flex; gap: 12px; flex-wrap: wrap; }
+.overview-tags { display: flex; gap: 12px; flex-wrap: wrap; justify-content: flex-start; }
 .overview-tag { 
-  padding: 8px 16px; 
+  padding: 6px 14px; 
   background: rgba(139, 92, 246, 0.15); 
   color: #a78bfa; 
   border-radius: 20px; 
