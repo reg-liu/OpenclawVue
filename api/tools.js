@@ -210,23 +210,132 @@ export default async function handler(req, res) {
     }
     
     // 获取工具
-    // 后备工具数据
+    // 后备工具数据 - 按垂直领域分类
     const fallbackTools = {
+      // AI入门
+      'ai-entry': [
+        { id: 1, name: 'ChatGPT', icon: '💬', description: 'OpenAI开发的AI对话工具，适合日常问答和内容创作', price: '免费/付费', difficulty: '入门', features: '对话、写作、编程', network: '需要VPN' },
+        { id: 2, name: 'Claude', icon: '🧠', description: 'Anthropic推出的AI助手，长文本处理能力强', price: '免费/付费', difficulty: '进阶', features: '长文本、编程，分析', network: '需要VPN' },
+        { id: 3, name: 'Kimi', icon: '🦊', description: '月之暗面推出的中文AI助手，超长上下文', price: '免费', difficulty: '入门', features: '长文本、中文优化', network: '国内可直接访问' }
+      ],
+      // AI办公 - 写作
       'office-writing': [
         { id: 1, name: 'ChatGPT', icon: '💬', description: 'OpenAI开发的AI对话工具，适合日常问答和内容创作', price: '免费/付费', difficulty: '入门', features: '对话、写作、编程', network: '需要VPN' },
-        { id: 2, name: 'Claude', icon: '🧠', description: 'Anthropic推出的AI助手，长文本处理能力强', price: '免费/付费', difficulty: '进阶', features: '长文本、编程、分析', network: '需要VPN' },
+        { id: 2, name: 'Claude', icon: '🧠', description: 'Anthropic推出的AI助手，长文本处理能力强', price: '免费/付费', difficulty: '进阶', features: '长文本、写作，分析', network: '需要VPN' },
         { id: 3, name: 'Kimi', icon: '🦊', description: '月之暗面推出的中文AI助手，超长上下文', price: '免费', difficulty: '入门', features: '长文本、中文优化', network: '国内可直接访问' },
-        { id: 4, name: '文心一言', icon: '🔥', description: '百度推出的中文AI助手，文学创作能力强', price: '免费', difficulty: '入门', features: '中文创作、知识问答', network: '国内可直接访问' }
+        { id: 4, name: '文心一言', icon: '🔥', description: '百度推出的中文AI助手，文学创作能力强', price: '免费', difficulty: '入门', features: '中文创作、知识问答', network: '国内可直接访问' },
+        { id: 5, name: '通义千问', icon: '🦅', description: '阿里推出的中文AI助手，多模态能力强', price: '免费', difficulty: '入门', features: '中文优化、多模态', network: '国内可直接访问' }
       ],
+      // AI办公 - 商业
+      'office-business': [
+        { id: 1, name: 'Notion AI', icon: '📓', description: 'Notion内置AI助手，文档和项目管理智能化', price: '付费', difficulty: '入门', features: '文档管理、项目协作', network: '需要VPN' },
+        { id: 2, name: 'Copilot', icon: '🤖', description: '微软AI助手，深度集成Office办公软件', price: '付费', difficulty: '入门', features: 'Office自动化、数据分析', network: '需要VPN' },
+        { id: 3, name: 'WPS AI', icon: '📊', description: 'WPS Office内置AI助手，国产办公软件', price: '免费', difficulty: '入门', features: '文档处理、PPT制作', network: '国内可直接访问' }
+      ],
+      // AI办公 - 效率
+      'office-efficiency': [
+        { id: 1, name: 'Notion AI', icon: '📓', description: 'Notion内置AI助手，提升工作效率', price: '付费', difficulty: '入门', features: '笔记、任务管理', network: '需要VPN' },
+        { id: 2, name: 'Otter.ai', icon: '🦦', description: 'AI会议记录工具，自动生成会议纪要', price: '免费/付费', difficulty: '入门', features: '会议转录、总结', network: '需要VPN' },
+        { id: 3, name: 'Tome', icon: '📖', description: 'AI PPT制作工具，快速生成演示文稿', price: '免费/付费', difficulty: '入门', features: 'AI生成PPT、故事叙述', network: '需要VPN' }
+      ],
+      // AI办公 - 数据分析
+      'office-data': [
+        { id: 1, name: 'ChatGPT', icon: '💬', description: 'OpenAI开发的AI对话工具，辅助数据分析', price: '免费/付费', difficulty: '入门', features: '数据分析、代码生成', network: '需要VPN' },
+        { id: 2, name: 'Python', icon: '🐍', description: '数据分析编程语言，AI辅助编程', price: '免费', difficulty: '进阶', features: '数据分析、机器学习', network: '本地运行' },
+        { id: 3, name: 'Excel AI', icon: '📊', description: '微软Excel内置AI，分析数据更智能', price: '付费', difficulty: '入门', features: '数据分析、图表生成', network: '本地运行' }
+      ],
+      // AI办公 - 营销
+      'office-marketing': [
+        { id: 1, name: 'Copy.ai', icon: '✍️', description: 'AI营销文案生成工具，快速创建广告文案', price: '免费/付费', difficulty: '入门', features: '营销文案、社交媒体', network: '需要VPN' },
+        { id: 2, name: 'Jasper', icon: '📝', description: 'AI内容创作平台，营销内容生成', price: '付费', difficulty: '入门', features: '博客、广告文案', network: '需要VPN' },
+        { id: 3, name: 'Writesonic', icon: '🎯', description: 'AI写作工具，SEO内容优化', price: '免费/付费', difficulty: '入门', features: 'SEO优化、营销文案', network: '需要VPN' }
+      ],
+      // AI办公 - 金融
+      'office-finance': [
+        { id: 1, name: 'ChatGPT', icon: '💬', description: 'AI辅助金融分析，报告撰写', price: '免费/付费', difficulty: '入门', features: '金融分析、报告生成', network: '需要VPN' },
+        { id: 2, name: 'Excel AI', icon: '📊', description: 'Excel内置AI，财务数据分析', price: '付费', difficulty: '入门', features: '财务分析、预测', network: '本地运行' }
+      ],
+      // AI创作 - 图像
       'create-image': [
-        { id: 5, name: 'Midjourney', icon: '🎨', description: 'AI图像生成标杆，画质最高', price: '付费', difficulty: '进阶', features: '艺术创作、概念设计', network: '需要VPN' },
-        { id: 6, name: 'DALL-E 3', icon: '🖼️', description: 'OpenAI图像生成，GPT集成更智能', price: '付费', difficulty: '入门', features: '图像生成、编辑', network: '需要VPN' },
-        { id: 7, name: 'Stable Diffusion', icon: '⚡', description: '开源本地运行，可自定义模型', price: '免费', difficulty: '进阶', features: '本地部署、自定义', network: '本地运行' }
+        { id: 1, name: 'Midjourney', icon: '🎨', description: 'AI图像生成标杆，画质最高', price: '付费', difficulty: '进阶', features: '艺术创作、概念设计', network: '需要VPN' },
+        { id: 2, name: 'DALL-E 3', icon: '🖼️', description: 'OpenAI图像生成，GPT集成更智能', price: '付费', difficulty: '入门', features: '图像生成、编辑', network: '需要VPN' },
+        { id: 3, name: 'Stable Diffusion', icon: '⚡', description: '开源本地运行，可自定义模型', price: '免费', difficulty: '进阶', features: '本地部署、自定义', network: '本地运行' },
+        { id: 4, name: 'Leonardo AI', icon: '🎭', description: '开源AI图像生成平台，功能丰富', price: '免费/付费', difficulty: '入门', features: '图像生成、训练模型', network: '需要VPN' },
+        { id: 5, name: '通义万相', icon: '🏞️', description: '阿里AI图像生成，中文提示词优化', price: '免费', difficulty: '入门', features: '中文优化、图像生成', network: '国内可直接访问' },
+        { id: 6, name: '文心一格', icon: '🎪', description: '百度AI图像生成，艺术风格多样', price: '免费/付费', difficulty: '入门', features: '中文优化、艺术创作', network: '国内可直接访问' }
       ],
+      // AI创作 - 视频
+      'create-video': [
+        { id: 1, name: 'Runway', icon: '🎬', description: 'AI视频生成和编辑平台，功能全面', price: '免费/付费', difficulty: '进阶', features: '视频生成、编辑、特效', network: '需要VPN' },
+        { id: 2, name: 'Pika', icon: '🎥', description: 'AI视频生成工具，快速生成视频', price: '免费/付费', difficulty: '入门', features: '文字转视频、视频编辑', network: '需要VPN' },
+        { id: 3, name: '可灵', icon: '🦁', description: '快手AI视频生成，国产视频生成标杆', price: '免费/付费', difficulty: '入门', features: '视频生成、文字转视频', network: '国内可直接访问' },
+        { id: 4, name: '即梦', icon: '✨', description: '字节跳动AI视频生成工具', price: '免费', difficulty: '入门', features: '视频生成、AI作图', network: '国内可直接访问' },
+        { id: 5, name: 'Sora', icon: '🌊', description: 'OpenAI视频生成模型（未公测）', price: '待定', difficulty: '进阶', features: '视频生成、世界模拟', network: '需要VPN' },
+        { id: 6, name: 'Luma Dream Machine', icon: '💫', description: 'AI视频生成新星，效果惊艳', price: '免费/付费', difficulty: '入门', features: '视频生成、动画', network: '需要VPN' }
+      ],
+      // AI创作 - 设计
+      'create-design': [
+        { id: 1, name: 'Figma AI', icon: '🎨', description: 'Figma内置AI设计助手，智能设计辅助', price: '付费', difficulty: '入门', features: 'UI设计、自动布局', network: '需要VPN' },
+        { id: 2, name: 'Midjourney', icon: '🎭', description: 'AI图像生成，辅助概念设计', price: '付费', difficulty: '进阶', features: '概念设计、插画', network: '需要VPN' },
+        { id: 3, name: 'Canva AI', icon: '🖌️', description: 'Canva内置AI设计工具，快速出图', price: '免费/付费', difficulty: '入门', features: '海报、社交媒体', network: '需要VPN' }
+      ],
+      // AI创作 - 艺术
+      'create-art': [
+        { id: 1, name: 'Midjourney', icon: '🎨', description: 'AI艺术创作标杆，画质最高', price: '付费', difficulty: '进阶', features: '艺术创作，数字绘画', network: '需要VPN' },
+        { id: 2, name: 'DALL-E 3', icon: '🖼️', description: 'OpenAI艺术图像生成', price: '付费', difficulty: '入门', features: '艺术创作、概念艺术', network: '需要VPN' },
+        { id: 3, name: 'Stable Diffusion', icon: '⚡', description: '开源艺术创作，可训练模型', price: '免费', difficulty: '进阶', features: '艺术创作、本地运行', network: '本地运行' }
+      ],
+      // AI创作 - 音乐
+      'create-music': [
+        { id: 1, name: 'Suno', icon: '🎵', description: 'AI音乐生成神器，生成完整歌曲', price: '免费/付费', difficulty: '入门', features: '音乐生成、词曲创作', network: '需要VPN' },
+        { id: 2, name: 'AIVA', icon: '🎹', description: 'AI音乐创作助手，专业作曲', price: '免费/付费', difficulty: '入门', features: '作曲、编曲', network: '需要VPN' },
+        { id: 3, name: '网易天音', icon: '🎶', description: '网易AI音乐生成，国产音乐AI', price: '免费', difficulty: '入门', features: '音乐生成、中文歌词', network: '国内可直接访问' }
+      ],
+      // AI学习 - 编程
       'learn-coding': [
-        { id: 8, name: 'GitHub Copilot', icon: '💻', description: '微软AI编程助手，代码补全能力强', price: '付费', difficulty: '入门', features: '代码补全、调试', network: '需要VPN' },
-        { id: 9, name: 'Cursor', icon: '📝', description: 'AI编程IDE，基于VS Code', price: '免费/付费', difficulty: '入门', features: '代码编辑、AI对话', network: '需要VPN' },
-        { id: 10, name: 'Claude Code', icon: '🤖', description: 'Anthropic推出的AI编程助手', price: '免费', difficulty: '进阶', features: '代码生成、调试', network: '需要VPN' }
+        { id: 1, name: 'GitHub Copilot', icon: '💻', description: '微软AI编程助手，代码补全能力强', price: '付费', difficulty: '入门', features: '代码补全、调试', network: '需要VPN' },
+        { id: 2, name: 'Cursor', icon: '📝', description: 'AI编程IDE，基于VS Code', price: '免费/付费', difficulty: '入门', features: '代码编辑、AI对话', network: '需要VPN' },
+        { id: 3, name: 'Claude Code', icon: '🤖', description: 'Anthropic推出的AI编程助手', price: '免费', difficulty: '进阶', features: '代码生成、调试', network: '需要VPN' },
+        { id: 4, name: 'Windsurf', icon: '🌊', description: 'AI编程工具，Flow AI功能强大', price: '免费/付费', difficulty: '入门', features: '代码补全，项目管理', network: '需要VPN' },
+        { id: 5, name: 'Replit AI', icon: '⚡', description: '在线AI编程环境，快速开发', price: '免费/付费', difficulty: '入门', features: '在线IDE、AI辅助', network: '需要VPN' }
+      ],
+      // AI学习 - 教育
+      'learn-education': [
+        { id: 1, name: 'Khanmigo', icon: '🎓', description: '可汗学院AI导师，个性化学习', price: '付费', difficulty: '入门', features: '个性化辅导、作业辅助', network: '需要VPN' },
+        { id: 2, name: 'Duolingo AI', icon: '🦉', description: '多邻国AI语言学习，个性化辅导', price: '免费/付费', difficulty: '入门', features: '语言学习、AI对话', network: '需要VPN' },
+        { id: 3, name: 'ChatGPT', icon: '💬', description: 'AI学习助手，解答各种问题', price: '免费/付费', difficulty: '入门', features: '问答、辅导', network: '需要VPN' }
+      ],
+      // AI学习 - 研究
+      'learn-research': [
+        { id: 1, name: 'Perplexity', icon: '🔍', description: 'AI搜索工具，学术研究好帮手', price: '免费/付费', difficulty: '入门', features: 'AI搜索、文献总结', network: '需要VPN' },
+        { id: 2, name: 'Elicit', icon: '📚', description: 'AI学术研究工具，文献综述', price: '免费', difficulty: '入门', features: '文献搜索、总结', network: '需要VPN' },
+        { id: 3, name: 'Scholar AI', icon: '🎓', description: 'AI学术搜索引擎，论文查找', price: '免费/付费', difficulty: '入门', features: '论文搜索、阅读', network: '需要VPN' }
+      ],
+      // AI学习 - 语言学习
+      'learn-language': [
+        { id: 1, name: 'Duolingo AI', icon: '🦉', description: 'AI语言学习，个性化辅导', price: '免费/付费', difficulty: '入门', features: '口语练习、语法纠正', network: '需要VPN' },
+        { id: 2, name: 'ChatGPT', icon: '💬', description: 'AI语言对话伙伴，口语练习', price: '免费/付费', difficulty: '入门', features: '对话练习、翻译', network: '需要VPN' },
+        { id: 3, name: 'Speak', icon: '🗣️', description: 'AI口语教练，实时纠正', price: '付费', difficulty: '入门', features: '口语练习、发音纠正', network: '需要VPN' }
+      ],
+      // AI生活 - 健康
+      'life-health': [
+        { id: 1, name: 'ChatGPT', icon: '💬', description: 'AI健康咨询助手，生活建议', price: '免费/付费', difficulty: '入门', features: '健康咨询、生活建议', network: '需要VPN' },
+        { id: 2, name: 'Fitbod', icon: '🏋️', description: 'AI健身计划定制，个性化训练', price: '付费', difficulty: '入门', features: '健身计划，运动指导', network: '需要VPN' }
+      ],
+      // AI生活 - 旅行
+      'life-travel': [
+        { id: 1, name: 'ChatGPT', icon: '💬', description: 'AI旅行规划助手，行程制定', price: '免费/付费', difficulty: '入门', features: '旅行规划、景点推荐', network: '需要VPN' },
+        { id: 2, name: 'Roam Around', icon: '🗺️', description: 'AI旅行规划工具，智能行程', price: '免费/付费', difficulty: '入门', features: '行程规划、预订建议', network: '需要VPN' }
+      ],
+      // AI生活 - 美食
+      'life-food': [
+        { id: 1, name: 'ChatGPT', icon: '💬', description: 'AI食谱推荐，做饭助手', price: '免费/付费', difficulty: '入门', features: '食谱推荐、烹饪建议', network: '需要VPN' },
+        { id: 2, name: 'Supercook', icon: '🍳', description: 'AI食谱搜索，根据食材推荐', price: '免费', difficulty: '入门', features: '食谱搜索、食材推荐', network: '需要VPN' }
+      ],
+      // AI生活 - 时尚
+      'life-fashion': [
+        { id: 1, name: 'ChatGPT', icon: '💬', description: 'AI时尚搭配建议，购物助手', price: '免费/付费', difficulty: '入门', features: '搭配建议、趋势分析', network: '需要VPN' },
+        { id: 2, name: 'Midjourney', icon: '🎨', description: 'AI时尚设计，效果图生成', price: '付费', difficulty: '进阶', features: '设计辅助、效果预览', network: '需要VPN' }
       ]
     }
     
