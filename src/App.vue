@@ -394,9 +394,7 @@ const codeTools = ['GitHub Copilot', 'Cursor', 'Claude Code', 'Windsurf', 'Repli
         <div class="overview-card">
           <div class="overview-icon">{{ getCurrentCategory()?.icon || '📁' }}</div>
           <div class="overview-content">
-            <div class="overview-header">
-              <h3>{{ getCurrentCategory()?.name || '产品页' }}</h3>
-            </div>
+            <h3>{{ getCurrentCategory()?.name || '产品页' }}</h3>
             <p>{{ getCurrentCategory()?.description || '' }}</p>
             <div class="overview-tags">
               <span v-for="child in getCurrentCategory()?.children" :key="child.id" class="overview-tag">{{ child.icon }} {{ child.name }}</span>
@@ -424,37 +422,18 @@ const codeTools = ['GitHub Copilot', 'Cursor', 'Claude Code', 'Windsurf', 'Repli
           </div>
         </div>
         
-        <!-- 工作流 - 横向时间线风格 -->
+        <!-- 工作流 - 工具组合流程样式 -->
         <div id="section-workflow" class="content-section">
           <h2 class="section-title">工作流</h2>
           <p class="section-subtitle">使用AI完成任务的典型流程</p>
-          <div class="workflow-timeline">
-            <div v-for="wf in workflowsData" :key="wf.id" class="workflow-card-enhanced">
-              <div class="workflow-header">
-                <span class="workflow-icon">⚡</span>
-                <h3>{{ wf.title }}</h3>
-              </div>
+          <div class="tool-chain-wrapper">
+            <div v-for="wf in workflowsData" :key="wf.id" class="workflow-chain">
+              <h3 class="workflow-title">{{ wf.title }}</h3>
               <p class="workflow-desc">{{ wf.description }}</p>
-              <div class="timeline-steps">
-                <div v-for="(step, idx) in wf.steps" :key="idx" class="timeline-step">
-                  <div class="step-connector" v-if="idx > 0">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                      <path d="M5 12h14M13 5l7 7-7 7"/>
-                    </svg>
-                  </div>
-                  <div class="step-node">
-                    <div class="step-icon-wrapper">
-                      <span class="step-icon">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                          <path v-if="idx === 0" d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/>
-                          <path v-else-if="idx === wf.steps.length - 1" d="M22 11.08V12a10 10 0 11-5.93-9.14"/>
-                          <path v-else d="M22 12a10 10 0 10-20 0 10 10 0 0020 0z"/>
-                        </svg>
-                      </span>
-                      <div class="step-glow"></div>
-                    </div>
-                    <span class="step-label">{{ step.title }}</span>
-                  </div>
+              <div class="tool-chain">
+                <div v-for="(step, idx) in wf.steps" :key="idx" class="chain-step">
+                  <span class="chain-icon">{{ ['📝', '🤖', '📊', '✨'][idx % 4] }}</span>
+                  <span class="chain-name">{{ step.title }}</span>
                 </div>
               </div>
             </div>
@@ -510,22 +489,23 @@ const codeTools = ['GitHub Copilot', 'Cursor', 'Claude Code', 'Windsurf', 'Repli
           </div>
         </div>
         
-        <!-- 工作流 - 横向时间线风格 -->
+        <!-- 工作流 - 工具组合流程样式 -->
         <div id="section-workflow" class="content-section">
           <h2 class="section-title">工作流</h2>
           <p class="section-subtitle">完成该任务的步骤</p>
-          <div class="workflow-timeline">
-            <div v-for="wf in workflowsData" :key="wf.id" class="workflow-card-enhanced">
-              <div class="workflow-header">
-                <span class="workflow-icon">⚡</span>
-                <h3>{{ wf.title }}</h3>
-              </div>
+          <div class="tool-chain-wrapper">
+            <div v-for="wf in workflowsData" :key="wf.id" class="workflow-chain">
+              <h3 class="workflow-title">{{ wf.title }}</h3>
               <p class="workflow-desc">{{ wf.description }}</p>
-              <div class="timeline-steps">
-                <div v-for="(step, idx) in wf.steps" :key="idx" class="timeline-step">
-                  <div class="step-connector" v-if="idx > 0">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                      <path d="M5 12h14M13 5l7 7-7 7"/>
+              <div class="tool-chain">
+                <div v-for="(step, idx) in wf.steps" :key="idx" class="chain-step">
+                  <span class="chain-icon">{{ ['📝', '🤖', '📊', '✨'][idx % 4] }}</span>
+                  <span class="chain-name">{{ step.title }}</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
                     </svg>
                   </div>
                   <div class="step-node">
@@ -2040,9 +2020,7 @@ const codeTools = ['GitHub Copilot', 'Cursor', 'Claude Code', 'Windsurf', 'Repli
           <div class="overview-card">
             <div class="overview-icon">💼</div>
             <div class="overview-content">
-              <div class="overview-header">
-                <h3>AI办公场景</h3>
-              </div>
+              <h3>AI办公场景</h3>
               <p>利用AI提升日常办公效率，涵盖文档处理、数据分析、演示制作等场景，让工作更高效、更专业。</p>
               <div class="overview-tags">
                 <span class="overview-tag">📝 文档处理</span>
@@ -3103,6 +3081,13 @@ body { font-family: 'Inter', sans-serif; background: #0d0d0d; color: #e5e5e5; li
 .chain-desc { color: #94a3b8; font-size: 12px; text-align: center; }
 .chain-arrow { color: #8b5cf6; font-size: 24px; }
 
+/* 工作流包装器 */
+.tool-chain-wrapper { display: flex; flex-direction: column; gap: 24px; }
+.workflow-chain { background: #1a1a2e; border: 1px solid #2d2d4a; border-radius: 16px; padding: 24px; }
+.workflow-chain:hover { border-color: #8b5cf6; }
+.workflow-title { font-size: 18px; color: #fff; margin: 0 0 8px 0; }
+.workflow-desc { color: #94a3b8; font-size: 14px; margin: 0 0 20px 0; }
+
 /* Scene Cards */
 .scene-cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
 .scene-card { background: #1a1a2e; padding: 24px; border-radius: 12px; text-align: center; }
@@ -3110,28 +3095,29 @@ body { font-family: 'Inter', sans-serif; background: #0d0d0d; color: #e5e5e5; li
 .scene-card h4 { font-size: 18px; margin-bottom: 8px; }
 .scene-card p { color: #94a3b8; font-size: 14px; }
 
-/* 概览卡片组件 */
+/* 概览卡片组件 - 简洁版 */
 .overview-card {
   display: flex;
-  gap: 24px;
+  flex-direction: column;
   align-items: center;
-  justify-content: center;
+  text-align: center;
   background: linear-gradient(135deg, #1a1a2e 0%, #2d2d4a 100%);
   border: 1px solid #3d3d5c;
   border-radius: 20px;
-  padding: 24px 32px;
+  padding: 32px;
   margin-bottom: 32px;
-  flex-wrap: wrap;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
 }
 .overview-card:hover {
   border-color: #8b5cf6;
   box-shadow: 0 8px 24px rgba(139, 92, 246, 0.15);
 }
-.overview-icon { font-size: 48px; flex-shrink: 0; }
-.overview-content { flex: 1; min-width: 200px; }
-.overview-header { display: flex; align-items: center; gap: 16px; margin-bottom: 12px; }
-.overview-header h3 { font-size: 24px; color: #fff; margin: 0; }
-.overview-content p { color: #94a3b8; font-size: 15px; line-height: 1.6; margin-bottom: 16px; }
+.overview-icon { font-size: 56px; margin-bottom: 16px; }
+.overview-content { width: 100%; }
+.overview-content h3 { font-size: 28px; color: #fff; margin: 0 0 12px 0; }
+.overview-content p { color: #94a3b8; font-size: 15px; line-height: 1.6; margin: 0 0 20px 0; }
 .overview-tags { display: flex; gap: 12px; flex-wrap: wrap; justify-content: center; }
 .overview-tag { 
   padding: 6px 14px; 
