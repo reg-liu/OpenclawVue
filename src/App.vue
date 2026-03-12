@@ -391,7 +391,7 @@ const codeTools = ['GitHub Copilot', 'Cursor', 'Claude Code', 'Windsurf', 'Repli
     <section v-if="currentPage === 'product'" class="product-page">
       <div class="page-container">
         <!-- 概览卡片 -->
-        <div class="overview-card">
+        <div id="section-overview" class="overview-card">
           <div class="overview-icon">{{ getCurrentCategory()?.icon || '📁' }}</div>
           <div class="overview-content">
             <h3>{{ getCurrentCategory()?.name || '产品页' }}</h3>
@@ -405,7 +405,10 @@ const codeTools = ['GitHub Copilot', 'Cursor', 'Claude Code', 'Windsurf', 'Repli
         <!-- 右侧导航 -->
         <div class="toc-sidebar">
           <div class="toc-list">
-            <a v-for="task in hotTasksData.slice(0, 5)" :key="task.id" :href="'#task-' + task.id" class="toc-item">{{ task.name }}</a>
+            <a href="#section-overview" class="toc-item">概述</a>
+            <a href="#section-hot-tasks" class="toc-item">热门任务</a>
+            <a href="#section-tools" class="toc-item">推荐工具</a>
+            <a href="#section-workflow" class="toc-item">工作流</a>
           </div>
         </div>
         
@@ -422,24 +425,6 @@ const codeTools = ['GitHub Copilot', 'Cursor', 'Claude Code', 'Windsurf', 'Repli
           </div>
         </div>
         
-        <!-- 工作流 - 工具组合流程样式 -->
-        <div id="section-workflow" class="content-section">
-          <h2 class="section-title">工作流</h2>
-          <p class="section-subtitle">使用AI完成任务的典型流程</p>
-          <div class="tool-chain-wrapper">
-            <div v-for="wf in workflowsData" :key="wf.id" class="workflow-chain">
-              <h3 class="workflow-title">{{ wf.title }}</h3>
-              <p class="workflow-desc">{{ wf.description }}</p>
-              <div class="tool-chain">
-                <div v-for="(step, idx) in wf.steps" :key="idx" class="chain-step">
-                  <span class="chain-icon">{{ ['📝', '🤖', '📊', '✨'][idx % 4] }}</span>
-                  <span class="chain-name">{{ step.title }}</span>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        
         <!-- 推荐工具 -->
         <div id="section-tools" class="content-section">
           <h2 class="section-title">推荐工具</h2>
@@ -452,6 +437,43 @@ const codeTools = ['GitHub Copilot', 'Cursor', 'Claude Code', 'Windsurf', 'Repli
               <div class="tool-tags-center">
                 <span class="tag tag-free">{{ tool.price }}</span>
                 <span class="tag tag-入门">{{ tool.difficulty }}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- 工作流 - 横向时间线样式 -->
+        <div id="section-workflow" class="content-section">
+          <h2 class="section-title">工作流</h2>
+          <p class="section-subtitle">使用AI完成任务的典型流程</p>
+          <div class="workflow-timeline">
+            <div v-for="wf in workflowsData" :key="wf.id" class="workflow-card-enhanced">
+              <div class="workflow-header">
+                <span class="workflow-icon">⚡</span>
+                <h3>{{ wf.title }}</h3>
+              </div>
+              <p class="workflow-desc">{{ wf.description }}</p>
+              <div class="timeline-steps">
+                <div v-for="(step, idx) in wf.steps" :key="idx" class="timeline-step">
+                  <div class="step-connector" v-if="idx > 0">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <path d="M5 12h14M13 5l7 7-7 7"/>
+                    </svg>
+                  </div>
+                  <div class="step-node">
+                    <div class="step-icon-wrapper">
+                      <span class="step-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                          <path v-if="idx === 0" d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/>
+                          <path v-else-if="idx === wf.steps.length - 1" d="M22 11.08V12a10 10 0 11-5.93-9.14"/>
+                          <path v-else d="M22 12a10 10 0 10-20 0 10 10 0 0020 0z"/>
+                        </svg>
+                      </span>
+                      <div class="step-glow"></div>
+                    </div>
+                    <span class="step-label">{{ step.title }}</span>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -484,23 +506,43 @@ const codeTools = ['GitHub Copilot', 'Cursor', 'Claude Code', 'Windsurf', 'Repli
         <div class="toc-sidebar">
           <div class="toc-list">
             <a href="#section-workflow" class="toc-item">工作流</a>
-            <a href="#section-tools" class="toc-item">工具对比</a>
+            <a href="#section-comparison" class="toc-item">工具对比</a>
+            <a href="#section-strengths" class="toc-item">工具擅长</a>
             <a href="#section-detail" class="toc-item">详细说明</a>
           </div>
         </div>
         
-        <!-- 工作流 - 工具组合流程样式 -->
+        <!-- 工作流 - 横向时间线样式 -->
         <div id="section-workflow" class="content-section">
           <h2 class="section-title">工作流</h2>
           <p class="section-subtitle">完成该任务的步骤</p>
-          <div class="tool-chain-wrapper">
-            <div v-for="wf in workflowsData" :key="wf.id" class="workflow-chain">
-              <h3 class="workflow-title">{{ wf.title }}</h3>
+          <div class="workflow-timeline">
+            <div v-for="wf in workflowsData" :key="wf.id" class="workflow-card-enhanced">
+              <div class="workflow-header">
+                <span class="workflow-icon">⚡</span>
+                <h3>{{ wf.title }}</h3>
+              </div>
               <p class="workflow-desc">{{ wf.description }}</p>
-              <div class="tool-chain">
-                <div v-for="(step, idx) in wf.steps" :key="idx" class="chain-step">
-                  <span class="chain-icon">{{ ['📝', '🤖', '📊', '✨'][idx % 4] }}</span>
-                  <span class="chain-name">{{ step.title }}</span>
+              <div class="timeline-steps">
+                <div v-for="(step, idx) in wf.steps" :key="idx" class="timeline-step">
+                  <div class="step-connector" v-if="idx > 0">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <path d="M5 12h14M13 5l7 7-7 7"/>
+                    </svg>
+                  </div>
+                  <div class="step-node">
+                    <div class="step-icon-wrapper">
+                      <span class="step-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                          <path v-if="idx === 0" d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/>
+                          <path v-else-if="idx === wf.steps.length - 1" d="M22 11.08V12a10 10 0 11-5.93-9.14"/>
+                          <path v-else d="M22 12a10 10 0 10-20 0 10 10 0 0020 0z"/>
+                        </svg>
+                      </span>
+                      <div class="step-glow"></div>
+                    </div>
+                    <span class="step-label">{{ step.title }}</span>
+                  </div>
                 </div>
               </div>
             </div>
@@ -508,7 +550,7 @@ const codeTools = ['GitHub Copilot', 'Cursor', 'Claude Code', 'Windsurf', 'Repli
         </div>
         
         <!-- 工具对比 -->
-        <div id="section-tools" class="content-section">
+        <div id="section-comparison" class="content-section">
           <h2 class="section-title">工具对比</h2>
           <p class="section-subtitle">各工具在此场景的对比</p>
           <div class="tools-comparison">
