@@ -119,12 +119,58 @@ function getFallbackData(query) {
     }
   }
   
+  if (query.type === 'hot_tasks') {
+    return {
+      success: true,
+      data: [
+        { id: 1, name: '文案创作', description: '使用AI生成营销文案、博客文章', heat: 5200 },
+        { id: 2, name: 'PPT制作', description: 'AI辅助制作演示文稿', heat: 4800 },
+        { id: 3, name: '代码辅助', description: 'AI编程助手，提高开发效率', heat: 4500 },
+        { id: 4, name: '图像生成', description: 'AI生成创意图片和插画', heat: 4200 },
+        { id: 5, name: '视频剪辑', description: 'AI辅助视频编辑和生成', heat: 3800 },
+        { id: 6, name: '数据分析', description: 'AI处理和分析数据', heat: 3500 }
+      ]
+    }
+  }
+  
+  if (query.type === 'workflows') {
+    return {
+      success: true,
+      data: [
+        {
+          id: 'wf-1',
+          category_id: query.category || 'ai-office',
+          title: 'AI PPT制作工作流',
+          description: '使用AI工具完成PPT制作的完整流程',
+          steps: [
+            { step: 1, title: '输入主题' },
+            { step: 2, title: 'AI生成大纲' },
+            { step: 3, title: '选择模板' },
+            { step: 4, title: '自动生成' }
+          ]
+        },
+        {
+          id: 'wf-2',
+          category_id: query.category || 'ai-office',
+          title: 'AI写作工作流',
+          description: '使用AI工具完成文章撰写的完整流程',
+          steps: [
+            { step: 1, title: '确定主题' },
+            { step: 2, title: 'AI生成大纲' },
+            { step: 3, title: '内容扩写' },
+            { step: 4, title: '润色校对' }
+          ]
+        }
+      ]
+    }
+  }
+  
   if (query.scene) {
     return {
       success: true,
       tools: [
-        { id: 1, name: 'ChatGPT', description: 'OpenAI的AI对话助手', price: '免费/付费', difficulty: '入门', scenes: ['ai-entry'] },
-        { id: 2, name: 'Claude', description: 'Anthropic推出的AI助手', price: '免费/付费', difficulty: '进阶', scenes: ['ai-entry', 'ai-code'] }
+        { id: 1, name: 'ChatGPT', description: 'OpenAI的AI对话助手', price: '免费/付费', difficulty: '入门', scenes: ['ai-entry'], icon: '💬' },
+        { id: 2, name: 'Claude', description: 'Anthropic推出的AI助手', price: '免费/付费', difficulty: '进阶', scenes: ['ai-entry', 'ai-code'], icon: '🧠' }
       ]
     }
   }

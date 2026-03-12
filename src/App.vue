@@ -3105,11 +3105,13 @@ body { font-family: 'Inter', sans-serif; background: #0d0d0d; color: #e5e5e5; li
   display: flex;
   gap: 32px;
   align-items: flex-start;
+  justify-content: center;
   background: linear-gradient(135deg, #1a1a2e 0%, #2d2d4a 100%);
   border: 1px solid #3d3d5c;
   border-radius: 20px;
   padding: 32px;
-  max-width: 700px;
+  margin-bottom: 32px;
+  flex-wrap: wrap;
 }
 .overview-card:hover {
   border-color: #8b5cf6;
