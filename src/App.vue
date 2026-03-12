@@ -445,7 +445,7 @@ const codeTools = ['GitHub Copilot', 'Cursor', 'Claude Code', 'Windsurf', 'Repli
         <!-- 工作流 - 使用视觉组件的操作流程组件 -->
         <div id="section-workflow" class="content-section">
           <h2 class="section-title">工作流</h2>
-          <p class="section-subtitle">使用AI完成任务的典型流程</p>
+          <p class="section-subtitle">{{ workflowsData[0]?.description || '使用AI完成任务的典型流程' }}</p>
           <div class="workflow-enhanced">
             <div v-for="wf in workflowsData" :key="wf.id" class="workflow-step-card-wrapper">
               <div class="workflow-step-card">
@@ -457,7 +457,7 @@ const codeTools = ['GitHub Copilot', 'Cursor', 'Claude Code', 'Windsurf', 'Repli
                 <div class="step-card-number">1</div>
                 <div class="step-card-content">
                   <h4>{{ wf.steps[0]?.title || '步骤1' }}</h4>
-                  <p>开始执行</p>
+                  <p>第一步</p>
                 </div>
                 <div class="step-card-arrow">
                   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -475,7 +475,7 @@ const codeTools = ['GitHub Copilot', 'Cursor', 'Claude Code', 'Windsurf', 'Repli
                 <div class="step-card-number">{{ idx + 2 }}</div>
                 <div class="step-card-content">
                   <h4>{{ step.title }}</h4>
-                  <p>步骤说明</p>
+                  <p>第{{ idx + 2 }}步</p>
                 </div>
                 <div class="step-card-arrow" v-if="idx + 1 < wf.steps.length">
                   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -523,7 +523,7 @@ const codeTools = ['GitHub Copilot', 'Cursor', 'Claude Code', 'Windsurf', 'Repli
         <!-- 工作流 - 使用视觉组件的操作流程组件 -->
         <div id="section-workflow" class="content-section">
           <h2 class="section-title">工作流</h2>
-          <p class="section-subtitle">完成该任务的步骤</p>
+          <p class="section-subtitle">{{ workflowsData[0]?.description || '完成该任务的步骤' }}</p>
           <div class="workflow-enhanced">
             <div v-for="wf in workflowsData" :key="wf.id" class="workflow-step-card-wrapper">
               <div class="workflow-step-card">
@@ -535,7 +535,7 @@ const codeTools = ['GitHub Copilot', 'Cursor', 'Claude Code', 'Windsurf', 'Repli
                 <div class="step-card-number">1</div>
                 <div class="step-card-content">
                   <h4>{{ wf.steps[0]?.title || '步骤1' }}</h4>
-                  <p>开始执行</p>
+                  <p>第一步</p>
                 </div>
                 <div class="step-card-arrow">
                   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -553,7 +553,7 @@ const codeTools = ['GitHub Copilot', 'Cursor', 'Claude Code', 'Windsurf', 'Repli
                 <div class="step-card-number">{{ idx + 2 }}</div>
                 <div class="step-card-content">
                   <h4>{{ step.title }}</h4>
-                  <p>步骤说明</p>
+                  <p>第{{ idx + 2 }}步</p>
                 </div>
                 <div class="step-card-arrow" v-if="idx + 1 < wf.steps.length">
                   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
