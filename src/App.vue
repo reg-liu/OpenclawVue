@@ -90,7 +90,7 @@ onMounted(async () => {
   })
 })
 
-const navigate = (page, category = '') => {
+const navigate = async (page, category = '') => {
   currentPage.value = page
   currentCategory.value = category
   mobileMenuOpen.value = false
