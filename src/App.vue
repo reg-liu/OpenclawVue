@@ -20,9 +20,15 @@ const getCurrentCategory = () => {
   if (!currentCategory.value) return null
   // 从categoriesData中查找
   for (const cat of categoriesData.value) {
+    // 直接匹配
     if (cat.id === currentCategory.value) return cat
+    // 智能匹配：ai-office -> office, ai-entry -> entry 等
+    const catId = cat.id?.replace(/^ai-/, '') || cat.id
+    const currentId = currentCategory.value?.replace(/^ai-/, '') || currentCategory.value
+    if (catId === currentId) return cat
+    // 也尝试子分类
     if (cat.children) {
-      const sub = cat.children.find(c => c.id === currentCategory.value)
+      const sub = cat.children.find(c => c.id === currentCategory.value || c.id === 'ai-' + currentCategory.value)
       if (sub) return sub
     }
   }
