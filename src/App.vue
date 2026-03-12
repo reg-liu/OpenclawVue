@@ -475,7 +475,7 @@ const codeTools = ['GitHub Copilot', 'Cursor', 'Claude Code', 'Windsurf', 'Repli
                 <div class="step-card-number">{{ idx + 2 }}</div>
                 <div class="step-card-content">
                   <h4>{{ step.title }}</h4>
-                  <p>第{{ idx + 2 }}步</p>
+                  <p>{{ step.desc }}</p>
                 </div>
                 <div class="step-card-arrow" v-if="idx + 1 < wf.steps.length">
                   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -553,7 +553,7 @@ const codeTools = ['GitHub Copilot', 'Cursor', 'Claude Code', 'Windsurf', 'Repli
                 <div class="step-card-number">{{ idx + 2 }}</div>
                 <div class="step-card-content">
                   <h4>{{ step.title }}</h4>
-                  <p>第{{ idx + 2 }}步</p>
+                  <p>{{ step.desc }}</p>
                 </div>
                 <div class="step-card-arrow" v-if="idx + 1 < wf.steps.length">
                   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
