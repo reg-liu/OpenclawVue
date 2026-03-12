@@ -2726,7 +2726,7 @@ body { font-family: 'Inter', sans-serif; background: #0d0d0d; color: #e5e5e5; li
 .breadcrumb .current { color: #94a3b8; }
 
 /* 右侧导航 */
-.toc-sidebar { position: fixed; right: 40px; top: 50%; transform: translateY(-50%); z-index: 100; }
+.toc-sidebar { position: fixed; right: 40px; top: 120px; z-index: 100; }
 .toc-list { background: #1f1f3d; border-radius: 12px; padding: 16px; border: 1px solid #2d2d4a; }
 .toc-item { display: block; color: #94a3b8; font-size: 13px; padding: 8px 0; border-bottom: 1px solid #2d2d4a; cursor: pointer; }
 .toc-item:last-child { border-bottom: none; }
