@@ -1867,34 +1867,70 @@ const codeTools = ['GitHub Copilot', 'Cursor', 'Claude Code', 'Windsurf', 'Repli
         <h2 class="component-title">4. 操作流程组件</h2>
         <p class="component-desc">步骤式流程展示，适合工具使用教学</p>
         <div class="component-demo">
-          <div class="workflow-steps">
-            <div class="workflow-step">
-              <div class="step-number">1</div>
-              <div class="step-content">
+          <!-- 增强版操作流程 -->
+          <div class="workflow-enhanced">
+            <div class="workflow-step-card">
+              <div class="step-card-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/>
+                </svg>
+              </div>
+              <div class="step-card-number">1</div>
+              <div class="step-card-content">
                 <h4>输入主题</h4>
                 <p>用一句话描述PPT主题</p>
               </div>
+              <div class="step-card-arrow">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M5 12h14M13 5l7 7-7 7"/>
+                </svg>
+              </div>
             </div>
-            <div class="step-arrow">→</div>
-            <div class="workflow-step">
-              <div class="step-number">2</div>
-              <div class="step-content">
+            <div class="workflow-step-card">
+              <div class="step-card-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M12 2a10 10 0 10-20 0 10 10 0 0020 0z"/>
+                  <path d="M12 6v6l4 2"/>
+                </svg>
+              </div>
+              <div class="step-card-number">2</div>
+              <div class="step-card-content">
                 <h4>AI生成大纲</h4>
                 <p>AI自动生成PPT大纲结构</p>
               </div>
+              <div class="step-card-arrow">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M5 12h14M13 5l7 7-7 7"/>
+                </svg>
+              </div>
             </div>
-            <div class="step-arrow">→</div>
-            <div class="workflow-step">
-              <div class="step-number">3</div>
-              <div class="step-content">
+            <div class="workflow-step-card">
+              <div class="step-card-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <rect x="3" y="3" width="18" height="18" rx="2"/>
+                  <path d="M9 9h6M9 12h6M9 15h4"/>
+                </svg>
+              </div>
+              <div class="step-card-number">3</div>
+              <div class="step-card-content">
                 <h4>选择模板</h4>
                 <p>从模板库选择风格</p>
               </div>
+              <div class="step-card-arrow">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M5 12h14M13 5l7 7-7 7"/>
+                </svg>
+              </div>
             </div>
-            <div class="step-arrow">→</div>
-            <div class="workflow-step">
-              <div class="step-number">4</div>
-              <div class="step-content">
+            <div class="workflow-step-card">
+              <div class="step-card-icon success">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M22 11.08V12a10 10 0 11-5.93-9.14"/>
+                  <path d="M22 4L12 14.01l-3-3"/>
+                </svg>
+              </div>
+              <div class="step-card-number">4</div>
+              <div class="step-card-content">
                 <h4>自动生成</h4>
                 <p>AI自动填充内容</p>
               </div>
@@ -2753,7 +2789,7 @@ body { font-family: 'Inter', sans-serif; background: #0d0d0d; color: #e5e5e5; li
 .tool-card .tool-icon { font-size: 40px; margin-bottom: 12px; }
 .tool-card h3 { font-size: 18px; margin-bottom: 8px; }
 .tool-card p { color: #94a3b8; font-size: 14px; margin-bottom: 16px; }
-.tool-tags { display: flex; gap: 8px; flex-wrap: wrap; }
+.tool-tags { display: flex; gap: 8px; flex-wrap: wrap; justify-content: center; }
 .tool-tags .tag { padding: 4px 12px; background: #2d2d4a; border-radius: 20px; font-size: 12px; }
 
 /* 工具对比表格 */
@@ -2800,6 +2836,113 @@ body { font-family: 'Inter', sans-serif; background: #0d0d0d; color: #e5e5e5; li
 .comparison-table th { background: #262626; font-weight: 600; color: #fff; }
 .comparison-table td { color: #94a3b8; }
 .comparison-table tr:hover td { background: #1a1a2e; }
+
+/* 增强版操作流程组件 - 视觉组件演示 */
+.workflow-enhanced {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  flex-wrap: wrap;
+  padding: 20px;
+}
+.workflow-step-card {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  background: linear-gradient(135deg, #1a1a2e 0%, #252542 100%);
+  padding: 20px 24px;
+  border-radius: 16px;
+  border: 1px solid #3d3d5c;
+  position: relative;
+  min-width: 220px;
+  transition: all 0.3s ease;
+}
+.workflow-step-card:hover {
+  transform: translateY(-4px);
+  border-color: #8b5cf6;
+  box-shadow: 0 12px 24px rgba(139, 92, 246, 0.2);
+}
+.step-card-icon {
+  width: 48px;
+  height: 48px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+.step-card-icon svg {
+  width: 24px;
+  height: 24px;
+  color: #fff;
+}
+.step-card-icon.success {
+  background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+}
+.step-card-number {
+  position: absolute;
+  top: -10px;
+  left: -10px;
+  width: 28px;
+  height: 28px;
+  background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  font-weight: 700;
+  color: #fff;
+  border: 3px solid #0f0f1a;
+}
+.step-card-content h4 {
+  font-size: 16px;
+  font-weight: 600;
+  color: #fff;
+  margin-bottom: 4px;
+}
+.step-card-content p {
+  font-size: 13px;
+  color: #94a3b8;
+  margin: 0;
+}
+.step-card-arrow {
+  position: absolute;
+  right: -28px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 32px;
+  height: 32px;
+  background: #2d2d4a;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1;
+}
+.step-card-arrow svg {
+  width: 16px;
+  height: 16px;
+  color: #8b5cf6;
+}
+.workflow-step-card:last-child .step-card-arrow {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  .workflow-enhanced {
+    flex-direction: column;
+  }
+  .workflow-step-card {
+    width: 100%;
+    min-width: auto;
+  }
+  .step-card-arrow {
+    display: none;
+  }
+}
 
 /* Workflow Steps */
 .workflow-steps { display: flex; align-items: center; justify-content: center; gap: 16px; flex-wrap: wrap; }

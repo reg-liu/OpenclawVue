@@ -35,28 +35,58 @@ export default async function handler(req, res) {
     // 获取分类
     if (type === 'categories') {
       console.log('Returning categories...')
-      const catResult = await client.execute({
-        sql: 'SELECT * FROM categories ORDER BY sort ASC',
-        args: []
-      })
       
-      // 处理分类层级
-      const allCategories = catResult.rows
-      const mainCategories = allCategories.filter(c => !c.parent)
-      const subCategories = allCategories.filter(c => c.parent)
+      // 默认场景数据（后备）
+      const defaultCategories = [
+        { id: 'ai-entry', name: 'AI入门', icon: '🚀', description: '零基础用户不知道怎么开始学习AI', children: [] },
+        { id: 'ai-office', name: 'AI办公', icon: '💼', description: '日常办公场景', children: [
+          { id: 'ai-writing', name: 'AI写作', icon: '✍️', description: '文案撰写、内容创作' },
+          { id: 'ai-presentation', name: 'AI PPT', icon: '📊', description: 'PPT制作与演示' },
+          { id: 'ai-data', name: 'AI数据分析', icon: '📈', description: '数据分析与可视化' }
+        ]},
+        { id: 'ai-create', name: 'AI创作', icon: '🎨', description: '写文章，做视频、生成图片', children: [
+          { id: 'ai-image', name: 'AI图像', icon: '🖼️', description: 'AI图像生成' },
+          { id: 'ai-video', name: 'AI视频', icon: '🎬', description: 'AI视频生成' },
+          { id: 'ai-audio', name: 'AI音频', icon: '🎵', description: 'AI语音合成' }
+        ]},
+        { id: 'ai-code', name: 'AI编程', icon: '💻', description: '代码辅助、调试，Bug修复', children: [] },
+        { id: 'ai-study', name: 'AI学习', icon: '📚', description: '看论文、学新技术', children: [] }
+      ]
       
-      // 为每个主分类添加子分类
-      const categories = mainCategories.map(main => ({
-        ...main,
-        children: subCategories
-          .filter(sub => sub.parent === main.id)
-          .sort((a, b) => a.sort - b.sort)
-      }))
-      
-      return res.status(200).json({
-        success: true,
-        data: categories
-      })
+      try {
+        const catResult = await client.execute({
+          sql: 'SELECT * FROM categories ORDER BY sort ASC',
+          args: []
+        })
+        
+        // 处理分类层级
+        const allCategories = catResult.rows
+        const mainCategories = allCategories.filter(c => !c.parent)
+        const subCategories = allCategories.filter(c => c.parent)
+        
+        // 为每个主分类添加子分类
+        const categories = mainCategories.map(main => ({
+          ...main,
+          children: subCategories
+            .filter(sub => sub.parent === main.id)
+            .sort((a, b) => a.sort - b.sort)
+        }))
+        
+        // 如果数据库有数据则使用数据库数据，否则使用默认数据
+        const finalData = categories.length > 0 ? categories : defaultCategories
+        
+        return res.status(200).json({
+          success: true,
+          data: finalData
+        })
+      } catch (err) {
+        console.error('Database error, using fallback:', err.message)
+        // 数据库出错时返回默认数据
+        return res.status(200).json({
+          success: true,
+          data: defaultCategories
+        })
+      }
     }
     
     // 获取热门任务
