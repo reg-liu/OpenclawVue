@@ -20,14 +20,18 @@ export async function fetchPageData(page, category = null) {
   }
 }
 
+// 过滤工具（兼容旧代码）
+export function filterToolsByCategory(tools, categoryId) {
+  if (!categoryId) return tools
+  return tools.filter(tool => tool.scenes?.includes(categoryId))
+}
+
 // 获取分类数据
 export async function fetchCategories() {
   try {
     const url = `${API_BASE}/tools?type=categories`
-    
     const response = await fetch(url)
     const result = await response.json()
-    
     if (result.success) {
       return result.data
     }
@@ -44,10 +48,8 @@ export async function fetchWorkflows(category = null) {
     const url = category 
       ? `${API_BASE}/tools?type=workflows&category=${category}`
       : `${API_BASE}/tools?type=workflows`
-    
     const response = await fetch(url)
     const result = await response.json()
-    
     if (result.success) {
       return result.data
     }
@@ -64,10 +66,8 @@ export async function fetchHotTasks(category = null) {
     const url = category 
       ? `${API_BASE}/tools?type=hot_tasks&category=${category}`
       : `${API_BASE}/tools?type=hot_tasks`
-    
     const response = await fetch(url)
     const result = await response.json()
-    
     if (result.success) {
       return result.data
     }
@@ -78,16 +78,14 @@ export async function fetchHotTasks(category = null) {
   }
 }
 
-// 获取工具数据（按场景）
+// 获取工具数据
 export async function fetchTools(sceneId = null) {
   try {
     const url = sceneId 
       ? `${API_BASE}/tools?scene=${sceneId}`
       : `${API_BASE}/tools`
-    
     const response = await fetch(url)
     const result = await response.json()
-    
     if (result.success) {
       return {
         tools: result.data,
@@ -109,3 +107,8 @@ export const scenes = [
   { id: 'ai-code', name: 'AI编程', icon: '💻', description: '代码辅助、调试，Bug修复' },
   { id: 'ai-study', name: 'AI学习', icon: '📚', description: '看论文、学新技术' }
 ]
+
+// 获取分类（兼容旧代码）
+export function getCategories() {
+  return scenes
+}
