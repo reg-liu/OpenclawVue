@@ -413,20 +413,36 @@ const codeTools = ['GitHub Copilot', 'Cursor', 'Claude Code', 'Windsurf', 'Repli
           </div>
         </div>
         
-        <!-- 工作流 -->
+        <!-- 工作流 - 横向时间线风格 -->
         <div id="section-workflow" class="content-section">
           <h2 class="section-title">工作流</h2>
           <p class="section-subtitle">使用AI完成任务的典型流程</p>
-          <div class="workflows-list">
-            <div v-for="wf in workflowsData" :key="wf.id" class="workflow-card">
-              <h3>{{ wf.title }}</h3>
-              <p>{{ wf.description }}</p>
-              <div class="workflow-steps">
-                <div v-for="(step, idx) in wf.steps" :key="idx" class="step-item">
-                  <span class="step-num">{{ step.step }}</span>
-                  <div class="step-content">
-                    <h4>{{ step.title }}</h4>
-                    <p>{{ step.desc }}</p>
+          <div class="workflow-timeline">
+            <div v-for="wf in workflowsData" :key="wf.id" class="workflow-card-enhanced">
+              <div class="workflow-header">
+                <span class="workflow-icon">⚡</span>
+                <h3>{{ wf.title }}</h3>
+              </div>
+              <p class="workflow-desc">{{ wf.description }}</p>
+              <div class="timeline-steps">
+                <div v-for="(step, idx) in wf.steps" :key="idx" class="timeline-step">
+                  <div class="step-connector" v-if="idx > 0">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <path d="M5 12h14M13 5l7 7-7 7"/>
+                    </svg>
+                  </div>
+                  <div class="step-node">
+                    <div class="step-icon-wrapper">
+                      <span class="step-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                          <path v-if="idx === 0" d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/>
+                          <path v-else-if="idx === wf.steps.length - 1" d="M22 11.08V12a10 10 0 11-5.93-9.14"/>
+                          <path v-else d="M22 12a10 10 0 10-20 0 10 10 0 0020 0z"/>
+                        </svg>
+                      </span>
+                      <div class="step-glow"></div>
+                    </div>
+                    <span class="step-label">{{ step.title }}</span>
                   </div>
                 </div>
               </div>
@@ -483,20 +499,36 @@ const codeTools = ['GitHub Copilot', 'Cursor', 'Claude Code', 'Windsurf', 'Repli
           </div>
         </div>
         
-        <!-- 工作流 -->
+        <!-- 工作流 - 横向时间线风格 -->
         <div id="section-workflow" class="content-section">
           <h2 class="section-title">工作流</h2>
           <p class="section-subtitle">完成该任务的步骤</p>
-          <div class="workflows-list">
-            <div v-for="wf in workflowsData" :key="wf.id" class="workflow-card">
-              <h3>{{ wf.title }}</h3>
-              <p>{{ wf.description }}</p>
-              <div class="workflow-steps">
-                <div v-for="(step, idx) in wf.steps" :key="idx" class="step-item">
-                  <span class="step-num">{{ step.step }}</span>
-                  <div class="step-content">
-                    <h4>{{ step.title }}</h4>
-                    <p>{{ step.desc }}</p>
+          <div class="workflow-timeline">
+            <div v-for="wf in workflowsData" :key="wf.id" class="workflow-card-enhanced">
+              <div class="workflow-header">
+                <span class="workflow-icon">⚡</span>
+                <h3>{{ wf.title }}</h3>
+              </div>
+              <p class="workflow-desc">{{ wf.description }}</p>
+              <div class="timeline-steps">
+                <div v-for="(step, idx) in wf.steps" :key="idx" class="timeline-step">
+                  <div class="step-connector" v-if="idx > 0">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <path d="M5 12h14M13 5l7 7-7 7"/>
+                    </svg>
+                  </div>
+                  <div class="step-node">
+                    <div class="step-icon-wrapper">
+                      <span class="step-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                          <path v-if="idx === 0" d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/>
+                          <path v-else-if="idx === wf.steps.length - 1" d="M22 11.08V12a10 10 0 11-5.93-9.14"/>
+                          <path v-else d="M22 12a10 10 0 10-20 0 10 10 0 0020 0z"/>
+                        </svg>
+                      </span>
+                      <div class="step-glow"></div>
+                    </div>
+                    <span class="step-label">{{ step.title }}</span>
                   </div>
                 </div>
               </div>
@@ -2590,7 +2622,7 @@ body { font-family: 'Inter', sans-serif; background: #0d0d0d; color: #e5e5e5; li
 .hot-task-card p { color: #94a3b8; font-size: 14px; margin-bottom: 12px; }
 .hot-task-card .heat-tag { display: inline-block; background: linear-gradient(135deg, #667eea, #764ba2); padding: 4px 12px; border-radius: 20px; font-size: 12px; }
 
-/* 工作流卡片 */
+/* 工作流卡片 - 旧版本保留兼容 */
 .workflows-list { display: flex; flex-direction: column; gap: 24px; }
 .workflow-card { background: #1f1f3d; border: 1px solid #2d2d4a; border-radius: 16px; padding: 24px; }
 .workflow-card h3 { font-size: 20px; margin-bottom: 8px; }
@@ -2600,6 +2632,119 @@ body { font-family: 'Inter', sans-serif; background: #0d0d0d; color: #e5e5e5; li
 .step-num { width: 32px; height: 32px; background: linear-gradient(135deg, #667eea, #764ba2); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; flex-shrink: 0; }
 .step-content h4 { font-size: 16px; margin-bottom: 4px; }
 .step-content p { color: #94a3b8; font-size: 14px; }
+
+/* 增强版工作流 - 横向时间线风格 */
+.workflow-timeline { display: flex; flex-direction: column; gap: 32px; }
+.workflow-card-enhanced { 
+  background: linear-gradient(135deg, #1a1a2e 0%, #16162a 100%); 
+  border: 1px solid #2d2d4a; 
+  border-radius: 20px; 
+  padding: 28px;
+  position: relative;
+  overflow: hidden;
+}
+.workflow-card-enhanced::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, #667eea, #764ba2, #f093fb);
+}
+.workflow-card-enhanced:hover {
+  border-color: #8b5cf6;
+  transform: translateY(-2px);
+  box-shadow: 0 20px 40px rgba(102, 126, 234, 0.15);
+  transition: all 0.3s ease;
+}
+.workflow-header { display: flex; align-items: center; gap: 12px; margin-bottom: 12px; }
+.workflow-icon { font-size: 24px; }
+.workflow-card-enhanced h3 { font-size: 22px; font-weight: 700; background: linear-gradient(135deg, #fff, #94a3b8); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+.workflow-desc { color: #94a3b8; font-size: 15px; margin-bottom: 24px; padding-left: 36px; }
+
+.timeline-steps { 
+  display: flex; 
+  align-items: center; 
+  justify-content: flex-start; 
+  gap: 8px;
+  flex-wrap: wrap;
+  padding-left: 36px;
+}
+.timeline-step { display: flex; align-items: center; }
+.step-connector { 
+  width: 40px; 
+  height: 2px; 
+  background: linear-gradient(90deg, #667eea, #8b5cf6);
+  position: relative;
+}
+.step-connector svg {
+  position: absolute;
+  right: -8px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 16px;
+  height: 16px;
+  color: #8b5cf6;
+}
+.step-node { display: flex; flex-direction: column; align-items: center; gap: 10px; }
+.step-icon-wrapper {
+  width: 56px;
+  height: 56px;
+  background: linear-gradient(135deg, #1a1a2e, #2d2d4a);
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  border: 2px solid #3d3d5c;
+  transition: all 0.3s ease;
+}
+.step-icon-wrapper:hover {
+  transform: scale(1.1);
+  border-color: #8b5cf6;
+  box-shadow: 0 0 20px rgba(139, 92, 246, 0.4);
+}
+.step-icon { font-size: 24px; color: #8b5cf6; }
+.step-icon svg {
+  width: 28px;
+  height: 28px;
+}
+.step-glow {
+  position: absolute;
+  inset: -2px;
+  border-radius: 18px;
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  opacity: 0;
+  z-index: -1;
+  filter: blur(8px);
+  transition: opacity 0.3s ease;
+}
+.step-icon-wrapper:hover .step-glow { opacity: 0.5; }
+.step-label {
+  font-size: 13px;
+  font-weight: 600;
+  color: #94a3b8;
+  text-align: center;
+  max-width: 80px;
+}
+
+/* 响应式 */
+@media (max-width: 768px) {
+  .timeline-steps { flex-direction: column; }
+  .step-connector { 
+    width: 2px; 
+    height: 24px; 
+    transform: rotate(90deg);
+  }
+  .step-connector svg {
+    right: auto;
+    left: 50%;
+    top: auto;
+    bottom: -8px;
+    transform: translateX(-50%) rotate(90deg);
+  }
+}
 
 /* 工具网格 */
 .tools-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 20px; }
