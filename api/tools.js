@@ -115,7 +115,6 @@ const fallbackHotTasks = {
     { id: 12, name: '旅行规划', description: '输入目的地，AI规划行程', heat: 80, sort: 2 }
   ]
 }
-]
 
 export default async function handler(req, res) {
   const { scene, type, cat, page } = req.query
@@ -132,6 +131,12 @@ export default async function handler(req, res) {
         data: { categories: [], workflows: [], tools: [], hotTasks: [] }
       })
     }
+    
+    console.log('fallbackWorkflows keys:', Object.keys(fallbackWorkflows))
+    console.log('fallbackTools keys:', Object.keys(fallbackTools))
+    console.log('Looking for categoryId:', categoryId)
+    console.log('fallbackWorkflows[categoryId]:', fallbackWorkflows[categoryId])
+    console.log('fallbackTools[categoryId]:', fallbackTools[categoryId])
     
     // 使用后备数据
     return res.status(200).json({

@@ -62,10 +62,12 @@ onMounted(async () => {
     // 使用统一API获取页面所有数据
     if (page === 'product' || page === 'subproduct') {
       const pageData = await fetchPageData(page, category)
+      console.log('Page data received:', pageData)
       if (pageData) {
         hotTasksData.value = pageData.hotTasks || []
         workflowsData.value = pageData.workflows || []
         toolsData.value = pageData.tools || []
+        console.log('hotTasksData set to:', hotTasksData.value)
       }
     }
   }
