@@ -46,44 +46,6 @@ const getParentCategory = () => {
   return null
 }
 
-// 获取分类数据
-const fetchCategories = async () => {
-  try {
-    const response = await fetch('/api/tools?type=categories')
-    const result = await response.json()
-    return result.data || []
-  } catch (error) {
-    console.error('获取分类数据失败:', error)
-    return []
-  }
-}
-
-// 获取热门任务
-const fetchHotTasks = async (categoryId) => {
-  try {
-    const url = categoryId ? `/api/tools?type=hot_tasks&category=${categoryId}` : '/api/tools?type=hot_tasks'
-    const response = await fetch(url)
-    const result = await response.json()
-    return result.data || []
-  } catch (error) {
-    console.error('获取热门任务失败:', error)
-    return []
-  }
-}
-
-// 获取工作流
-const fetchWorkflows = async (categoryId) => {
-  try {
-    const url = categoryId ? `/api/tools?type=workflows&category=${categoryId}` : '/api/tools?type=workflows'
-    const response = await fetch(url)
-    const result = await response.json()
-    return result.data || []
-  } catch (error) {
-    console.error('获取工作流失败:', error)
-    return []
-  }
-}
-
 onMounted(async () => {
   // 从URL读取page和category参数
   const urlParams = new URLSearchParams(window.location.search)
