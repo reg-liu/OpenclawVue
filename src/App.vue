@@ -101,12 +101,16 @@ onMounted(async () => {
     if (page === 'product' || page === 'subproduct') {
       hotTasksData.value = await fetchHotTasks(category)
       workflowsData.value = await fetchWorkflows(category)
+      // 获取对应分类的工具数据
+      toolsData.value = await fetchTools(category)
     }
   }
   
-  // 从API获取工具数据
-  const result = await fetchTools()
-  toolsData.value = result.tools
+  // 从API获取工具数据（仅首页使用全部工具）
+  if (currentPage.value === 'home') {
+    const result = await fetchTools()
+    toolsData.value = result.tools
+  }
   
   // 从API获取分类数据
   categoriesData.value = await fetchCategories()
