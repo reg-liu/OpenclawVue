@@ -77,7 +77,10 @@ onMounted(async () => {
   }
   
   // 从API获取分类数据
-  categoriesData.value = await fetchCategories()
+  const cats = await fetchCategories()
+  console.log('Fetched categories:', JSON.stringify(cats))
+  categoriesData.value = cats
+  console.log('categoriesData.value:', categoriesData.value)
   
   window.addEventListener('scroll', () => {
     isScrolled.value = window.scrollY > 50

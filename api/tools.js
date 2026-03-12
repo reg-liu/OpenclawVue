@@ -53,51 +53,146 @@ const fallbackHotTasks = [
 ]
 
 export default async function handler(req, res) {
-  const { scene, type, cat } = req.query
-  console.log('API called:', { scene, type, cat })
+  const { scene, type, cat, page } = req.query
+  console.log('API called:', { scene, type, cat, page })
   
   // 统一页面数据接口
   if (type === 'page') {
-    const { page } = req.query
     const categoryId = cat || scene || ''
-    
     console.log('page API:', page, categoryId)
     
-    return res.status(200).json({
-      success: true,
-      data: {
-        categories: defaultCategories,
-        workflows: fallbackWorkflows[categoryId] || [],
-        tools: fallbackTools[categoryId] || [],
-        hotTasks: fallbackHotTasks
+    try {
+      // 获取一级分类（parent为空或空字符串）
+      const catResult = await client.execute('SELECT * FROM categories WHERE parent = "" OR parent IS NULL ORDER BY sort')
+      const categories = catResult.rows
+      
+      // 获取当前分类的子分类
+      let subCategories = []
+      if (categoryId) {
+        const subResult = await client.execute({
+          sql: 'SELECT * FROM categories WHERE parent = ? ORDER BY sort',
+          args: [categoryId]
+        })
+        subCategories = subResult.rows
       }
-    })
+      
+      // 获取工作流
+      const wfResult = await client.execute({
+        sql: 'SELECT * FROM workflows WHERE category_id = ? ORDER BY sort',
+        args: [categoryId]
+      })
+      const workflows = wfResult.rows
+      
+      // 获取工具
+      const toolsResult = await client.execute({
+        sql: 'SELECT * FROM tools WHERE category = ? OR subcategory = ? ORDER BY sort',
+        args: [categoryId, categoryId]
+      })
+      const tools = toolsResult.rows
+      
+      // 获取热门任务
+      const htResult = await client.execute({
+        sql: 'SELECT * FROM hot_tasks WHERE category_id = ? ORDER BY heat DESC',
+        args: [categoryId]
+      })
+      const hotTasks = htResult.rows
+      
+      return res.status(200).json({
+        success: true,
+        data: {
+          categories: categories.map(c => ({
+            ...c,
+            children: subCategories.filter(sc => sc.parent === c.id)
+          })),
+          workflows,
+          tools,
+          hotTasks
+        }
+      })
+    } catch (err) {
+      console.error('Database error:', err)
+      return res.status(200).json({
+        success: true,
+        data: {
+          categories: defaultCategories,
+          workflows: fallbackWorkflows[categoryId] || [],
+          tools: fallbackTools[categoryId] || [],
+          hotTasks: fallbackHotTasks
+        }
+      })
+    }
   }
   
   // 获取分类
   if (type === 'categories') {
-    return res.status(200).json({
-      success: true,
-      data: defaultCategories
-    })
+    try {
+      console.log('Fetching categories from database...')
+      const result = await client.execute('SELECT * FROM categories ORDER BY sort')
+      console.log('All categories:', result.rows.length)
+      const categories = result.rows
+      
+      // 按parent分组
+      const parentCategories = categories.filter(c => !c.parent || c.parent === '')
+      const childrenMap = {}
+      categories.filter(c => c.parent && c.parent !== '').forEach(c => {
+        if (!childrenMap[c.parent]) childrenMap[c.parent] = []
+        childrenMap[c.parent].push(c)
+      })
+      
+      const categoriesWithChildren = parentCategories.map(c => ({
+        ...c,
+        children: childrenMap[c.id] || []
+      }))
+      
+      console.log('Parent categories:', categoriesWithChildren.map(c => c.name).join(', '))
+      
+      return res.status(200).json({
+        success: true,
+        data: categoriesWithChildren
+      })
+    } catch (err) {
+      console.error('Categories DB error:', err)
+      return res.status(200).json({
+        success: true,
+        data: defaultCategories
+      })
+    }
   }
   
   // 获取工作流
   if (type === 'workflows') {
     const categoryId = cat || scene || ''
-    const workflows = fallbackWorkflows[categoryId] || []
-    return res.status(200).json({
-      success: true,
-      data: workflows
-    })
+    try {
+      const result = await client.execute({
+        sql: 'SELECT * FROM workflows WHERE category_id = ? ORDER BY sort',
+        args: [categoryId]
+      })
+      return res.status(200).json({
+        success: true,
+        data: result.rows
+      })
+    } catch (err) {
+      return res.status(200).json({
+        success: true,
+        data: fallbackWorkflows[categoryId] || []
+      })
+    }
   }
   
   // 获取热门任务
   if (type === 'hot_tasks') {
-    return res.status(200).json({
-      success: true,
-      data: fallbackHotTasks
-    })
+    try {
+      const result = await client.execute('SELECT * FROM hot_tasks ORDER BY heat DESC')
+      return res.status(200).json({
+        success: true,
+        data: result.rows
+      })
+    } catch (err) {
+      return res.status(200).json({
+        success: true,
+        data: fallbackHotTasks
+      })
+    }
   }
   
   // 获取工具（按场景）
