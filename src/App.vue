@@ -149,7 +149,7 @@ const navigate = (page, category = '') => {
 const scrollToAnchor = (anchorId) => {
   const element = document.getElementById(anchorId)
   if (element) {
-    const navHeight = 100  // 顶部导航 + 右侧导航偏移
+    const navHeight = 60  // 顶部导航偏移
     const elementPosition = element.getBoundingClientRect().top + window.pageYOffset
     window.scrollTo({
       top: elementPosition - navHeight,
