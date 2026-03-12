@@ -3132,7 +3132,7 @@ body { font-family: 'Inter', sans-serif; background: #0d0d0d; color: #e5e5e5; li
 .overview-header { display: flex; align-items: center; gap: 16px; margin-bottom: 12px; }
 .overview-header h3 { font-size: 24px; color: #fff; margin: 0; }
 .overview-content p { color: #94a3b8; font-size: 15px; line-height: 1.6; margin-bottom: 16px; }
-.overview-tags { display: flex; gap: 12px; flex-wrap: wrap; justify-content: flex-start; }
+.overview-tags { display: flex; gap: 12px; flex-wrap: wrap; justify-content: center; }
 .overview-tag { 
   padding: 6px 14px; 
   background: rgba(139, 92, 246, 0.15); 
