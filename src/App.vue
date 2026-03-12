@@ -455,13 +455,13 @@ const codeTools = ['GitHub Copilot', 'Cursor', 'Claude Code', 'Windsurf', 'Repli
           <h2 class="section-title">推荐工具</h2>
           <p class="section-subtitle">适合该场景的AI工具</p>
           <div class="tools-grid">
-            <div v-for="tool in toolsData.slice(0, 8)" :key="tool.id" class="tool-card" @click="navigate('tool_detail', tool.id)">
-              <div class="tool-icon">{{ tool.icon }}</div>
-              <h3>{{ tool.name }}</h3>
-              <p>{{ tool.description }}</p>
-              <div class="tool-tags">
-                <span class="tag">{{ tool.price }}</span>
-                <span class="tag">{{ tool.difficulty }}</span>
+            <div v-for="tool in toolsData.slice(0, 8)" :key="tool.id" class="tool-card-centered" @click="navigate('tool_detail', tool.id)">
+              <div class="tool-icon-center">{{ tool.icon }}</div>
+              <h3 class="tool-name-center">{{ tool.name }}</h3>
+              <p class="tool-desc-center">{{ tool.description }}</p>
+              <div class="tool-tags-center">
+                <span class="tag tag-free">{{ tool.price }}</span>
+                <span class="tag tag-入门">{{ tool.difficulty }}</span>
               </div>
             </div>
           </div>
@@ -820,17 +820,12 @@ const codeTools = ['GitHub Copilot', 'Cursor', 'Claude Code', 'Windsurf', 'Repli
         <p>{{ content.tools.intro }}</p>
       </div>
       <div class="tools-grid">
-        <div v-for="tool in content.tools.list" :key="tool.name" class="tool-card">
-          <div class="tool-header">
-            <span class="tool-icon">{{ tool.icon }}</span>
-            <div class="tool-info">
-              <h3><a :href="tool.url" target="_blank" class="tool-name-link">{{ tool.name }}</a></h3>
-              <span class="tool-type">{{ tool.type }}</span>
-            </div>
-          </div>
-          <p class="tool-desc">{{ tool.desc }}</p>
-          <div class="tool-highlights">
-            <span v-for="h in tool.highlights" :key="h" class="highlight-tag">{{ h }}</span>
+        <div v-for="tool in content.tools.list" :key="tool.name" class="tool-card-centered">
+          <div class="tool-icon-center">{{ tool.icon }}</div>
+          <h3 class="tool-name-center"><a :href="tool.url" target="_blank" class="tool-name-link">{{ tool.name }}</a></h3>
+          <p class="tool-desc-center">{{ tool.desc }}</p>
+          <div class="tool-tags-center">
+            <span v-for="h in tool.highlights" :key="h" class="tag tag-free">{{ h }}</span>
           </div>
         </div>
       </div>
@@ -1770,13 +1765,11 @@ const codeTools = ['GitHub Copilot', 'Cursor', 'Claude Code', 'Windsurf', 'Repli
         <h2 class="component-title">1. 基础卡片组件</h2>
         <p class="component-desc">最简单的工具展示形式，适合快速浏览</p>
         <div class="component-demo">
-          <div class="tool-card" style="max-width: 300px;">
-            <div class="tool-header">
-              <span class="tool-icon">💬</span>
-              <span class="tool-name">ChatGPT</span>
-            </div>
-            <p class="tool-desc">OpenAI开发的AI对话工具，适合日常问答和内容创作</p>
-            <div class="tool-tags">
+          <div class="tool-card-centered" style="max-width: 300px;">
+            <div class="tool-icon-center">💬</div>
+            <h3 class="tool-name-center">ChatGPT</h3>
+            <p class="tool-desc-center">OpenAI开发的AI对话工具，适合日常问答和内容创作</p>
+            <div class="tool-tags-center">
               <span class="tag tag-free">免费</span>
               <span class="tag tag-入门">入门</span>
             </div>
@@ -2813,7 +2806,63 @@ body { font-family: 'Inter', sans-serif; background: #0d0d0d; color: #e5e5e5; li
 .component-section { margin-bottom: 64px; padding: 32px; background: #1a1a2e; border-radius: 16px; max-width: 800px; margin-left: auto; margin-right: auto; }
 .component-title { font-size: 28px; font-weight: 700; margin-bottom: 8px; color: #fff; }
 .component-desc { color: #94a3b8; margin-bottom: 24px; font-size: 15px; }
-.component-demo { background: #0f0f1a; padding: 32px; border-radius: 12px; margin-bottom: 20px; }
+.component-demo { background: #0f0f1a; padding: 32px; border-radius: 12px; margin-bottom: 20px; display: flex; justify-content: center; }
+
+/* 基础卡片 - 居中样式 */
+.tool-card-centered {
+  padding: 32px 24px;
+  background: #1a1a2e;
+  border: 1px solid #2d2d4a;
+  border-radius: 16px;
+  text-align: center;
+  transition: all 0.3s;
+  width: 100%;
+}
+.tool-card-centered:hover {
+  transform: translateY(-4px);
+  border-color: #8b5cf6;
+  box-shadow: 0 8px 24px rgba(139, 92, 246, 0.2);
+}
+.tool-icon-center {
+  font-size: 48px;
+  margin-bottom: 16px;
+  display: block;
+  text-align: center;
+}
+.tool-name-center {
+  font-size: 20px;
+  font-weight: 600;
+  color: #fff;
+  margin: 0 0 12px 0;
+  text-align: center;
+}
+.tool-desc-center {
+  color: #94a3b8;
+  font-size: 14px;
+  margin: 0 0 16px 0;
+  text-align: center;
+  line-height: 1.5;
+}
+.tool-tags-center {
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+.tool-tags-center .tag {
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 500;
+}
+.tool-tags-center .tag-free {
+  background: rgba(16, 185, 129, 0.1);
+  color: #10b981;
+}
+.tool-tags-center .tag-入门 {
+  background: rgba(59, 130, 246, 0.1);
+  color: #3b82f6;
+}
 
 .component-usage { background: rgba(139, 92, 246, 0.1); padding: 16px; border-radius: 8px; }
 .component-usage h4 { color: #8b5cf6; font-size: 14px; margin-bottom: 8px; }
