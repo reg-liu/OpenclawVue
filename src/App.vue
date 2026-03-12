@@ -457,7 +457,7 @@ const codeTools = ['GitHub Copilot', 'Cursor', 'Claude Code', 'Windsurf', 'Repli
                 <div class="step-card-number">1</div>
                 <div class="step-card-content">
                   <h4>{{ wf.steps[0]?.title || '步骤1' }}</h4>
-                  <p>{{ wf.steps[0]?.description || '开始执行' }}</p>
+                  <p>{{ wf.steps[0].desc || '开始执行' }}</p>
                 </div>
                 <div class="step-card-arrow">
                   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -535,7 +535,7 @@ const codeTools = ['GitHub Copilot', 'Cursor', 'Claude Code', 'Windsurf', 'Repli
                 <div class="step-card-number">1</div>
                 <div class="step-card-content">
                   <h4>{{ wf.steps[0]?.title || '步骤1' }}</h4>
-                  <p>{{ wf.steps[0]?.description || '开始执行' }}</p>
+                  <p>{{ wf.steps[0].desc || '开始执行' }}</p>
                 </div>
                 <div class="step-card-arrow">
                   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
