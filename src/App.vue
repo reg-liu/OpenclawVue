@@ -442,37 +442,45 @@ const codeTools = ['GitHub Copilot', 'Cursor', 'Claude Code', 'Windsurf', 'Repli
           </div>
         </div>
         
-        <!-- 工作流 - 横向时间线样式 -->
+        <!-- 工作流 - 使用视觉组件的操作流程组件 -->
         <div id="section-workflow" class="content-section">
           <h2 class="section-title">工作流</h2>
           <p class="section-subtitle">使用AI完成任务的典型流程</p>
-          <div class="workflow-timeline">
-            <div v-for="wf in workflowsData" :key="wf.id" class="workflow-card-enhanced">
-              <div class="workflow-header">
-                <span class="workflow-icon">⚡</span>
-                <h3>{{ wf.title }}</h3>
+          <div class="workflow-enhanced">
+            <div v-for="wf in workflowsData" :key="wf.id" class="workflow-step-card-wrapper">
+              <div class="workflow-step-card">
+                <div class="step-card-icon">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/>
+                  </svg>
+                </div>
+                <div class="step-card-number">1</div>
+                <div class="step-card-content">
+                  <h4>{{ wf.steps[0]?.title || '步骤1' }}</h4>
+                  <p>开始执行</p>
+                </div>
+                <div class="step-card-arrow">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M5 12h14M13 5l7 7-7 7"/>
+                  </svg>
+                </div>
               </div>
-              <p class="workflow-desc">{{ wf.description }}</p>
-              <div class="timeline-steps">
-                <div v-for="(step, idx) in wf.steps" :key="idx" class="timeline-step">
-                  <div class="step-connector" v-if="idx > 0">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                      <path d="M5 12h14M13 5l7 7-7 7"/>
-                    </svg>
-                  </div>
-                  <div class="step-node">
-                    <div class="step-icon-wrapper">
-                      <span class="step-icon">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                          <path v-if="idx === 0" d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/>
-                          <path v-else-if="idx === wf.steps.length - 1" d="M22 11.08V12a10 10 0 11-5.93-9.14"/>
-                          <path v-else d="M22 12a10 10 0 10-20 0 10 10 0 0020 0z"/>
-                        </svg>
-                      </span>
-                      <div class="step-glow"></div>
-                    </div>
-                    <span class="step-label">{{ step.title }}</span>
-                  </div>
+              <div class="workflow-step-card" v-for="(step, idx) in wf.steps.slice(1)" :key="idx">
+                <div class="step-card-icon">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path v-if="idx + 1 === wf.steps.length - 1" d="M22 11.08V12a10 10 0 11-5.93-9.14"/>
+                    <path v-else d="M22 12a10 10 0 10-20 0 10 10 0 0020 0z"/>
+                  </svg>
+                </div>
+                <div class="step-card-number">{{ idx + 2 }}</div>
+                <div class="step-card-content">
+                  <h4>{{ step.title }}</h4>
+                  <p>步骤说明</p>
+                </div>
+                <div class="step-card-arrow" v-if="idx + 1 < wf.steps.length">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M5 12h14M13 5l7 7-7 7"/>
+                  </svg>
                 </div>
               </div>
             </div>
@@ -512,37 +520,45 @@ const codeTools = ['GitHub Copilot', 'Cursor', 'Claude Code', 'Windsurf', 'Repli
           </div>
         </div>
         
-        <!-- 工作流 - 横向时间线样式 -->
+        <!-- 工作流 - 使用视觉组件的操作流程组件 -->
         <div id="section-workflow" class="content-section">
           <h2 class="section-title">工作流</h2>
           <p class="section-subtitle">完成该任务的步骤</p>
-          <div class="workflow-timeline">
-            <div v-for="wf in workflowsData" :key="wf.id" class="workflow-card-enhanced">
-              <div class="workflow-header">
-                <span class="workflow-icon">⚡</span>
-                <h3>{{ wf.title }}</h3>
+          <div class="workflow-enhanced">
+            <div v-for="wf in workflowsData" :key="wf.id" class="workflow-step-card-wrapper">
+              <div class="workflow-step-card">
+                <div class="step-card-icon">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/>
+                  </svg>
+                </div>
+                <div class="step-card-number">1</div>
+                <div class="step-card-content">
+                  <h4>{{ wf.steps[0]?.title || '步骤1' }}</h4>
+                  <p>开始执行</p>
+                </div>
+                <div class="step-card-arrow">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M5 12h14M13 5l7 7-7 7"/>
+                  </svg>
+                </div>
               </div>
-              <p class="workflow-desc">{{ wf.description }}</p>
-              <div class="timeline-steps">
-                <div v-for="(step, idx) in wf.steps" :key="idx" class="timeline-step">
-                  <div class="step-connector" v-if="idx > 0">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                      <path d="M5 12h14M13 5l7 7-7 7"/>
-                    </svg>
-                  </div>
-                  <div class="step-node">
-                    <div class="step-icon-wrapper">
-                      <span class="step-icon">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                          <path v-if="idx === 0" d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/>
-                          <path v-else-if="idx === wf.steps.length - 1" d="M22 11.08V12a10 10 0 11-5.93-9.14"/>
-                          <path v-else d="M22 12a10 10 0 10-20 0 10 10 0 0020 0z"/>
-                        </svg>
-                      </span>
-                      <div class="step-glow"></div>
-                    </div>
-                    <span class="step-label">{{ step.title }}</span>
-                  </div>
+              <div class="workflow-step-card" v-for="(step, idx) in wf.steps.slice(1)" :key="idx">
+                <div class="step-card-icon">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path v-if="idx + 1 === wf.steps.length - 1" d="M22 11.08V12a10 10 0 11-5.93-9.14"/>
+                    <path v-else d="M22 12a10 10 0 10-20 0 10 10 0 0020 0z"/>
+                  </svg>
+                </div>
+                <div class="step-card-number">{{ idx + 2 }}</div>
+                <div class="step-card-content">
+                  <h4>{{ step.title }}</h4>
+                  <p>步骤说明</p>
+                </div>
+                <div class="step-card-arrow" v-if="idx + 1 < wf.steps.length">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M5 12h14M13 5l7 7-7 7"/>
+                  </svg>
                 </div>
               </div>
             </div>
@@ -2747,6 +2763,10 @@ body { font-family: 'Inter', sans-serif; background: #0d0d0d; color: #e5e5e5; li
 .hot-task-card h3 { font-size: 18px; margin-bottom: 8px; }
 .hot-task-card p { color: #94a3b8; font-size: 14px; margin-bottom: 12px; }
 .hot-task-card .heat-tag { display: inline-block; background: linear-gradient(135deg, #667eea, #764ba2); padding: 4px 12px; border-radius: 20px; font-size: 12px; }
+
+/* 工作流步骤卡片容器 */
+.workflow-step-card-wrapper { display: flex; gap: 16px; flex-wrap: wrap; justify-content: center; margin-bottom: 24px; }
+.workflow-step-card-wrapper:last-child { margin-bottom: 0; }
 
 /* 工作流卡片 - 旧版本保留兼容 */
 .workflows-list { display: flex; flex-direction: column; gap: 24px; }
