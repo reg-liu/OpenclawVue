@@ -30,7 +30,7 @@
           <span class="placeholder-icon">🎯</span>
         </div>
       </div>
-      <a v-if="tool.url" :href="tool.url" target="_blank" class="visit-btn">访问官网</a>
+      <a v-if="tool.url" :href="tool.url" target="_blank" class="visit-btn">访问工具</a>
     </div>
   </div>
 </template>
