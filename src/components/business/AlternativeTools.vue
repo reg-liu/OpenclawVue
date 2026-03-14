@@ -21,7 +21,7 @@
           </div>
         </div>
         <div class="alt-row4">
-          <a v-if="tool.url" :href="tool.url" target="_blank" class="alt-link" @click.stop>{{ tool.url }}</a>
+          <a v-if="tool.url" :href="tool.url" target="_blank" class="alt-link" @click.stop>访问工具</a>
         </div>
       </div>
       <div v-if="!tools || tools.length === 0" class="no-tools">暂无替代工具</div>
