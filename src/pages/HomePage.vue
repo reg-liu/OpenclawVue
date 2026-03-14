@@ -115,6 +115,14 @@ const scrollToElement = (elementId) => {
   text-align: center;
   overflow: hidden;
   padding-top: 80px;
+  width: 100%;
+}
+
+.hero-bg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  background: radial-gradient(ellipse at 50% 0%, #1a1a2e 0%, #0d0d0d 70%);
 }
 
 .hero-bg {
@@ -304,19 +312,70 @@ const scrollToElement = (elementId) => {
 }
 
 @media (max-width: 768px) {
+  .hero-content {
+    width: 100%;
+    padding: 24px 16px;
+  }
+  
   .hero-title {
-    font-size: 40px;
+    font-size: 36px;
+  }
+  
+  .hero-label {
+    font-size: 12px;
+  }
+  
+  .search-box {
+    flex-direction: column;
+  }
+  
+  .search-input {
+    width: 100%;
+  }
+  
+  .search-btn {
+    width: 100%;
+  }
+  
+  .section-container {
+    width: 100%;
+    padding: 40px 16px;
+  }
+  
+  .section-title {
+    font-size: 24px;
+  }
+  
+  .product-cards-alternate {
+    width: 100%;
   }
   
   .product-cards-alternate .product-card-row {
     flex-direction: column !important;
-    gap: 20px;
-    padding: 24px;
+    gap: 16px;
+    padding: 20px;
   }
   
   .product-cards-alternate .card-image {
     width: auto;
-    font-size: 48px;
+    font-size: 40px;
+    padding: 16px 0;
+  }
+  
+  .product-cards-alternate .card-content {
+    text-align: center;
+  }
+  
+  .product-cards-alternate .card-content h3 {
+    font-size: 22px;
+  }
+  
+  .product-cards-alternate .card-content p {
+    font-size: 14px;
+  }
+  
+  .product-cards-alternate .card-tags {
+    justify-content: center;
   }
 }
 </style>

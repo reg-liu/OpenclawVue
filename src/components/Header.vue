@@ -25,11 +25,12 @@
 
   <!-- Mobile Menu -->
   <div v-if="mobileMenuOpen" class="mobile-menu">
-    <router-link to="/">首页</router-link>
+    <router-link to="/" @click="closeMenu">首页</router-link>
     <router-link 
       v-for="cat in categoriesData" 
       :key="cat.id"
       :to="'/ai-tools/' + cat.id"
+      @click="closeMenu"
     >
       {{ cat.icon }} {{ cat.name }}
     </router-link>
@@ -48,6 +49,10 @@ const mobileMenuOpen = ref(false)
 
 const toggleMenu = () => {
   mobileMenuOpen.value = !mobileMenuOpen.value
+}
+
+const closeMenu = () => {
+  mobileMenuOpen.value = false
 }
 
 onMounted(async () => {
@@ -78,12 +83,14 @@ onMounted(async () => {
   padding: 12px 0; 
 }
 .nav-container { 
-  max-width: 1100px; 
+  width: 100%;
+  max-width: 1200px;
   margin: 0 auto; 
   padding: 0 24px; 
   display: flex; 
   align-items: center; 
   justify-content: space-between; 
+  box-sizing: border-box;
 }
 .logo { 
   display: flex; 
