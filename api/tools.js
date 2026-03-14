@@ -8,224 +8,340 @@ const client = createClient({
   authToken: TURSO_TOKEN
 })
 
-// 后备分类数据
-const defaultCategories = [
-  { id: 'ai-entry', name: 'AI入门', icon: '🚀', description: '零基础用户不知道怎么开始学习AI', children: [] },
-  { id: 'ai-office', name: 'AI办公', icon: '💼', description: '日常办公场景', children: [
-    { id: 'ai-writing', name: 'AI写作', icon: '✍️', description: '文案撰写，内容创作' },
-    { id: 'ai-presentation', name: 'AI PPT', icon: '📊', description: 'PPT制作与演示' },
-    { id: 'ai-data', name: 'AI数据分析', icon: '📈', description: '数据分析与可视化' }
-  ]},
-  { id: 'ai-create', name: 'AI创作', icon: '🎨', description: '写文章，做视频、生成图片', children: [
-    { id: 'ai-image', name: 'AI图像', icon: '🖼️', description: 'AI图像生成' },
-    { id: 'ai-video', name: 'AI视频', icon: '🎬', description: 'AI视频生成' },
-    { id: 'ai-audio', name: 'AI音频', icon: '🎵', description: 'AI语音合成' }
-  ]},
-  { id: 'ai-code', name: 'AI编程', icon: '💻', description: '代码辅助、调试，Bug修复', children: [] },
-  { id: 'ai-study', name: 'AI学习', icon: '📚', description: '看论文、学新技术', children: [] }
-]
-
-// 后备工作流数据
-const fallbackWorkflows = {
-  'ai-office': [
-    { id: 'wf-1', category_id: 'ai-office', title: 'AI办公工作流', description: '使用AI工具提升办公效率的完整流程', steps: [] },
-    { id: 'wf-2', category_id: 'ai-office', title: 'AI写作工作流', description: 'AI辅助文章撰写流程', steps: [] }
-  ],
-  'ai-create': [
-    { id: 'wf-3', category_id: 'ai-create', title: 'AI创作工作流', description: '使用AI工具完成创意作品的完整流程', steps: [] }
-  ],
-  'video': [
-    { id: 'wf-v1', category_id: 'video', title: '视频制作工作流', description: 'AI辅助视频制作的完整流程', steps: [] }
-  ],
-  'image': [
-    { id: 'wf-i1', category_id: 'image', title: 'AI绘画工作流', description: '从提示词到成图的AI绘画流程', steps: [] }
-  ],
-  'coding': [
-    { id: 'wf-c1', category_id: 'coding', title: '编程开发工作流', description: 'AI辅助编程的完整流程', steps: [] }
-  ],
-  'ai-learn': [
-    { id: 'wf-l1', category_id: 'ai-learn', title: 'AI学习工作流', description: 'AI辅助学习新知识的流程', steps: [] }
-  ],
-  'ai-life': [
-    { id: 'wf-lf1', category_id: 'ai-life', title: 'AI生活工作流', description: 'AI让生活更智能', steps: [] }
-  ]
-}
-
-// 后备工具数据
-const fallbackTools = {
-  'ai-office': [
-    { id: 1, name: 'WPS AI', icon: '📝', description: '智能文档处理助手', price: '免费', difficulty: '入门', features: '智能写作', network: '在线', tags: '["文档处理"]', strengths: '中文处理强', pros: '集成办公', cons: '高级付费', mobile: '支持', recommended: '是' },
-    { id: 2, name: 'Notion AI', icon: '📋', description: '智能笔记工具', price: '付费', difficulty: '入门', features: '笔记管理', network: '在线', tags: '["项目管理"]', strengths: '多功能', pros: '协作方便', cons: '需翻墙', mobile: '支持', recommended: '是' },
-    { id: 3, name: 'ChatGPT', icon: '🤖', description: '通用AI助手', price: '免费', difficulty: '入门', features: '问答对话', network: '在线', tags: '["通用AI"]', strengths: '通用力强', pros: '能力全面', cons: '需翻墙', mobile: '支持', recommended: '是' },
-    { id: 4, name: 'Copilot', icon: '💡', description: '微软AI助手', price: '付费', difficulty: '入门', features: 'PPT生成', network: '在线', tags: '["Office"]', strengths: 'Office集成', pros: '自动化高', cons: '需订阅', mobile: '支持', recommended: '是' }
-  ],
-  'ai-create': [
-    { id: 5, name: 'Midjourney', icon: '🎨', description: 'AI图像生成', price: '付费', difficulty: '进阶', features: '文生图', network: '在线', tags: '["AI绘画"]', strengths: '图像质量高', pros: '艺术感强', cons: '需Discord', mobile: '不支持', recommended: '是' },
-    { id: 6, name: 'Runway', icon: '🎬', description: 'AI视频生成', price: '付费', difficulty: '进阶', features: '视频生成', network: '在线', tags: '["视频"]', strengths: '视频功能全', pros: '效果好', cons: '价格高', mobile: '不支持', recommended: '是' }
-  ],
-  'video': [
-    { id: 6, name: 'Runway', icon: '🎬', description: 'AI视频生成和编辑平台', price: '付费', difficulty: '进阶', features: '视频生成、编辑、特效', network: '在线', tags: '["视频"]', strengths: '视频功能全面', pros: '效果好', cons: '价格高', mobile: '不支持', recommended: '是' },
-    { id: 7, name: 'Pika', icon: '🎥', description: 'AI视频生成工具', price: '免费/付费', difficulty: '入门', features: '文字转视频', network: '在线', tags: '["视频"]', strengths: '快速生成', pros: '使用简单', cons: '功能有限', mobile: '不支持', recommended: '是' },
-    { id: 8, name: '可灵', icon: '🦁', description: '快手AI视频生成', price: '免费/付费', difficulty: '入门', features: '视频生成', network: '在线', tags: '["视频"]', strengths: '中文友好', pros: '免费可用', cons: '功能较少', mobile: '支持', recommended: '是' },
-    { id: 9, name: '即梦', icon: '✨', description: '字节跳动AI视频工具', price: '免费', difficulty: '入门', features: '视频生成', network: '在线', tags: '["视频"]', strengths: '字节生态', pros: '免费', cons: '较新', mobile: '支持', recommended: '是' }
-  ],
-  'image': [
-    { id: 5, name: 'Midjourney', icon: '🎨', description: 'AI图像生成标杆', price: '付费', difficulty: '进阶', features: '文生图', network: '在线', tags: '["AI绘画"]', strengths: '图像质量高', pros: '艺术感强', cons: '需Discord', mobile: '不支持', recommended: '是' },
-    { id: 10, name: 'DALL-E', icon: '🖼️', description: 'OpenAI图像生成', price: '付费', difficulty: '入门', features: '图像生成', network: '在线', tags: '["AI绘画"]', strengths: 'GPT集成', pros: '使用简单', cons: '价格较高', mobile: '支持', recommended: '是' },
-    { id: 11, name: 'Stable Diffusion', icon: '⚡', description: '开源AI图像模型', price: '免费', difficulty: '困难', features: '本地部署', network: '离线', tags: '["开源"]', strengths: '可定制', pros: '免费开源', cons: '需要显卡', mobile: '不支持', recommended: '是' }
-  ],
-  'coding': [
-    { id: 12, name: 'GitHub Copilot', icon: '👨‍💻', description: 'AI编程助手', price: '付费', difficulty: '入门', features: '代码补全', network: '在线', tags: '["编程"]', strengths: '补全准确', pros: '支持支流IDE', cons: '需付费', mobile: '不支持', recommended: '是' },
-    { id: 13, name: 'Cursor', icon: '⌨️', description: 'AI代码编辑器', price: '免费/付费', difficulty: '入门', features: '代码编辑', network: '在线', tags: '["IDE"]', strengths: 'AI深度集成', pros: '免费可用', cons: '功能较少', mobile: '不支持', recommended: '是' },
-    { id: 14, name: 'Claude', icon: '🧠', description: 'AI编程助手', price: '免费', difficulty: '入门', features: '代码编写', network: '在线', tags: '["编程"]', strengths: '编程能力强', pros: '输出稳定', cons: '需翻墙', mobile: '支持', recommended: '是' }
-  ],
-  'ai-learn': [
-    { id: 15, name: 'DeepL', icon: '🌐', description: 'AI翻译工具', price: '免费', difficulty: '入门', features: '翻译', network: '在线', tags: '["翻译"]', strengths: '翻译质量高', pros: '支持文档', cons: '额度有限', mobile: '支持', recommended: '是' }
-  ]
-}
-
-// 后备热门任务数据
-const fallbackHotTasks = {
-  'ai-office': [
-    { id: 1, name: '智能写作', description: '输入主题，AI帮你完成文章', heat: 100, sort: 1 },
-    { id: 2, name: 'PPT制作', description: '输入内容大纲，AI生成演示文稿', heat: 95, sort: 2 },
-    { id: 3, name: '数据整理', description: '自动整理和分析Excel数据', heat: 90, sort: 3 }
-  ],
-  'ai-create': [
-    { id: 4, name: 'AI绘画', description: '文字描述生成精美图片', heat: 100, sort: 1 },
-    { id: 5, name: '视频生成', description: '输入文案自动生成视频', heat: 95, sort: 2 }
-  ],
-  'video': [
-    { id: 5, name: '视频生成', description: '输入文案自动生成视频', heat: 100, sort: 1 },
-    { id: 6, name: '视频剪辑', description: 'AI辅助视频编辑和生成', heat: 90, sort: 2 }
-  ],
-  'image': [
-    { id: 4, name: 'AI绘画', description: '文字描述生成精美图片', heat: 100, sort: 1 }
-  ],
-  'coding': [
-    { id: 7, name: '代码编写', description: '描述需求，AI生成代码', heat: 100, sort: 1 },
-    { id: 8, name: '代码调试', description: 'AI辅助调试和修复bug', heat: 85, sort: 2 }
-  ],
-  'ai-learn': [
-    { id: 9, name: '英语翻译', description: '高质量中英文互译', heat: 95, sort: 1 },
-    { id: 10, name: '作业辅导', description: 'AI辅导解答学习问题', heat: 85, sort: 2 }
-  ],
-  'ai-life': [
-    { id: 11, name: '健康咨询', description: 'AI提供健康建议和咨询', heat: 85, sort: 1 },
-    { id: 12, name: '旅行规划', description: '输入目的地，AI规划行程', heat: 80, sort: 2 }
-  ]
+// 解析 JSON 字段
+function parseJsonField(value) {
+  if (!value) return []
+  try {
+    return JSON.parse(value)
+  } catch {
+    return []
+  }
 }
 
 export default async function handler(req, res) {
-  const { scene, type, cat, page } = req.query
-  console.log('API called:', { scene, type, cat, page })
+  const { type, cat, category, id, subcategory_id } = req.query
+  console.log('API called:', { type, cat, category, id, subcategory_id })
   
-  // 统一页面数据接口
-  if (type === 'page') {
-    const categoryId = cat || scene || ''
-    console.log('page API:', page, categoryId)
-    
-    if (!categoryId) {
-      return res.status(200).json({
-        success: true,
-        data: { categories: [], workflows: [], tools: [], hotTasks: [] }
-      })
-    }
-    
-    console.log('fallbackWorkflows keys:', Object.keys(fallbackWorkflows))
-    console.log('fallbackTools keys:', Object.keys(fallbackTools))
-    console.log('Looking for categoryId:', categoryId)
-    console.log('fallbackWorkflows[categoryId]:', fallbackWorkflows[categoryId])
-    console.log('fallbackTools[categoryId]:', fallbackTools[categoryId])
-    
-    // 使用后备数据
-    return res.status(200).json({
-      success: true,
-      data: {
-        categories: defaultCategories,
-        workflows: fallbackWorkflows[categoryId] || [],
-        tools: fallbackTools[categoryId] || [],
-        hotTasks: fallbackHotTasks[categoryId] || fallbackHotTasks['ai-office'] || []
-      }
-    })
-  }
-  
-  // 获取分类
+  // ========== 获取所有一级分类 ==========
   if (type === 'categories') {
     try {
-      console.log('Fetching categories from database...')
       const result = await client.execute('SELECT * FROM categories ORDER BY sort')
-      console.log('All categories:', result.rows.length)
-      const categories = result.rows
-      
-      // 按parent分组
-      const parentCategories = categories.filter(c => !c.parent || c.parent === '')
-      const childrenMap = {}
-      categories.filter(c => c.parent && c.parent !== '').forEach(c => {
-        if (!childrenMap[c.parent]) childrenMap[c.parent] = []
-        childrenMap[c.parent].push(c)
-      })
-      
-      const categoriesWithChildren = parentCategories.map(c => ({
-        ...c,
-        children: childrenMap[c.id] || []
-      }))
-      
-      console.log('Parent categories:', categoriesWithChildren.map(c => c.name).join(', '))
-      
       return res.status(200).json({
         success: true,
-        data: categoriesWithChildren
+        data: result.rows
       })
     } catch (err) {
       console.error('Categories DB error:', err)
-      return res.status(200).json({
-        success: true,
-        data: defaultCategories
-      })
+      return res.status(500).json({ success: false, error: err.message })
     }
   }
   
-  // 获取工作流
-  if (type === 'workflows') {
-    const categoryId = cat || scene || ''
+  // ========== 获取单个一级分类（含二级分类） ==========
+  if (type === 'category' && category) {
+    try {
+      // 获取一级分类
+      const catResult = await client.execute({
+        sql: 'SELECT * FROM categories WHERE id = ?',
+        args: [category]
+      })
+      
+      if (catResult.rows.length === 0) {
+        return res.status(404).json({ success: false, error: 'Category not found' })
+      }
+      
+      // 获取二级分类
+      const subResult = await client.execute({
+        sql: 'SELECT * FROM subcategories WHERE category_id = ? ORDER BY sort',
+        args: [category]
+      })
+      
+      return res.status(200).json({
+        success: true,
+        data: {
+          ...catResult.rows[0],
+          subcategories: subResult.rows
+        }
+      })
+    } catch (err) {
+      console.error('Category DB error:', err)
+      return res.status(500).json({ success: false, error: err.message })
+    }
+  }
+  
+  // ========== 获取所有二级分类 ==========
+  if (type === 'subcategories') {
+    try {
+      let sql = 'SELECT * FROM subcategories'
+      let args = []
+      
+      if (category) {
+        sql += ' WHERE category_id = ?'
+        args = [category]
+      }
+      
+      sql += ' ORDER BY category_id, sort'
+      const result = await client.execute({ sql, args })
+      return res.status(200).json({
+        success: true,
+        data: result.rows
+      })
+    } catch (err) {
+      console.error('Subcategories DB error:', err)
+      return res.status(500).json({ success: false, error: err.message })
+    }
+  }
+  
+  // ========== 获取单个工具 ==========
+  if (type === 'tool' && id) {
     try {
       const result = await client.execute({
-        sql: 'SELECT * FROM workflows WHERE category_id = ? ORDER BY sort',
-        args: [categoryId]
+        sql: 'SELECT * FROM tools WHERE id = ?',
+        args: [parseInt(id)]
       })
+      
+      if (result.rows.length === 0) {
+        return res.status(404).json({ success: false, error: 'Tool not found' })
+      }
+      
       return res.status(200).json({
         success: true,
-        data: result.rows
+        data: result.rows[0]
       })
     } catch (err) {
-      return res.status(200).json({
-        success: true,
-        data: fallbackWorkflows[categoryId] || []
-      })
+      console.error('Tool DB error:', err)
+      return res.status(500).json({ success: false, error: err.message })
     }
   }
   
-  // 获取热门任务
-  if (type === 'hot_tasks') {
+  // ========== 获取工具列表 ==========
+  if (type === 'tools') {
     try {
-      const result = await client.execute('SELECT * FROM hot_tasks ORDER BY heat DESC')
+      let sql = 'SELECT * FROM tools WHERE (status IS NULL OR status = ? OR status = ?)'
+      let args = ['active', '']
+      
+      if (category) {
+        sql += ' AND category_id = ?'
+        args.push(category)
+      }
+      
+      if (subcategory_id) {
+        sql += ' AND subcategory_id = ?'
+        args.push(subcategory_id)
+      }
+      
+      sql += ' ORDER BY sort, rating DESC'
+      const result = await client.execute({ sql, args })
+      
       return res.status(200).json({
         success: true,
         data: result.rows
       })
     } catch (err) {
-      return res.status(200).json({
-        success: true,
-        data: fallbackHotTasks
-      })
+      console.error('Tools DB error:', err)
+      return res.status(500).json({ success: false, error: err.message })
     }
   }
   
-  // 获取工具（按场景）
-  const tools = fallbackTools[scene] || fallbackTools[cat] || []
+  // ========== 产品页数据（分类 + 二级分类 + 工具） ==========
+  // 支持两种情况：
+  // 1. category = 一级分类ID (如 ai-create) → 返回所有二级分类和工具
+  // 2. category = 二级分类ID (如 video-enhancer) → 返回该二级分类的工具
+  if (type === 'product' && category) {
+    try {
+      // 1. 先判断是 一级分类 还是 二级分类
+      const catResult = await client.execute({
+        sql: 'SELECT * FROM categories WHERE id = ?',
+        args: [category]
+      })
+      
+      let isPrimaryCategory = catResult.rows.length > 0
+      let categoryData = null
+      let targetCategoryId = category
+      
+      if (isPrimaryCategory) {
+        // 是一级分类
+        categoryData = catResult.rows[0]
+        targetCategoryId = category
+      } else {
+        // 是二级分类，查找其父分类
+        const subResult = await client.execute({
+          sql: 'SELECT * FROM subcategories WHERE id = ?',
+          args: [category]
+        })
+        
+        if (subResult.rows.length === 0) {
+          return res.status(404).json({ success: false, error: 'Category not found' })
+        }
+        
+        const subData = subResult.rows[0]
+        
+        // 获取父分类信息
+        const parentResult = await client.execute({
+          sql: 'SELECT * FROM categories WHERE id = ?',
+          args: [subData.category_id]
+        })
+        
+        categoryData = parentResult.rows[0]
+        targetCategoryId = subData.category_id
+      }
+      
+      // 2. 获取所有二级分类
+      const subResult = await client.execute({
+        sql: 'SELECT * FROM subcategories WHERE category_id = ? ORDER BY sort',
+        args: [targetCategoryId]
+      })
+      
+      const subcategories = subResult.rows
+      
+      // 3. 获取所有工具（按二级分类分组）
+      const toolsResult = await client.execute({
+        sql: 'SELECT * FROM tools WHERE category_id = ? AND (status IS NULL OR status = ? OR status = ?) ORDER BY subcategory_id, sort, rating DESC',
+        args: [targetCategoryId, 'active', '']
+      })
+      
+      // 4. 将工具按二级分类分组
+      const toolsBySubcategory = {}
+      toolsResult.rows.forEach(tool => {
+        const subId = tool.subcategory_id
+        if (!toolsBySubcategory[subId]) {
+          toolsBySubcategory[subId] = []
+        }
+        toolsBySubcategory[subId].push(tool)
+      })
+      
+      // 5. 如果是二级分类（只有一个），只返回该分类的工具
+      if (!isPrimaryCategory) {
+        const targetSub = subcategories.find(s => s.id === category)
+        return res.status(200).json({
+          success: true,
+          data: {
+            category: categoryData,
+            subcategories: targetSub ? [{
+              ...targetSub,
+              tools: toolsBySubcategory[category] || []
+            }] : [],
+            is_subcategory: true,
+            current_subcategory: category
+          }
+        })
+      }
+      
+      // 6. 组装数据（一级分类视图）
+      const subcategoriesWithTools = subcategories.map(sub => ({
+        ...sub,
+        tools: toolsBySubcategory[sub.id] || []
+      }))
+      
+      return res.status(200).json({
+        success: true,
+        data: {
+          category: categoryData,
+          subcategories: subcategoriesWithTools,
+          is_subcategory: false,
+          current_subcategory: null
+        }
+      })
+    } catch (err) {
+      console.error('Product page DB error:', err)
+      return res.status(500).json({ success: false, error: err.message })
+    }
+  }
+  
+  // ========== 副产品页数据（工具详情 + 替代工具） ==========
+  if (type === 'subproduct' && id) {
+    try {
+      // 1. 获取工具详情
+      const toolResult = await client.execute({
+        sql: 'SELECT * FROM tools WHERE id = ?',
+        args: [parseInt(id)]
+      })
+      
+      if (toolResult.rows.length === 0) {
+        return res.status(404).json({ success: false, error: 'Tool not found' })
+      }
+      
+      const tool = toolResult.rows[0]
+      
+      // 2. 获取同一二级分类的其他工具（替代工具）
+      const alternativesResult = await client.execute({
+        sql: 'SELECT * FROM tools WHERE subcategory_id = ? AND id != ? AND (status IS NULL OR status = ? OR status = ?) ORDER BY rating DESC LIMIT 10',
+        args: [tool.subcategory_id, parseInt(id), 'active', '']
+      })
+      
+      // 3. 获取一级分类和二级分类信息
+      const catResult = await client.execute({
+        sql: 'SELECT * FROM categories WHERE id = ?',
+        args: [tool.category_id]
+      })
+      
+      const subResult = await client.execute({
+        sql: 'SELECT * FROM subcategories WHERE id = ?',
+        args: [tool.subcategory_id]
+      })
+      
+      return res.status(200).json({
+        success: true,
+        data: {
+          tool,
+          category: catResult.rows[0] || null,
+          subcategory: subResult.rows[0] || null,
+          alternatives: alternativesResult.rows
+        }
+      })
+    } catch (err) {
+      console.error('Subproduct page DB error:', err)
+      return res.status(500).json({ success: false, error: err.message })
+    }
+  }
+  
+  // ========== 首页数据 ==========
+  if (type === 'home') {
+    try {
+      // 获取所有一级分类
+      const catResult = await client.execute('SELECT * FROM categories ORDER BY sort')
+      
+      // 获取每个分类的工具数量
+      const categories = []
+      for (const cat of catResult.rows) {
+        const toolCountResult = await client.execute({
+          sql: 'SELECT COUNT(*) as count FROM tools WHERE category_id = ? AND (status IS NULL OR status = ? OR status = ?)',
+          args: [cat.id, 'active', '']
+        })
+        
+        const subResult = await client.execute({
+          sql: 'SELECT * FROM subcategories WHERE category_id = ? ORDER BY sort LIMIT 3',
+          args: [cat.id]
+        })
+        
+        categories.push({
+          ...cat,
+          tool_count: toolCountResult.rows[0]?.count || 0,
+          subcategories: subResult.rows
+        })
+      }
+      
+      // 获取推荐工具
+      const toolsResult = await client.execute({
+        sql: 'SELECT * FROM tools WHERE (status IS NULL OR status = ? OR status = ?) ORDER BY rating DESC, sort LIMIT 12',
+        args: ['active', '']
+      })
+      
+      return res.status(200).json({
+        success: true,
+        data: {
+          categories,
+          featured_tools: toolsResult.rows
+        }
+      })
+    } catch (err) {
+      console.error('Home page DB error:', err)
+      return res.status(500).json({ success: false, error: err.message })
+    }
+  }
+  
+  // 默认返回空数据
   return res.status(200).json({
     success: true,
-    data: tools
+    data: null
   })
 }
