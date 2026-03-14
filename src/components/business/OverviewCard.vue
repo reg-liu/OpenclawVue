@@ -31,7 +31,7 @@ const props = defineProps({
   border-radius: 20px; 
   padding: 40px; 
   width: 100%; 
-  max-width: 1200px; 
+  max-width: 1152px; 
   margin: 0 auto; 
   gap: 40px; 
   box-sizing: border-box;
