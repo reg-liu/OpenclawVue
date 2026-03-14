@@ -21,7 +21,7 @@ const handleNavigate = (data) => { emit('navigate', data) }
 </script>
 
 <style scoped>
-.tool-list { max-width: 1100px; margin: 0 auto; padding: 0 24px 60px; }
+.tool-list { max-width: 1200px; margin: 0 auto; padding: 0 24px 60px; }
 .tool-group { margin-bottom: 48px; }
 .group-header { margin-bottom: 24px; padding-bottom: 16px; border-bottom: 1px solid #2d2d4a; }
 .group-title { font-size: 28px; font-weight: 700; color: #fff; margin-bottom: 8px; }
