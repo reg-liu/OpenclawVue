@@ -50,7 +50,7 @@ const props = defineProps({
   display: flex; 
   gap: 32px; 
   width: 100%;
-  max-width: 1152px;
+  width: 1152px;
   box-sizing: border-box;
 }
 .detail-left { flex: 1; display: flex; gap: 24px; }
