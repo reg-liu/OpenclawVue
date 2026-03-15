@@ -80,7 +80,8 @@ const props = defineProps({
 @media (max-width: 900px) { 
   .detail-card { 
     flex-direction: column; 
-    max-width: calc(100% - 48px);
+    width: 100%;
+    max-width: none;
   } 
   .detail-left { flex-direction: column; } 
   .detail-right { width: 100%; } 

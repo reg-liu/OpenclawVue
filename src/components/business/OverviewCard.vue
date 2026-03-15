@@ -48,7 +48,8 @@ const props = defineProps({
   .overview-card { 
     flex-direction: column; 
     padding: 24px; 
-    max-width: calc(100% - 48px);
+    width: 100%;
+    max-width: none;
   } 
   .overview-title { font-size: 32px; } 
   .overview-image { width: 150px; height: 150px; } 

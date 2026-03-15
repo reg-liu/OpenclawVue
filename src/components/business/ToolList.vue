@@ -27,4 +27,12 @@ const handleNavigate = (data) => { emit('navigate', data) }
 .group-title { font-size: 28px; font-weight: 700; color: #fff; margin-bottom: 8px; }
 .group-desc { color: #94a3b8; font-size: 15px; }
 .tools-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px; }
+
+@media (max-width: 768px) {
+  .tool-list {
+    width: 100%;
+    max-width: none;
+    padding: 0 16px 40px;
+  }
+}
 </style>
