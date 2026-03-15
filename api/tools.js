@@ -68,7 +68,24 @@ export default async function handler(req, res) {
     }
   }
   
-  // ========== 获取所有二级分类 ==========
+  // ========== 获取所有二级分类（带一级分类信息）==========
+  if (type === 'all-subcategories') {
+    try {
+      const result = await client.execute({
+        sql: `SELECT s.*, c.name as parent_name, c.id as parent_id 
+              FROM subcategories s 
+              LEFT JOIN categories c ON s.category_id = c.id 
+              ORDER BY c.sort, s.sort`
+      })
+      return res.status(200).json({
+        success: true,
+        data: result.rows
+      })
+    } catch (err) {
+      console.error('All subcategories DB error:', err)
+      return res.status(500).json({ success: false, error: err.message })
+    }
+  }
   if (type === 'subcategories') {
     try {
       let sql = 'SELECT * FROM subcategories'

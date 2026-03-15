@@ -10,7 +10,7 @@
           <span class="gradient">{{ content.hero.subtitle }}</span>
         </h1>
         
-        <!-- 入口区域：用户输入框 + 随便逛逛 -->
+        <!-- 入口区域：用户输入框 + 二级分类选择器 + 随便逛逛 -->
         <div class="entry-area">
           <div class="search-box">
             <input 
@@ -20,6 +20,19 @@
             />
             <button class="search-btn">→</button>
           </div>
+          
+          <!-- 二级分类选择器 -->
+          <div class="subcategory-selector">
+            <select v-model="selectedSubcategory" class="subcategory-select" @change="handleSubcategoryChange">
+              <option value="">选择一个分类 →</option>
+              <optgroup v-for="group in subcategoryGroups" :key="group.parent_id" :label="group.parent_name">
+                <option v-for="sub in group.subcategories" :key="sub.id" :value="sub.id">
+                  {{ sub.name }}
+                </option>
+              </optgroup>
+            </select>
+          </div>
+          
           <a class="browse-link" @click="scrollToElement('section-explore')">随便逛逛 →</a>
         </div>
       </div>
@@ -53,10 +66,10 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue'
+import { ref, onMounted, computed } from 'vue'
 import { useRouter } from 'vue-router'
 import data from '../data.json'
-import { fetchTools, fetchCategories } from '../services/api.js'
+import { fetchTools, fetchCategories, fetchAllSubcategories } from '../services/api.js'
 
 const router = useRouter()
 const content = ref(data)
@@ -64,6 +77,42 @@ const mousePos = ref({ x: 50, y: 50 })
 const toolsData = ref([])
 const categoriesData = ref([])
 const isScrolled = ref(false)
+const selectedSubcategory = ref('')
+const allSubcategories = ref([])
+
+// 按一级分类分组的二级分类
+const subcategoryGroups = computed(() => {
+  const groups = {}
+  allSubcategories.value.forEach(sub => {
+    const parentId = sub.parent_id || sub.category_id
+    const parentName = sub.parent_name || '其他'
+    if (!groups[parentId]) {
+      groups[parentId] = {
+        parent_id: parentId,
+        parent_name: parentName,
+        subcategories: []
+      }
+    }
+    groups[parentId].subcategories.push({
+      id: sub.id,
+      name: sub.name
+    })
+  })
+  return Object.values(groups)
+})
+
+// 处理二级分类选择变化
+const handleSubcategoryChange = () => {
+  if (selectedSubcategory.value) {
+    // 找到对应的二级分类
+    const sub = allSubcategories.value.find(s => s.id === selectedSubcategory.value)
+    if (sub) {
+      // 跳转到对应的一级分类产品页
+      const parentId = sub.parent_id || sub.category_id
+      router.push(`/ai-tools/${parentId}`)
+    }
+  }
+}
 
 onMounted(async () => {
   const result = await fetchTools()
@@ -71,6 +120,10 @@ onMounted(async () => {
   
   const cats = await fetchCategories()
   categoriesData.value = cats
+  
+  // 获取所有二级分类
+  const subs = await fetchAllSubcategories()
+  allSubcategories.value = subs
   
   window.addEventListener('mousemove', (e) => {
     mousePos.value = {
@@ -222,6 +275,39 @@ const scrollToElement = (elementId) => {
 
 .browse-link:hover {
   color: #22d3ee;
+}
+
+/* 二级分类选择器 */
+.subcategory-selector {
+  width: 100%;
+  max-width: 600px;
+}
+
+.subcategory-select {
+  width: 100%;
+  padding: 14px 20px;
+  background: #1f1f3d;
+  border: 1px solid #333;
+  border-radius: 12px;
+  color: #94a3b8;
+  font-size: 15px;
+  cursor: pointer;
+  outline: none;
+  transition: all 0.3s;
+}
+
+.subcategory-select:hover {
+  border-color: #8b5cf6;
+}
+
+.subcategory-select:focus {
+  border-color: #8b5cf6;
+  box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.2);
+}
+
+.subcategory-select option {
+  background: #1f1f3d;
+  color: #fff;
 }
 
 /* Sections */

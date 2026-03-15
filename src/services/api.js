@@ -64,6 +64,21 @@ export async function fetchCategories() {
   }
 }
 
+// 获取所有二级分类（带一级分类信息）
+export async function fetchAllSubcategories() {
+  try {
+    const response = await fetch(`${API_BASE}/tools?type=all-subcategories`)
+    const result = await response.json()
+    if (result.success) {
+      return result.data
+    }
+    return []
+  } catch (error) {
+    console.error('Failed to fetch all subcategories:', error)
+    return []
+  }
+}
+
 // 备用分类（API失败时使用）
 function getFallbackCategories() {
   return [
