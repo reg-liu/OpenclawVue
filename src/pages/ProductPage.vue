@@ -104,6 +104,14 @@ watch(() => route.params.category, () => loadData())
   padding: 0 24px 60px;
 }
 
+@media (max-width: 768px) {
+  .product-container {
+    padding: 0 16px 40px;
+    width: 100%;
+    max-width: none;
+  }
+}
+
 .main-content {
   width: 100%;
 }

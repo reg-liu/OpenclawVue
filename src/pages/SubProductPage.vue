@@ -94,6 +94,14 @@ watch(() => route.params.id, () => loadData())
   padding: 0 24px 60px;
 }
 
+@media (max-width: 768px) {
+  .subproduct-container {
+    padding: 0 16px 40px;
+    width: 100%;
+    max-width: none;
+  }
+}
+
 .main-content {
   width: 100%;
 }

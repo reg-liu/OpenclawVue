@@ -31,5 +31,6 @@ body {
 
 .app {
   min-height: 100vh;
+  background: #0d0d0d;
 }
 </style>
