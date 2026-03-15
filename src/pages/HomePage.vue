@@ -10,17 +10,8 @@
           <span class="gradient">{{ content.hero.subtitle }}</span>
         </h1>
         
-        <!-- 入口区域：用户输入框 + 二级分类选择器 + 随便逛逛 -->
+        <!-- 入口区域：二级分类选择器 + 随便逛逛 -->
         <div class="entry-area">
-          <div class="search-box">
-            <input 
-              type="text" 
-              placeholder="你想用AI做什么？例如：写文案、生成图片、数据分析" 
-              class="search-input"
-            />
-            <button class="search-btn">→</button>
-          </div>
-          
           <!-- 二级分类选择器 -->
           <div class="subcategory-selector">
             <select v-model="selectedSubcategory" class="subcategory-select" @change="handleSubcategoryChange">
@@ -229,43 +220,6 @@ const scrollToElement = (elementId) => {
   margin: 0 auto;
 }
 
-.search-box {
-  display: flex;
-  width: 100%;
-  background: #1f1f3d;
-  border: 1px solid #333;
-  border-radius: 12px;
-  overflow: hidden;
-}
-
-.search-input {
-  flex: 1;
-  padding: 16px 20px;
-  background: transparent;
-  border: none;
-  color: #fff;
-  font-size: 16px;
-  outline: none;
-}
-
-.search-input::placeholder {
-  color: #666;
-}
-
-.search-btn {
-  padding: 16px 24px;
-  background: linear-gradient(135deg, #22d3ee, #06b6d4);
-  border: none;
-  color: #000;
-  font-size: 18px;
-  cursor: pointer;
-  transition: all 0.3s;
-}
-
-.search-btn:hover {
-  background: linear-gradient(135deg, #06b6d4, #0891b2);
-}
-
 .browse-link {
   color: #94a3b8;
   font-size: 14px;
@@ -409,18 +363,6 @@ const scrollToElement = (elementId) => {
   
   .hero-label {
     font-size: 12px;
-  }
-  
-  .search-box {
-    flex-direction: column;
-  }
-  
-  .search-input {
-    width: 100%;
-  }
-  
-  .search-btn {
-    width: 100%;
   }
   
   .section-container {
